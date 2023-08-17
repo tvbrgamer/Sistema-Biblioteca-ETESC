@@ -4,6 +4,7 @@
 require_once "database.php";
 
 $search = $_GET['pesquisa'] ?? '';
+$emprestar = $_GET['emprestar'] ?? '';
 $limit = $_GET['limit'] ?? 25;
 $start = $_GET['start'] ?? 0;
 $ordem = $_GET['ordem'] ?? "ASC";
@@ -15,7 +16,7 @@ $parametro = "?" . "pesquisa=" . $search . "&" . "limit=" . $limit . "&" . "star
 if ($search) {
 
     if ($ordem == "DESC") {
-        $statement = $pdo->prepare("SELECT * FROM alunos WHERE nome_aluno LIKE :aluno OR turma_aluno LIKE :turma inner join livros ORDER BY ID DESC");
+        $statement = $pdo->prepare("SELECT * FROM alunos WHERE nome_aluno LIKE :aluno OR turma_aluno LIKE :turma inner join alunos ORDER BY ID DESC");
     } else {
         $statement = $pdo->prepare("SELECT * FROM alunos WHERE Autor LIKE :autor OR titulo LIKE :titulo");
     }
@@ -53,7 +54,7 @@ foreach ($livros as $livro) {
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Acervo-emprestados</title>
+    <title>Alunos</title>
     <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
 
     <link rel="stylesheet" href="css/style.css" />
@@ -86,13 +87,13 @@ foreach ($livros as $livro) {
         <form class="query__form" method="get">
 
             <div class="query__search">
-                <input type="search" class="form-control" name="pesquisa" value="<?php echo $search; ?>" placeholder="Pesquisar Nome do Livro/Autor">
+                <input type="search" class="form-control" name="pesquisa" value="<?php echo $search; ?>" placeholder="Pesquisar Aluno/Turma">
                 <div class="query__btns">
-                    <button class="btn btn-success shadow" type="submit">Pesquisar Livros</button>
+                    <button class="btn btn-success shadow" type="submit">Pesquisar Alunos</button>
 
-                    <a href="livros-acervo.php" class="btn btn-outline-secondary shadow">Limpar campos</a>
+                    <a href="alunos.php" class="btn btn-outline-secondary shadow">Limpar Campos</a>
 
-                    <a href="cadastro-livros.php" class="btn btn-primary shadow">Cadastrar Livro</a>
+                    <a href="cadastro-alunos.php" class="btn btn-primary shadow">Cadastrar Aluno</a>
 
                 </div>
 
@@ -102,7 +103,7 @@ foreach ($livros as $livro) {
 
                         <div id="LPP" style="width: 200px;">
 
-                            <h6> Livros por página:</h6>
+                            <h6>Alunos por página:</h6>
                             <select id="select" name="limit">
                                 <option value="25" <?php if ($limit == 25) echo "selected"; ?>>25</option>
                                 <option value="50" <?php if ($limit == 50) echo "selected"; ?>>50</option>
@@ -178,6 +179,23 @@ foreach ($livros as $livro) {
                                 <button type="submit" class="btn btn-sm btn-danger"><abbr title="Devolve o livro emprestado">Devolver</abbr></button>
                             </form>
 
+                            <form id="edita<?php echo $aluno['id_aluno'] ?>" action="editar-aluno.php" method="get" style="display: inline-block">
+                                <input type="hidden" name="id_aluno" value="<?php echo $aluno['id_aluno'] ?>">
+                                <input type="hidden" name="origem" value=<?php echo $origem ?>>
+                                <input type="hidden" name="Parametro" value="<?php echo $parametro ?>">
+                                <button type="submit" class="btn btn-sm btn-danger"><abbr title="Edita os dados do aluno">Editar</abbr></button>
+                            </form>
+
+                            <?php if ($search) {echo ""
+
+
+
+
+                            
+                            ;}?>
+                            
+
+
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -189,7 +207,6 @@ foreach ($livros as $livro) {
 </html>
 
 <script>
-
     // Seleciona o elemento select pelo seu ID
     const select = document.querySelector('#select');
     const ordem = document.querySelector('#ordem');

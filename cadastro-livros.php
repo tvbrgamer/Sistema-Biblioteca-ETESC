@@ -15,8 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $classificacao = $_POST['classificacao'];
   $quantidade = $_POST['quantidade'];
 
-  $statement = $pdo->prepare("INSERT INTO livros (Autor, titulo, Assunto, Classificacao, Quantidade)
-                                    VALUES (:autor, :titulo, :assunto, :classificacao, :quantidade)");
+  $statement = $pdo->prepare("INSERT INTO livros (Autor, titulo, Assunto, Classificacao, Quantidade) VALUES (:autor, :titulo, :assunto, :classificacao, :quantidade)");
 
   $statement->bindValue(':autor', $autor);
   $statement->bindValue(':titulo', $titulo);
