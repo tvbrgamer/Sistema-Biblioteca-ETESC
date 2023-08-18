@@ -77,7 +77,7 @@ $livros = $statement->fetchAll(PDO::FETCH_ASSOC);
     <form class="query__form" method="get">
 
       <div class="query__search">
-        <input type="search" class="form-control" name="pesquisa" value="<?php echo $search; ?>" placeholder="Pesquisar Nome do Livro/Autor">
+        <input type="search" class="form-control" name="pesquisa" value="<?php echo $search; ?>" placeholder="Pesquisar Nome do Livro/Autor" autocomplete="off">
         <div class="query__btns">
           <button class="btn btn-success shadow" type="submit">Pesquisar Livros</button>
 

@@ -83,7 +83,7 @@ function redirect($url)
 
     <div class="input-group mb-3">
       <span class="input-group-text" id="basic-addon1">Título</span>
-      <input type="text" name="titulo" class="form-control" placeholder="Título" aria-label="Username" aria-describedby="basic-addon1">
+      <input type="text" name="titulo" class="form-control" placeholder="Título" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off">
     </div>
 
     <div class="input-group mb-3">
@@ -98,7 +98,7 @@ function redirect($url)
 
     <div class="input-group mb-3">
       <span class="input-group-text" id="basic-addon1">Quantidade</span>
-      <input type="text" name="quantidade" class="form-control" placeholder="Quantidade" aria-label="Username" aria-describedby="basic-addon1">
+      <input type="text" name="quantidade" class="form-control" placeholder="Quantidade" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off">
     </div>
 
     <button type="reset" class="btn btn-outline-secondary">Limpar campos</button>

@@ -87,7 +87,7 @@ foreach ($livros as $livro) {
         <form class="query__form" method="get">
 
             <div class="query__search">
-                <input type="search" class="form-control" name="pesquisa" value="<?php echo $search; ?>" placeholder="Pesquisar Aluno/Turma">
+                <input type="search" class="form-control" name="pesquisa" value="<?php echo $search; ?>" placeholder="Pesquisar Aluno/Turma" autocomplete="off">
                 <div class="query__btns">
                     <button class="btn btn-success shadow" type="submit">Pesquisar Alunos</button>
 

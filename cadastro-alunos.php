@@ -64,7 +64,7 @@ function redirect($url)
     <form class="cadastro-section" method="POST">
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Nome </span>
-            <input type="text" name="nome_aluno" placeholder="Insira o nome" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+            <input type="text" name="nome_aluno" placeholder="Insira o nome" class="form-control" aria-label="Username" aria-describedby="basic-addon1 " autocomplete="off">
         </div>
 
         <div class="input-group mb-3">
@@ -74,11 +74,11 @@ function redirect($url)
 
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Telefone</span>
-            <input type="text" name="telefone_aluno" placeholder="Insira o telefone:" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+            <input type="text" name="telefone_aluno" placeholder="Insira o telefone:" class="form-control" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off">
         </div>
 
         <button type="reset" class="btn btn-outline-secondary">Limpar campos</button>
-        <button type="submit" class="btn btn-success">Editar</button>
+        <button type="submit" class="btn btn-success">Cadastrar</button>
     </form>
 </body>
 
