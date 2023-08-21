@@ -3,13 +3,12 @@
 /** @var $pdo \PDO */
 require_once "database.php";
 
-$emprestar = $_GET['emprestar'] ?? '';
-$dados = $_GET['dados'] ?? '';
+$dados  = $_GET['dados']    ?? '';
 
 $search = $_GET['pesquisa'] ?? '';
-$limit = $_GET['limit'] ?? 25;
-$start = $_GET['start'] ?? 0;
-$ordem = $_GET['ordem'] ?? "ASC";
+$limit  = $_GET['limit']    ?? 25;
+$start  = $_GET['start']    ?? 0;
+$ordem  = $_GET['ordem']    ?? "ASC";
 $origem = "alunos.php";
 $startelimit = $start + $limit;
 
@@ -83,7 +82,7 @@ foreach ($livros as $livro) {
                 <li><a href="cadastro-livros.php">Catálogo</a></li>
         </nav>
     </header>
-    
+
     <section class="btn-section">
         <form class="query__form" method="get">
 
@@ -174,16 +173,18 @@ foreach ($livros as $livro) {
                         <td style="white-space: nowrap;">
                             <!-- <a href="editar-livro.php?id=<?php echo "apagar_teste" ?>" class="btn btn-sm btn-outline-primary">Editar</a> -->
 
-                        <?php if ($dados != "") { echo '
+                            <?php if ($dados != "") {
+                                echo '
                             <form id="empresta' . $aluno['id_aluno'] . '" action="emprestar.php" method="get" style="display: inline-block">
                                 <input type="hidden" name="id_aluno" value="' . $aluno['id_aluno'] . '">
                                 <input type="hidden" name="dados" value="' . $dados . '">
                                 <button type="submit" class="btn btn-sm btn-secondary"><abbr title="Seleciona o aluno">Selecionar</abbr></button>
                             </form>';
-                            }?>
+                            } ?>
 
                             <form id="devolve<?php echo $aluno['id_aluno'] ?>" action="devolver.php" method="get" style="display: inline-block">
                                 <input type="hidden" name="id_aluno" value="<?php echo $aluno['id_aluno'] ?>">
+                                <input type="hidden" name="id_livro" value="<?php echo $aluno['id_livro'] ?>">
                                 <input type="hidden" name="Parametro" value="<?php echo $parametro ?>">
                                 <button type="submit" class="btn btn-sm btn-danger"><abbr title="Devolve o livro emprestado">Devolver</abbr></button>
                             </form>
