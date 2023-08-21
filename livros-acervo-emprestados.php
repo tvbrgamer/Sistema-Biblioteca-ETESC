@@ -142,7 +142,6 @@ $livros = $statement->fetchAll(PDO::FETCH_ASSOC);
           <th scope="col">Situação</th>
           <th scope="col">Quantidade</th>
           <th scope="col">Emprestado</th>
-          <th scope="col">Ação</th>
         </tr>
       </thead>
       <tbody>
@@ -158,26 +157,7 @@ $livros = $statement->fetchAll(PDO::FETCH_ASSOC);
             <td><?php echo $livro['Emprestados'] ?></td>
 
             <td style="white-space: nowrap;">
-              <!--<a href="editar-livro.php?id=<?php echo $livro['id'] ?>" class="btn btn-sm btn-outline-primary">Editar</a> -->
 
-              <form id="devolve<?php echo $livro['id'] ?>" action="entregar-livro.php" method="post" style="display: inline-block">
-                <input type="hidden" name="id" value="<?php echo $livro['id'] ?>">
-                <input type="hidden" name="QTDEmprestado" value="<?php echo $livro['Emprestados'] ?>">
-                <input type="hidden" name="QTD" value=<?php echo $livro['Quantidade'] ?>>
-                <input type="hidden" name="Parametro" value="<?php $parametro  ?>">
-                <input type="hidden" name="origem" value=<?php echo $origem ?>>
-                <button type="button" onclick="Devolver(<?php echo $livro['id'] ?>)" class="btn btn-sm btn-danger"><abbr title="Devolver 1 livro">Devolver</abbr></button>
-              </form>
-
-              <form id="empresta<?php echo $livro['id'] ?>" action="emprestar-livro.php" method="post" style="display: inline-block">
-                <input type="hidden" name="id" value="<?php echo $livro['id'] ?>">
-                <input type="hidden" name="QTDEmprestado" value="<?php echo $livro['Emprestados'] ?>">
-                <input type="hidden" name="QTD" value=<?php echo $livro['Quantidade'] ?>>
-                <input type="hidden" name="origem" value=<?php echo $origem ?>>
-                <input type="hidden" name="Parametro" value="<?php echo $parametro ?>">
-
-                <button type="button" onclick="Valida(<?php echo $livro['Quantidade'] ?> , <?php echo $livro['Emprestados'] ?>,<?php echo $livro['id'] ?> )" name="emprestar" class="btn btn-sm btn-secondary"><abbr title="Emprestar 1 livro">Emprestar</abbr></button>
-              </form>
 
             </td>
           </tr>
