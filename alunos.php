@@ -83,8 +83,7 @@ foreach ($livros as $livro) {
                 <li><a href="cadastro-livros.php">Catálogo</a></li>
         </nav>
     </header>
-
-
+    
     <section class="btn-section">
         <form class="query__form" method="get">
 

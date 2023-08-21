@@ -80,7 +80,7 @@ $livrosEmpQtd = $statement3->fetch(PDO::FETCH_NUM);
         <img src="" alt="">
         
         <h3 style="margin-top: 50px;">Alunos</h3>
-        <p><?php echo "aaaaaaaaaaaaaaaaaaaaaa"; ?></p>
+        <p><?php echo "aaaaaaaaaaaaaa"; ?></p>
         
       </div>
     </a>

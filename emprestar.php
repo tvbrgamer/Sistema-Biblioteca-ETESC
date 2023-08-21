@@ -7,47 +7,74 @@ require_once "database.php";
 $id_aluno = $_GET['id_aluno'] ?? null;
 
 //Puxa os Parâmetros
-$Parametros = $_GET['Parametro'] ?? null;
+$dados = rawurldecode($_GET['dados'] ?? null);
 
-$location = "alunos.php" . $Parametros . "#a" . $id_aluno;
+$metadados = explode('&', $dados);
 
-if (!$id_aluno) {
+$id = $metadados[0];
+
+$QTDE = $metadados[1];
+
+$QTD = $metadados[2];
+
+$QTDEFinal = $QTDE + 1;
+
+$origem = $metadados[3];
+
+$Parametro = $metadados[4] . $metadados[5] . $metadados[6] . $metadados[7];
+
+$location = "Location:" . $origem . $Parametros . "#a" . $id;
+
+// checar se id foi "chamado"
+if (!$id_aluno || !$dados) {
     header("Location: livros-acervo.php");
     exit;
 }
 
-$statement = $pdo->prepare('SELECT * FROM alunos WHERE id_aluno = :id_aluno');
-$statement->bindValue(":id_aluno", $id_aluno);
+/** @var $pdo \PDO */
+require_once "database.php";
+
+$statement = $pdo->prepare('SELECT * FROM livros WHERE id = :id');
+$statement->bindValue(":id", $id);
 $statement->execute();
 
 $livro = $statement->fetch(PDO::FETCH_ASSOC);
 
+if ($QTD >= $QTDEFinal) {
 
+    $statement2 = $pdo->prepare('UPDATE livros SET Situacao = :situacao , Emprestados = :qtdef WHERE id = :id ');
+    $statement2->bindValue(":id", $id);
+    $statement2->bindValue(":situacao", "Emprestado");
+    $statement2->bindValue(":qtdef", $QTDEFinal);
+
+    $statement2->execute();
+}
+
+$statement3 = $pdo->prepare('SELECT * FROM alunos WHERE id_aluno = :id_aluno');
+$statement3->bindValue(":id_aluno", $id_aluno);
+$statement3->execute();
+
+$aluno = $statement3->fetch(PDO::FETCH_ASSOC);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id_livro = $_POST['id_livro'];
-    $classificacao = $_POST['classificacao'];
-    $quantidade = $_POST['quantidade'];
+    $nome_aluno = $_POST['nome_aluno'];
+    $turma_aluno = $_POST['turma_aluno'];
+    $telefone_aluno = $_POST['telefone_aluno'];
 
-    $statement = $pdo->prepare("UPDATE alunos SET id_livro = :id_livro, data_emprestimo = :data_emprestimo, data_devolucao = :data_devolucao WHERE id = :id");
+    $statement = $pdo->prepare("UPDATE alunos SET nome_aluno = :nome_aluno, turma_aluno = :turma_aluno, telefone_aluno = :telefone_aluno WHERE id_aluno = :id_aluno");
 
-    $statement->bindValue(':id_livro', $id_livro);
-    $statement->bindValue(':data_emprestimo', $data_emprestimo);
-    $statement->bindValue(':data_devolucao', $data_devolucao);
-    $statement->bindValue(':id', $id);
+    $statement->bindValue(':nome_aluno', $nome_aluno);
+    $statement->bindValue(':turma_aluno', $turma_aluno);
+    $statement->bindValue(':telefone_aluno', $telefone_aluno);
+    $statement->bindValue(':id_aluno', $id_aluno);
     $statement->execute();
 
     redirect($location);
 }
 
-function redirect($location)
-{
-    header($location);
-    die();
-}
+redirect($location);
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -85,20 +112,19 @@ function redirect($location)
 
     <form class="cadastro-section" method="POST">
         <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">Id do Livro</span>
-            <input type="text" name="autor" value="<?php echo $id_livro; ?>" class="form-control" placeholder="Autor" aria-label="Username" aria-describedby="basic-addon1">
+            <span class="input-group-text" id="basic-addon1">Nome </span>
+            <input type="text" name="nome_aluno" disabled value="<?php echo $nome_aluno; ?>" class="form-control" placeholder="Autor" aria-label="Username" aria-describedby="basic-addon1">
         </div>
 
         <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">Data de empréstimo</span>
-            <input type="text" name="titulo" value="<?php echo $data_emprestimo; ?>" class="form-control" placeholder="Título" aria-label="Username" aria-describedby="basic-addon1">
+            <span class="input-group-text" id="basic-addon1">Turma</span>
+            <input type="text" name="turma_aluno" value="<?php echo $turma_aluno; ?>" class="form-control" placeholder="Título" aria-label="Username" aria-describedby="basic-addon1">
         </div>
 
         <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">Data de devolução</span>
-            <input type="text" name="assunto" value="<?php echo $data_devolucao; ?>" class="form-control" placeholder="Assunto" aria-label="Username" aria-describedby="basic-addon1">
+            <span class="input-group-text" id="basic-addon1">Telefone</span>
+            <input type="text" name="telefone_aluno" value="<?php echo $telefone_aluno; ?>" class="form-control" placeholder="telefone_aluno" aria-label="Username" aria-describedby="basic-addon1">
         </div>
-
 
         <button type="reset" class="btn btn-outline-secondary">Limpar campos</button>
         <button type="submit" class="btn btn-success">Editar</button>
