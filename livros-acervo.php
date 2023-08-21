@@ -182,14 +182,16 @@ $livros = $statement->fetchAll(PDO::FETCH_ASSOC);
                 <button type="button" onclick="confirmarDelete(<?php echo $livro['id'] ?>)" class="btn btn-sm btn-danger"><abbr title="Deletar 1 livro">Deletar</abbr></button>
               </form>
 
-              <form id="empresta<?php echo $livro['id'] ?>" action="emprestar-livro.php" method="post" style="display: inline-block">
-                <input type="hidden" name="id" value="<?php echo $livro['id'] ?>">
-                <input type="hidden" name="QTDEmprestado" value="<?php echo $livro['Emprestados'] ?>">
-                <input type="hidden" name="QTD" value=<?php echo $livro['Quantidade'] ?>>
-                <input type="hidden" name="origem" value=<?php echo $origem ?>>
-                <input type="hidden" name="Parametro" value="<?php echo $parametro ?>">
+              <form id="empresta<?php echo $livro['id'] ?>" action="alunos.php" method="get" style="display: inline-block">
+              
 
-                <button type="button" onclick="Valida(<?php echo $livro['Quantidade'] ?> , <?php echo $livro['Emprestados'] ?>,<?php echo $livro['id'] ?> )" name="emprestar" class="btn btn-sm btn-secondary"><abbr title="Emprestar 1 livro">Emprestar</abbr></button>
+              <input type="hidden" name="dados" value="<?php echo 'id=' . $livro['id'] . 
+                                            '&QTDEmprestado=' . $livro['Emprestados'] . 
+                                            '&QTD=' . $livro['Quantidade'] . 
+                                            '&origem=' . $origem . 
+                                            '&Parametro=' . $parametro; ?>">
+
+                <button type="submit" class="btn btn-sm btn-secondary"><abbr title="Emprestar o livro">Emprestar</abbr></button>
               </form>
 
 

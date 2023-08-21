@@ -3,8 +3,10 @@
 /** @var $pdo \PDO */
 require_once "database.php";
 
-$search = $_GET['pesquisa'] ?? '';
 $emprestar = $_GET['emprestar'] ?? '';
+$dados = $_GET['dados'] ?? '';
+
+$search = $_GET['pesquisa'] ?? '';
 $limit = $_GET['limit'] ?? 25;
 $start = $_GET['start'] ?? 0;
 $ordem = $_GET['ordem'] ?? "ASC";
@@ -173,6 +175,14 @@ foreach ($livros as $livro) {
                         <td style="white-space: nowrap;">
                             <!-- <a href="editar-livro.php?id=<?php echo "apagar_teste" ?>" class="btn btn-sm btn-outline-primary">Editar</a> -->
 
+                        <?php if ($dados != "") { echo '
+                            <form id="empresta' . $aluno['id_aluno'] . '" action="emprestar.php" method="get" style="display: inline-block">
+                                <input type="hidden" name="id_aluno" value="' . $aluno['id_aluno'] . '">
+                                <input type="hidden" name="dados" value="' . $dados . '">
+                                <button type="submit" class="btn btn-sm btn-secondary"><abbr title="Seleciona o aluno">Selecionar</abbr></button>
+                            </form>';
+                            }?>
+
                             <form id="devolve<?php echo $aluno['id_aluno'] ?>" action="devolver.php" method="get" style="display: inline-block">
                                 <input type="hidden" name="id_aluno" value="<?php echo $aluno['id_aluno'] ?>">
                                 <input type="hidden" name="Parametro" value="<?php echo $parametro ?>">
@@ -185,17 +195,6 @@ foreach ($livros as $livro) {
                                 <input type="hidden" name="Parametro" value="<?php echo $parametro ?>">
                                 <button type="submit" class="btn btn-sm btn-danger"><abbr title="Edita os dados do aluno">Editar</abbr></button>
                             </form>
-
-                            <?php if ($search) {echo ""
-
-
-
-
-                            
-                            ;}?>
-                            
-
-
                         </td>
                     </tr>
                 <?php endforeach; ?>
