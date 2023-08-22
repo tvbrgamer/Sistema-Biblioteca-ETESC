@@ -77,12 +77,10 @@ $livros = $statement->fetchAll(PDO::FETCH_ASSOC);
 
       <div class="query__search">
         <input type="search" class="form-control" name="pesquisa" value="<?php echo $search; ?>" placeholder="Pesquisar Nome do Livro/Autor" autocomplete="off">
-        <div class="query__btns">
+        <div class="query__btns" style="display: flex;justify-content:space-between">
           <button class="btn btn-success shadow" type="submit">Pesquisar Livros</button>
 
           <a href="livros-acervo.php" class="btn btn-outline-secondary shadow">Limpar campos</a>
-
-          <a href="cadastro-livros.php" class="btn btn-primary shadow">Cadastrar Livro</a>
 
         </div>
 
@@ -156,10 +154,7 @@ $livros = $statement->fetchAll(PDO::FETCH_ASSOC);
             <td><?php echo $livro['Quantidade'] ?></td>
             <td><?php echo $livro['Emprestados'] ?></td>
 
-            <td style="white-space: nowrap;">
-
-
-            </td>
+            <td style="white-space: nowrap;"></td>
           </tr>
         <?php endforeach; ?>
       </tbody>
