@@ -3,6 +3,16 @@
 /** @var $pdo \PDO */
 require_once "database.php";
 
+$dados = $_GET["dados"];
+
+if ($dados != NULL){
+    $dadosurl = "?dados=" . urlencode($dados);
+}else {
+    $dadosurl = "";
+}
+
+$location = "Location:alunos.php" . $dadosurl;
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome_aluno = $_POST['nome_aluno'];
     $turma_aluno = $_POST['turma_aluno'];
@@ -15,13 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $statement->bindValue(':telefone_aluno', $telefone_aluno);
     $statement->execute();
 
-    redirect("alunos.php");
-}
-
-function redirect($url)
-{
-  header('Location: ' . $url);
-  die();
+    header($location);
+    die();
 }
 
 ?>

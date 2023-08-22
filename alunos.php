@@ -4,6 +4,7 @@
 require_once "database.php";
 
 $dados  = $_GET['dados']    ?? '';
+$dadosurl = "?dados=" . rawurlencode($dados);
 
 $search = $_GET['pesquisa'] ?? '';
 $limit  = $_GET['limit']    ?? 25;
@@ -93,7 +94,7 @@ foreach ($livros as $livro) {
 
                     <a href="alunos.php" class="btn btn-outline-secondary shadow">Limpar Campos</a>
 
-                    <a href="cadastro-alunos.php" class="btn btn-primary shadow">Cadastrar Aluno</a>
+                    <a href='cadastro-alunos.php<?php if($dados != ""){echo $dadosurl;} ?>' class="btn btn-primary shadow">Cadastrar Aluno</a>
 
                 </div>
 

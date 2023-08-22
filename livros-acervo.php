@@ -227,28 +227,7 @@ $livros = $statement->fetchAll(PDO::FETCH_ASSOC);
         }
       });
   }
-
-  function Valida(QTD, QTDE, ID) {
-    swal({
-        title: "Tem certeza?",
-        icon: "warning",
-        buttons: true,
-      })
-      .then((willValide) => {
-        if (willValide) {
-          if (QTD >= (QTDE + 1)) {
-            swal("O livro foi emprestado", {
-              icon: "success",
-            });
-            setTimeout(() => {
-              document.getElementById('empresta' + ID).submit();
-            }, 1000);
-          } else {
-            swal("Quantidade de livros insuficientes para emprestar");
-          }
-        }
-      });
-  }
+}
 
   // Seleciona o elemento select pelo seu ID
   const select = document.querySelector('#select');

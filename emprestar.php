@@ -132,9 +132,15 @@ if ($QTDnum[1] >= $QTDEFinal) {
 
     <form class="cadastro-section" method="POST">
         <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">Nome </span>
-            <input type="text" name="nome_aluno" disabled value="<?php echo $aluno['nome_aluno']; ?>" class="form-control" placeholder="Autor" aria-label="Username" aria-describedby="basic-addon1">
+            <span class="input-group-text" id="basic-addon1">Nome do aluno</span>
+            <input type="text" name="nome_aluno" disabled value="<?php echo $aluno['nome_aluno']; ?>" class="form-control" placeholder="Nome do aluno" aria-label="Username" aria-describedby="basic-addon1">
         </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">Nome do livro</span>
+            <input type="text" name="nome_livro" disabled class="form-control"  value="<?php echo $livro['titulo']; ?>" placeholder="Nome do livro" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+
 
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Data de empréstimo</span>
@@ -149,7 +155,6 @@ if ($QTDnum[1] >= $QTDEFinal) {
         <button type="reset" class="btn btn-outline-secondary">Limpar campos</button>
         <button type="submit" class="btn btn-success">Emprestar</button>
 
-        <?= $location ?>
     </form>
 </body>
 
