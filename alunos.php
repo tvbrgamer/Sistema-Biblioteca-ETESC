@@ -194,7 +194,7 @@ foreach ($livros as $livro) {
                                 <input type="hidden" name="id_aluno" value="<?php echo $aluno['id_aluno'] ?>">
                                 <input type="hidden" name="origem" value=<?php echo $origem ?>>
                                 <input type="hidden" name="Parametro" value="<?php echo $parametro ?>">
-                                <button type="submit" class="btn btn-sm btn-danger"><abbr title="Edita os dados do aluno">Editar</abbr></button>
+                                <button type="button" onclick="Valida()" class="btn btn-sm btn-danger"><abbr title="Edita os dados do aluno">Editar</abbr></button>
                             </form>
                         </td>
                     </tr>
@@ -207,6 +207,11 @@ foreach ($livros as $livro) {
 </html>
 
 <script>
+
+    const Valida = () =>{
+
+    }
+
     // Seleciona o elemento select pelo seu ID
     const select = document.querySelector('#select');
     const ordem = document.querySelector('#ordem');

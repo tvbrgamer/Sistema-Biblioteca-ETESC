@@ -3,7 +3,7 @@
 /** @var $pdo \PDO */
 require_once "database.php";
 
-$dados = $_GET["dados"];
+$dados = $_GET["dados"]?? '';
 
 if ($dados != NULL){
     $dadosurl = "?dados=" . urlencode($dados);

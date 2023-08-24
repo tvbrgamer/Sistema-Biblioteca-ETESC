@@ -15,5 +15,5 @@ $statement = $pdo->prepare('DELETE FROM livros WHERE id = :id');
 $statement->bindValue(":id", $id);
 $statement->execute();
 
-header("Location: livros-acervo.php");
+header("Location: livros-acervo.php?tipo=delete");
 exit;

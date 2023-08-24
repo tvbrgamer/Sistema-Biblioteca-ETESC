@@ -39,7 +39,7 @@ if(!$Para[2]){
 
 $Parametros = $Para['1'] . $Para['2'] . $metadados[5] . '&' . $metadados[6]. '&' . $metadados[7];
 
-$location = "Location:" . $origem[1] . $Parametros . "#a" . $id_livronum[1];
+$location = "Location:" . $origem[1] . $Parametros . "&tipo=empresta" .  "#a" . $id_livronum[1];
 
 // checar se id foi "chamado"
 if (!$id_aluno || !$dados) {
@@ -88,7 +88,7 @@ if ($QTDnum[1] >= $QTDEFinal) {
         die();
     }
 }else{
-    header($location . "erro=livroIndisp");
+    header($location);
     die();
 }
     

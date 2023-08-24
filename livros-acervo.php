@@ -3,6 +3,8 @@
 /** @var $pdo \PDO */
 require_once "database.php";
 
+$tipo = $_GET['tipo'] ?? '';
+
 $search = $_GET['pesquisa'] ?? '';
 $limit = $_GET['limit'] ?? 25;
 $start = $_GET['start'] ?? 0;
@@ -16,9 +18,9 @@ $parametro = "?" . "pesquisa=" . $search . "&" . "limit=" . $limit . "&" . "star
 if ($search) {
 
   if ($ordem == "ASC") {
-    $statement = $pdo->prepare("SELECT * FROM livros WHERE Autor LIKE :autor OR titulo LIKE :titulo");
+    $statement = $pdo->prepare("SELECT * FROM livros WHERE Autor LIKE :autor OR titulo LIKE :titulo LIMIT $start , $limit");
   } else {
-    $statement = $pdo->prepare("SELECT * FROM livros WHERE Autor LIKE :autor OR titulo LIKE :titulo ORDER BY ID DESC");
+    $statement = $pdo->prepare("SELECT * FROM livros WHERE Autor LIKE :autor OR titulo LIKE :titulo ORDER BY ID DESC LIMIT $start , $limit ");
   }
 
   $statement->bindValue(":autor", "%$search%");
@@ -52,16 +54,22 @@ $livros = $statement->fetchAll(PDO::FETCH_ASSOC);
 
   <link href="css/bootstrap.css" rel="stylesheet">
 
+  <script defer type="text/javascript" src="js/acervo.js"></script>
   <script type="text/javascript" src="js/sweetalert.js"></script>
 </head>
 
-<body>
+<body <?php
+if ($tipo != "") {
+  echo 'onload="Notify(\'' . $tipo . '\')"';
+}?>>
+
   <header class="header">
     <div class="logo-div">
       <a href="index.php">
         <img src="img/logoFaetec.png" alt="" />
         <img class="etesc" src="img/logo-etesc.png" alt="" />
         <img src="img/logoFaetec.png" alt="" />
+
       </a>
     </div>
 
@@ -105,7 +113,7 @@ $livros = $statement->fetchAll(PDO::FETCH_ASSOC);
             <div id="Ordem">
 
               <h6> Ordem de IDs(#):</h6>
-              <select id="ordem" name="ordem">
+              <select id="ordem" name="ordem" style="width: auto;">
                 <option value="ASC" <?php if ($ordem == "ASC") echo "selected"; ?>>Crescente</option>
                 <option value="DESC" <?php if ($ordem == "DESC") echo "selected"; ?>>Decrescente</option>
               </select>
@@ -183,15 +191,15 @@ $livros = $statement->fetchAll(PDO::FETCH_ASSOC);
               </form>
 
               <form id="empresta<?php echo $livro['id'] ?>" action="alunos.php" method="get" style="display: inline-block">
-              
 
-              <input type="hidden" name="dados" value="<?php echo 'id=' . $livro['id'] . 
-                                            '&QTDEmprestado=' . $livro['Emprestados'] . 
-                                            '&QTD=' . $livro['Quantidade'] . 
-                                            '&origem=' . $origem . 
-                                            '&Parametro=' . $parametro; ?>">
 
-                <button type="submit" class="btn btn-sm btn-secondary"><abbr title="Emprestar o livro">Emprestar</abbr></button>
+                <input type="hidden" name="dados" value="<?php echo 'id=' . $livro['id'] .
+                                                            '&QTDEmprestado=' . $livro['Emprestados'] .
+                                                            '&QTD=' . $livro['Quantidade'] .
+                                                            '&origem=' . $origem .
+                                                            '&Parametro=' . $parametro; ?>">
+
+                <button type="button" onclick="Valida(<?php echo $livro['Quantidade'] ?> , <?php echo $livro['Emprestados'] ?>,<?php echo $livro['id'] ?> )" class="btn btn-sm btn-secondary"><abbr title="Emprestar o livro">Emprestar</abbr></button>
               </form>
 
 
@@ -204,64 +212,3 @@ $livros = $statement->fetchAll(PDO::FETCH_ASSOC);
 </body>
 
 </html>
-
-<script>
-  function confirmarDelete(ID) {
-    swal({
-        title: "Tem certeza?",
-        text: "Se você apagar, não pode recuperar o registro",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-      })
-      .then((willDelete) => {
-        if (willDelete) {
-          swal("Seu livro foi apagado", {
-            icon: "success",
-          });
-          setTimeout(() => {
-            document.getElementById('delete' + ID).submit();
-          }, 1000);
-        } else {
-          swal("Livro não Apagado");
-        }
-      });
-  }
-}
-
-  // Seleciona o elemento select pelo seu ID
-  const select = document.querySelector('#select');
-  const ordem = document.querySelector('#ordem');
-
-  // Adiciona um listener para o evento 'change' do elemento select
-  ordem.addEventListener('change', (event) => {
-    // Obtém o valor selecionado
-    const ordemValue = event.target.value;
-
-    // Obtém o valor atual de 'ordem' da URL
-    const url = new URL(window.location.href);
-    const currentOrdem = url.searchParams.get('ordem') || "ASC";
-
-    // Atualiza a URL com os novos valores de 'ordem'
-    url.searchParams.set('ordem', ordemValue);
-
-    window.history.pushState({}, '', url);
-    window.location.reload(true);
-  })
-
-  // Adiciona um listener para o evento 'change' do elemento select
-  select.addEventListener('change', (event) => {
-    // Obtém o valor selecionado
-    const selectedValue = parseInt(event.target.value);
-
-    // Obtém o valor atual de 'start' e 'limit' da URL
-    const url = new URL(window.location.href);
-    const currentLimit = parseInt(url.searchParams.get('limit') || 25);
-
-    // Atualiza a URL com os novos valores de 'limit'
-    url.searchParams.set('limit', selectedValue);
-
-    window.history.pushState({}, '', url);
-    window.location.reload(true);
-  });
-</script>
