@@ -13,24 +13,26 @@ $startelimit = $start + $limit;
 $parametro = "?" . "pesquisa=" . $search . "&" . "limit=" . $limit . "&" . "start=" . $start . "&" . "ordem=" . $ordem;
 
 if ($search) {
-
   if ($ordem == "DESC") {
-    $statement = $pdo->prepare("SELECT * FROM livros WHERE  Emprestados > 0 AND Autor LIKE :autor OR titulo LIKE :titulo ORDER BY ID DESC");
+    $statement = $pdo->prepare("SELECT * FROM livros WHERE Emprestados >= 1 AND (Autor LIKE :autor OR titulo LIKE :titulo) ORDER BY ID DESC LIMIT :start , :limit");
   } else {
-    $statement = $pdo->prepare("SELECT * FROM livros WHERE Emprestados > 0 AND Autor LIKE :autor OR titulo LIKE :titulo");
+    $statement = $pdo->prepare("SELECT * FROM livros WHERE Emprestados >= 1 AND (Autor LIKE :autor OR titulo LIKE :titulo) LIMIT :start , :limit");
   }
-
   $statement->bindValue(":autor", "%$search%");
   $statement->bindValue(":titulo", "%$search%");
+
 } else {
   if ($ordem == "DESC") {
-    $statement = $pdo->prepare("SELECT * FROM livros WHERE Emprestados > 0 ORDER BY ID DESC LIMIT $start , $limit ");
+    $statement = $pdo->prepare("SELECT * FROM livros WHERE Emprestados >= 1 ORDER BY ID DESC LIMIT :start , :limit ");
   } else {
-    $statement = $pdo->prepare("SELECT * FROM livros WHERE Emprestados > 0  LIMIT $start , $limit ");
+    $statement = $pdo->prepare("SELECT * FROM livros WHERE Emprestados >= 1 LIMIT :start , :limit ");
   }
 }
 
+$statement->bindValue(":start", $start, PDO::PARAM_INT);
+$statement->bindValue(":limit", $limit, PDO::PARAM_INT);
 $statement->execute();
+
 $livros = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 ?>

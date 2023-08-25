@@ -55,13 +55,14 @@ $livros = $statement->fetchAll(PDO::FETCH_ASSOC);
   <link href="css/bootstrap.css" rel="stylesheet">
 
   <script defer type="text/javascript" src="js/acervo.js"></script>
+  <script defer type="text/javascript" src="js/Notify.js"></script>
   <script type="text/javascript" src="js/sweetalert.js"></script>
 </head>
 
 <body <?php
-if ($tipo != "") {
-  echo 'onload="Notify(\'' . $tipo . '\')"';
-}?>>
+      if ($tipo != "") {
+        echo 'onload="Notify(\'' . $tipo . '\')"';
+      } ?>>
 
   <header class="header">
     <div class="logo-div">
@@ -187,11 +188,10 @@ if ($tipo != "") {
 
               <form id="delete<?php echo $livro['id'] ?>" action="deletar-livro.php" method="post" style="display: inline-block">
                 <input type="hidden" name="id" value="<?php echo $livro['id'] ?>">
-                <button type="button" onclick="confirmarDelete(<?php echo $livro['id'] ?>)" class="btn btn-sm btn-danger"><abbr title="Deletar 1 livro">Deletar</abbr></button>
+                <button type="button" onclick="confirmarDelete(<?php echo $livro['id'] . ',' .  $livro['Emprestados'] ?>)" class="btn btn-sm btn-danger"><abbr title="Deletar 1 livro">Deletar</abbr></button>
               </form>
 
               <form id="empresta<?php echo $livro['id'] ?>" action="alunos.php" method="get" style="display: inline-block">
-
 
                 <input type="hidden" name="dados" value="<?php echo 'id=' . $livro['id'] .
                                                             '&QTDEmprestado=' . $livro['Emprestados'] .

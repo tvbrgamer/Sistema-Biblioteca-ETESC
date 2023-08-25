@@ -1,75 +1,26 @@
-function removeParams(sParam) {
-    var url = window.location.href.split('?')[0] + '?';
-    var sPageURL = decodeURIComponent(window.location.search.substring(1));
-    var sHash = window.location.hash; // Armazena a âncora atual
-    var sURLVariables = sPageURL.split('&');
-    var sParameterName;
-
-    for (var i = 0; i < sURLVariables.length; i++) {
-        sParameterName = sURLVariables[i].split('=');
-        if (sParameterName[0] != sParam) {
-            url = url + sParameterName[0] + '=' + sParameterName[1] + '&';
-        }
-    }
-
-    // Remove a âncora da URL processada
-    url = url.substring(0, url.length - 1);
-
-    // Adiciona a âncora de volta à URL (se existir)
-    if (sHash) {
-        url += sHash;
-    }
-
-    return url;
-}
-
-const Notify = (tipo) => {
-    switch (tipo) {
-        case "delete":
-            swal("Seu livro foi apagado", {
-                icon: "success",
-            })
-            .then((ok) => 
-            window.location = removeParams('tipo')
-            );
-            break;
-        case "empresta":
-            swal("Seu livro foi emprestado :)", {
-                icon: "success",
-            })
-            .then((ok) => 
-            window.location = removeParams('tipo')
-            );
-            break;
-        default:
-            swal("O tipo de notificação não foi definido :(", {
-                icon: "error",
-            })
-            .then((ok) => 
-            window.location = removeParams('tipo')
-            );
-            break;
-    }
-}
-
-function confirmarDelete(ID) {
-    swal({
-        title: "Tem certeza?",
-        text: "Se você apagar, não pode recuperar o registro",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-    })
-        .then((willDelete) => {
+function confirmarDelete(ID, Emprestado) {
+    if (Emprestado >= 1) {
+        swal("Livro não pode ser excluído", {
+            text: "O livro está emprestado e precisa ser devolvido antes de ser excluído.",
+            icon: "warning",
+        });
+    } else {
+        swal({
+            title: "Tem certeza?",
+            text: "Se você apagar, não poderá recuperar o registro.",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
             if (willDelete) {
-                swal("Seu livro foi apagado", {
-                    icon: "success",
-                });
                 document.getElementById('delete' + ID).submit();
             } else {
-                swal("Livro não Apagado");
+                swal("Livro não foi apagado.");
             }
         });
+    }
+    console.log("ID:", ID);
+    console.log("Emprestado:", Emprestado);
 }
 
 function Valida(QTD, QTDE, ID) {
@@ -83,7 +34,9 @@ function Valida(QTD, QTDE, ID) {
                 if (QTD >= (QTDE + 1)) {
                     document.getElementById('empresta' + ID).submit();
                 } else {
-                    swal("Quantidade de livros insuficientes para emprestar");
+                    swal("Quantidade de livros insuficientes para emprestar", {
+                        icon: "warning"
+                    });
                 }
             } else {
                 swal("O livro não foi emprestado");

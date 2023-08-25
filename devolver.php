@@ -6,6 +6,7 @@ require_once "database.php";
 
 $id_aluno = $_GET['id_aluno'] ?? null;
 $id_livro = $_GET['id_livro'] ?? null;
+$delete = $_GET['delete'] ?? null;
 
 //Puxa os Parâmetros
 $Parametros = $_GET['Parametro'] ?? null;

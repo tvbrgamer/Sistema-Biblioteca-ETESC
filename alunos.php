@@ -6,6 +6,8 @@ require_once "database.php";
 $dados  = $_GET['dados']    ?? '';
 $dadosurl = "?dados=" . rawurlencode($dados);
 
+$tipo = $_GET['tipo'] ?? '';
+
 $search = $_GET['pesquisa'] ?? '';
 $limit  = $_GET['limit']    ?? 25;
 $start  = $_GET['start']    ?? 0;
@@ -18,22 +20,25 @@ $parametro = "?" . "pesquisa=" . $search . "&" . "limit=" . $limit . "&" . "star
 if ($search) {
 
     if ($ordem == "DESC") {
-        $statement = $pdo->prepare("SELECT * FROM alunos WHERE nome_aluno LIKE :aluno OR turma_aluno LIKE :turma inner join alunos ORDER BY ID DESC");
+        $statement = $pdo->prepare("SELECT * FROM alunos WHERE nome_aluno LIKE :aluno OR turma_aluno LIKE :turma ORDER BY ID DESC LIMIT :start , :limit");
     } else {
-        $statement = $pdo->prepare("SELECT * FROM alunos WHERE Autor LIKE :autor OR titulo LIKE :titulo");
+        $statement = $pdo->prepare("SELECT * FROM alunos WHERE nome_aluno LIKE :aluno OR turma_aluno LIKE :turma LIMIT :start , :limit");
     }
 
     $statement->bindValue(":aluno", "%$search%");
     $statement->bindValue(":turma", "%$search%");
 } else {
     if ($ordem == "DESC") {
-        $statement = $pdo->prepare("SELECT * FROM alunos ORDER BY ID DESC LIMIT $start , $limit ");
+        $statement = $pdo->prepare("SELECT * FROM alunos ORDER BY ID DESC LIMIT :start , :limit");
     } else {
-        $statement = $pdo->prepare("SELECT * FROM alunos LIMIT $start , $limit ");
+        $statement = $pdo->prepare("SELECT * FROM alunos LIMIT :start , :limit");
     }
 }
 
+$statement->bindValue(":start", $start, PDO::PARAM_INT);
+$statement->bindValue(":limit", $limit, PDO::PARAM_INT);
 $statement->execute();
+
 $alunos = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 $statement2 = $pdo->prepare("SELECT id, titulo, Autor FROM livros");
@@ -64,10 +69,15 @@ foreach ($livros as $livro) {
 
     <link href="css/bootstrap.css" rel="stylesheet">
 
+    <script defer type="text/javascript" src="js/Notify.js"></script>
     <script type="text/javascript" src="js/sweetalert.js"></script>
 </head>
 
-<body>
+<body <?php
+if ($tipo != "") {
+  echo 'onload="Notify(\'' . $tipo . '\')"';
+}?>>
+
     <header class="header">
         <div class="logo-div">
             <a href="index.php">
@@ -94,7 +104,9 @@ foreach ($livros as $livro) {
 
                     <a href="alunos.php" class="btn btn-outline-secondary shadow">Limpar Campos</a>
 
-                    <a href='cadastro-alunos.php<?php if($dados != ""){echo $dadosurl;} ?>' class="btn btn-primary shadow">Cadastrar Aluno</a>
+                    <a href='cadastro-alunos.php<?php if ($dados != "") {
+                                                    echo $dadosurl;
+                                                } ?>' class="btn btn-primary shadow">Cadastrar Aluno</a>
 
                 </div>
 
@@ -176,12 +188,13 @@ foreach ($livros as $livro) {
 
                             <?php if ($dados != "") {
                                 echo '
-                            <form id="empresta' . $aluno['id_aluno'] . '" action="emprestar.php" method="get" style="display: inline-block">
-                                <input type="hidden" name="id_aluno" value="' . $aluno['id_aluno'] . '">
-                                <input type="hidden" name="dados" value="' . $dados . '">
-                                <button type="submit" class="btn btn-sm btn-secondary"><abbr title="Seleciona o aluno">Selecionar</abbr></button>
-                            </form>';
+                                    <form id="empresta' . $aluno['id_aluno'] . '" action="emprestar.php" method="get" style="display: inline-block">
+                                        <input type="hidden" name="id_aluno" value="' . $aluno['id_aluno'] . '">
+                                        <input type="hidden" name="dados" value="' . $dados . '">
+                                        <button type="button" onclick="Empresta(' . $aluno['id_aluno'] . ', ' . $aluno['id_livro'] . ')" class="btn btn-sm btn-secondary"><abbr title="Seleciona o aluno">Selecionar</abbr></button>
+                                    </form>';
                             } ?>
+
 
                             <form id="devolve<?php echo $aluno['id_aluno'] ?>" action="devolver.php" method="get" style="display: inline-block">
                                 <input type="hidden" name="id_aluno" value="<?php echo $aluno['id_aluno'] ?>">
@@ -194,7 +207,12 @@ foreach ($livros as $livro) {
                                 <input type="hidden" name="id_aluno" value="<?php echo $aluno['id_aluno'] ?>">
                                 <input type="hidden" name="origem" value=<?php echo $origem ?>>
                                 <input type="hidden" name="Parametro" value="<?php echo $parametro ?>">
-                                <button type="button" onclick="Valida()" class="btn btn-sm btn-danger"><abbr title="Edita os dados do aluno">Editar</abbr></button>
+                                <button type="submit" class="btn btn-sm btn-danger"><abbr title="Edita os dados do aluno">Editar</abbr></button>
+                            </form>
+
+                            <form id="excluir<?php echo $aluno['id_aluno'] ?>" action="excluir-aluno.php" method="get" style="display: inline-block">
+                                <input type="hidden" name="id_aluno" value="<?php echo $aluno['id_aluno'] ?>">
+                                <button type="button" onclick="Valida(<?php echo $aluno['id_aluno'] ?> , <?php echo $aluno['id_livro'] ?>)" class="btn btn-sm btn-danger"><abbr title="Excluir cadastro">Excluir</abbr></button>
                             </form>
                         </td>
                     </tr>
@@ -207,9 +225,44 @@ foreach ($livros as $livro) {
 </html>
 
 <script>
+    const Empresta = (id_aluno, id_livro) => {
+        if (id_livro == null) {
+            document.getElementById('empresta' + id_aluno).submit();
+        } else {
+            Notify("devolva_antes");
+        }
+    }
 
-    const Valida = () =>{
+    const Valida = (id_aluno, id_livro) => {
 
+        swal({
+                title: "Tem certeza?",
+                text: "Se você apagar, não pode recuperar o registro do aluno",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+
+                    if (id_livro == null) {
+                        document.getElementById('excluir' + id_aluno).submit();
+                    } else {
+                        const form = document.getElementById('excluir' + id_aluno);
+
+                        const hiddenInput = document.createElement('input');
+                        hiddenInput.type = 'hidden';
+                        hiddenInput.name = 'id_livro';
+                        hiddenInput.value = id_livro;
+
+                        form.appendChild(hiddenInput);
+                        form.submit();
+                    }
+
+                } else {
+                    swal("Aluno não Apagado");
+                }
+            });
     }
 
     // Seleciona o elemento select pelo seu ID
@@ -232,7 +285,7 @@ foreach ($livros as $livro) {
         window.location.reload(true);
     })
 
-    // Adiciona um listener para o evento 'change' do elemento select
+    // Adiciona um listener para o evento 'change' do elemento limit
     select.addEventListener('change', (event) => {
         // Obtém o valor selecionado
         const selectedValue = parseInt(event.target.value);
