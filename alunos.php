@@ -3,8 +3,8 @@
 /** @var $pdo \PDO */
 require_once "database.php";
 
-$dados  = $_GET['dados']    ?? '';
-$dadosurl = "?dados=" . rawurlencode($dados);
+$dados  = $_GET['dados'] ?? 'nada';
+$dadosurl = "dados=" . rawurlencode($dados);
 
 $tipo = $_GET['tipo'] ?? '';
 
@@ -19,19 +19,35 @@ $parametro = "?" . "pesquisa=" . $search . "&" . "limit=" . $limit . "&" . "star
 
 if ($search) {
 
-    if ($ordem == "DESC") {
-        $statement = $pdo->prepare("SELECT * FROM alunos WHERE nome_aluno LIKE :aluno OR turma_aluno LIKE :turma ORDER BY ID DESC LIMIT :start , :limit");
+    if ($ordem == "DEVO") {
+        $statement = $pdo->prepare("SELECT *, DATE_FORMAT(data_devolucao, '%d/%m/%Y') as dt_dv_formatado,
+                                              DATE_FORMAT(data_emprestimo, '%d/%m/%Y') as dt_de_formatado
+                                              FROM alunos WHERE nome_aluno LIKE :aluno OR turma_aluno LIKE :turma ORDER BY data_devolucao DESC, id_aluno DESC LIMIT :start , :limit");
+    } else if ($ordem == "DESC") {
+        $statement = $pdo->prepare("SELECT *, DATE_FORMAT(data_devolucao, '%d/%m/%Y') as dt_dv_formatado,
+                                              DATE_FORMAT(data_emprestimo, '%d/%m/%Y') as dt_de_formatado
+                                              FROM alunos WHERE nome_aluno LIKE :aluno OR turma_aluno LIKE :turma ORDER BY id_aluno DESC LIMIT :start , :limit");
     } else {
-        $statement = $pdo->prepare("SELECT * FROM alunos WHERE nome_aluno LIKE :aluno OR turma_aluno LIKE :turma LIMIT :start , :limit");
+        $statement = $pdo->prepare("SELECT *, DATE_FORMAT(data_devolucao, '%d/%m/%Y') as dt_dv_formatado,
+                                              DATE_FORMAT(data_emprestimo, '%d/%m/%Y') as dt_de_formatado
+                                              FROM alunos WHERE nome_aluno LIKE :aluno OR turma_aluno LIKE :turma LIMIT :start , :limit");
     }
 
     $statement->bindValue(":aluno", "%$search%");
     $statement->bindValue(":turma", "%$search%");
 } else {
-    if ($ordem == "DESC") {
-        $statement = $pdo->prepare("SELECT * FROM alunos ORDER BY ID DESC LIMIT :start , :limit");
+    if ($ordem == "DEVO") {
+        $statement = $pdo->prepare("SELECT *, DATE_FORMAT(data_devolucao, '%d/%m/%Y') as dt_dv_formatado,
+                                              DATE_FORMAT(data_emprestimo, '%d/%m/%Y') as dt_de_formatado
+                                              FROM alunos ORDER BY data_devolucao DESC, id_aluno DESC LIMIT :start , :limit");
+    } else if ($ordem == "DESC") {
+        $statement = $pdo->prepare("SELECT *, DATE_FORMAT(data_devolucao, '%d/%m/%Y') as dt_dv_formatado,
+                                              DATE_FORMAT(data_emprestimo, '%d/%m/%Y') as dt_de_formatado
+                                              FROM alunos ORDER BY id_aluno DESC LIMIT :start , :limit");
     } else {
-        $statement = $pdo->prepare("SELECT * FROM alunos LIMIT :start , :limit");
+        $statement = $pdo->prepare("SELECT *, DATE_FORMAT(data_devolucao, '%d/%m/%Y') as dt_dv_formatado,
+                                              DATE_FORMAT(data_emprestimo, '%d/%m/%Y') as dt_de_formatado
+                                              FROM alunos LIMIT :start , :limit");
     }
 }
 
@@ -74,9 +90,9 @@ foreach ($livros as $livro) {
 </head>
 
 <body <?php
-if ($tipo != "") {
-  echo 'onload="Notify(\'' . $tipo . '\')"';
-}?>>
+        if ($tipo != "") {
+            echo 'onload="Notify(\'' . $tipo . '\')"';
+        } ?>>
 
     <header class="header">
         <div class="logo-div">
@@ -104,8 +120,8 @@ if ($tipo != "") {
 
                     <a href="alunos.php" class="btn btn-outline-secondary shadow">Limpar Campos</a>
 
-                    <a href='cadastro-alunos.php<?php if ($dados != "") {
-                                                    echo $dadosurl;
+                    <a href='cadastro-alunos.php<?php if ($dados != "nada") {
+                                                    echo "?" . $dadosurl;
                                                 } ?>' class="btn btn-primary shadow">Cadastrar Aluno</a>
 
                 </div>
@@ -127,10 +143,11 @@ if ($tipo != "") {
                         </div>
                         <div id="Ordem" style="width:200px;">
 
-                            <h6> Ordem de IDs(#):</h6>
+                            <h6> Ordem dos Alunos:</h6>
                             <select id="ordem" name="ordem">
                                 <option value="ASC" <?php if ($ordem == "ASC") echo "selected"; ?>>Crescente</option>
                                 <option value="DESC" <?php if ($ordem == "DESC") echo "selected"; ?>>Decrescente</option>
+                                <option value="DEVO" <?php if ($ordem == "DEVO") echo "selected"; ?>>Devolução</option>
                             </select>
 
                         </div>
@@ -180,13 +197,13 @@ if ($tipo != "") {
                         <td><?php echo $aluno['id_livro'] ?></td>
                         <td><?php echo !empty($livrosAssociativos[$aluno['id_livro']]) ? $livrosAssociativos[$aluno['id_livro']]['titulo'] : '-' ?></td>
                         <td><?php echo !empty($livrosAssociativos[$aluno['id_livro']]) ? $livrosAssociativos[$aluno['id_livro']]['Autor'] : '-' ?></td>
-                        <td><?php echo $aluno['data_emprestimo'] ?></td>
-                        <td><?php echo $aluno['data_devolucao'] ?></td>
+                        <td><?php echo $aluno['dt_de_formatado'] ?></td>
+                        <td><?php echo $aluno['dt_dv_formatado'] ?></td>
 
                         <td style="white-space: nowrap;">
                             <!-- <a href="editar-livro.php?id=<?php echo "apagar_teste" ?>" class="btn btn-sm btn-outline-primary">Editar</a> -->
 
-                            <?php if ($dados != "") {
+                            <?php if ($dados != "nada") {
                                 echo '
                                     <form id="empresta' . $aluno['id_aluno'] . '" action="emprestar.php" method="get" style="display: inline-block">
                                         <input type="hidden" name="id_aluno" value="' . $aluno['id_aluno'] . '">
@@ -199,7 +216,9 @@ if ($tipo != "") {
                             <form id="devolve<?php echo $aluno['id_aluno'] ?>" action="devolver.php" method="get" style="display: inline-block">
                                 <input type="hidden" name="id_aluno" value="<?php echo $aluno['id_aluno'] ?>">
                                 <input type="hidden" name="id_livro" value="<?php echo $aluno['id_livro'] ?>">
-                                <input type="hidden" name="Parametro" value="<?php echo $parametro ?>">
+                                <?php if ($dados != 'nada') {
+                                    echo "<input type='hidden' name='dados' value='" . $dados . "'>";
+                                } ?>
                                 <button type="submit" class="btn btn-sm btn-danger"><abbr title="Devolve o livro emprestado">Devolver</abbr></button>
                             </form>
 
@@ -207,6 +226,9 @@ if ($tipo != "") {
                                 <input type="hidden" name="id_aluno" value="<?php echo $aluno['id_aluno'] ?>">
                                 <input type="hidden" name="origem" value=<?php echo $origem ?>>
                                 <input type="hidden" name="Parametro" value="<?php echo $parametro ?>">
+                                <?php if ($dados != 'nada') {
+                                    echo "<input type='hidden' name='dados' value='" . $dados . "'>";
+                                } ?>
                                 <button type="submit" class="btn btn-sm btn-danger"><abbr title="Edita os dados do aluno">Editar</abbr></button>
                             </form>
 
@@ -237,7 +259,7 @@ if ($tipo != "") {
 
         swal({
                 title: "Tem certeza?",
-                text: "Se você apagar, não pode recuperar o registro do aluno",
+                text: "Se você apagar, não poderá recuperar o registro do aluno",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
@@ -258,7 +280,6 @@ if ($tipo != "") {
                         form.appendChild(hiddenInput);
                         form.submit();
                     }
-
                 } else {
                     swal("Aluno não Apagado");
                 }

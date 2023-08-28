@@ -44,10 +44,6 @@ function Valida(QTD, QTDE, ID) {
         });
 }
 
-// Seleciona o elemento select pelo seu ID
-const select = document.querySelector('#select');
-const ordem = document.querySelector('#ordem');
-
 // Adiciona um listener para o evento 'change' do elemento select
 ordem.addEventListener('change', (event) => {
     // Obtém o valor selecionado
@@ -63,3 +59,20 @@ ordem.addEventListener('change', (event) => {
     window.history.pushState({}, '', url);
     window.location.reload(true);
 })
+
+// Adiciona um listener para o evento 'change' do elemento limit
+select.addEventListener('change', (event) => {
+    // Obtém o valor selecionado
+    const selectedValue = parseInt(event.target.value);
+
+    // Obtém o valor atual de 'start' e 'limit' da URL
+    const url = new URL(window.location.href);
+    const currentLimit = parseInt(url.searchParams.get('limit') || 25);
+
+    // Atualiza a URL com os novos valores de 'limit'
+    url.searchParams.set('limit', selectedValue);
+
+    window.history.pushState({}, '', url);
+    window.location.reload(true);
+});
+

@@ -6,7 +6,7 @@ require_once "database.php";
 $dados = $_GET["dados"]?? '';
 
 if ($dados != NULL){
-    $dadosurl = "?dados=" . urlencode($dados);
+    $dadosurl = "?dados=" . rawurlencode($dados);
 }else {
     $dadosurl = "";
 }

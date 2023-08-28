@@ -9,7 +9,9 @@ $id_aluno = $_GET['id_aluno'] ?? null;
 //Puxa os Parâmetros
 $Parametros = $_GET['Parametro'] ?? null;
 
-$location = "Location:alunos.php" . $Parametros . "#a" . $id_aluno;
+$dados = rawurlencode($_GET['dados'] ?? "nada");
+
+$location = "Location:alunos.php" . $Parametros . "&dados=" . $dados . "#a" . $id_aluno;
 
 if (!$id_aluno) {
     header("Location: alunos.php");

@@ -144,12 +144,12 @@ if ($QTDnum[1] >= $QTDEFinal) {
 
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Data de empréstimo</span>
-            <input type="date" name="data_emprestimo" va class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+            <input type="date" name="data_emprestimo" va class="form-control" aria-label="Username" required aria-describedby="basic-addon1">
         </div>
 
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Data de devolução</span>
-            <input type="date" name="data_devolucao" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+            <input type="date" name="data_devolucao" class="form-control" aria-label="Username" required aria-describedby="basic-addon1">
         </div>
 
         <button type="reset" class="btn btn-outline-secondary">Limpar campos</button>
