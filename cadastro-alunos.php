@@ -46,6 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="css/acervo.css" />
 
     <link href="css/bootstrap.css" rel="stylesheet">
+    <script src="js/Cleave.js"></script>
 </head>
 
 <body>
@@ -74,12 +75,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Turma</span>
-            <input type="text" name="turma_aluno" placeholder="Insira a turma:" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+            <input type="text" id="turma" name="turma_aluno" placeholder="Insira a turma:" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
         </div>
 
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Telefone</span>
-            <input type="text" name="telefone_aluno" placeholder="Insira o telefone:" class="form-control" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off">
+            <input type="text" id="tel" name="telefone_aluno" placeholder="Insira o telefone:" class="form-control" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off">
         </div>
 
         <button type="reset" class="btn btn-outline-secondary">Limpar campos</button>
@@ -88,3 +89,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </body>
 
 </html>
+
+<Script>
+document.addEventListener("DOMContentLoaded", () => {
+  new Cleave("#turma", {
+    delimiters: ["/"],
+    blocks: [4, 2],
+    numericOnly: true,
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  new Cleave("#tel", {
+    delimiters: ["(", ") ", " ", "-"],
+    blocks: [0, 2, 1, 4, 4],
+    numericOnly: true,
+  });
+});
+</Script>

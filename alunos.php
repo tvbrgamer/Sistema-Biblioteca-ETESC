@@ -90,9 +90,9 @@ foreach ($livros as $livro) {
 </head>
 
 <body <?php
-        if ($tipo != "") {
-            echo 'onload="Notify(\'' . $tipo . '\')"';
-        } ?>>
+      if ($tipo != null) {
+        echo 'onload="Notify(\'' . $tipo . '\')"';
+      } ?>>
 
     <header class="header">
         <div class="logo-div">
@@ -179,7 +179,6 @@ foreach ($livros as $livro) {
                     <th scope="col">Nome</th>
                     <th scope="col">Turma</th>
                     <th scope="col">Telefone</th>
-                    <th scope="col">id_livro</th>
                     <th scope="col">Nome do livro</th>
                     <th scope="col">Autor livro</th>
                     <th scope="col">Data de Empréstimo</th>
@@ -194,11 +193,10 @@ foreach ($livros as $livro) {
                         <td><?php echo $aluno['nome_aluno'] ?></td>
                         <td><?php echo $aluno['turma_aluno'] ?></td>
                         <td><?php echo $aluno['telefone_aluno'] ?></td>
-                        <td><?php echo $aluno['id_livro'] ?></td>
                         <td><?php echo !empty($livrosAssociativos[$aluno['id_livro']]) ? $livrosAssociativos[$aluno['id_livro']]['titulo'] : '-' ?></td>
                         <td><?php echo !empty($livrosAssociativos[$aluno['id_livro']]) ? $livrosAssociativos[$aluno['id_livro']]['Autor'] : '-' ?></td>
-                        <td><?php echo $aluno['dt_de_formatado'] ?></td>
-                        <td><?php echo $aluno['dt_dv_formatado'] ?></td>
+                        <td><?php if ($aluno['dt_de_formatado'] != "00/00/0000") { echo $aluno['dt_de_formatado']; } else { echo "-"; } ?></td>
+                        <td><?php if ($aluno['dt_dv_formatado'] != "00/00/0000") { echo $aluno['dt_dv_formatado']; } else { echo "-"; } ?></td>
 
                         <td style="white-space: nowrap;">
                             <!-- <a href="editar-livro.php?id=<?php echo "apagar_teste" ?>" class="btn btn-sm btn-outline-primary">Editar</a> -->
@@ -219,7 +217,7 @@ foreach ($livros as $livro) {
                                 <?php if ($dados != 'nada') {
                                     echo "<input type='hidden' name='dados' value='" . $dados . "'>";
                                 } ?>
-                                <button type="submit" class="btn btn-sm btn-danger"><abbr title="Devolve o livro emprestado">Devolver</abbr></button>
+                                <button type="submit" class="btn btn-sm btn-success shadow"><abbr title="Devolve o livro emprestado">Devolver</abbr></button>
                             </form>
 
                             <form id="edita<?php echo $aluno['id_aluno'] ?>" action="editar-aluno.php" method="get" style="display: inline-block">
@@ -229,7 +227,7 @@ foreach ($livros as $livro) {
                                 <?php if ($dados != 'nada') {
                                     echo "<input type='hidden' name='dados' value='" . $dados . "'>";
                                 } ?>
-                                <button type="submit" class="btn btn-sm btn-danger"><abbr title="Edita os dados do aluno">Editar</abbr></button>
+                                <button type="submit" class="btn btn-sm btn-outline-primary"><abbr title="Edita os dados do aluno">Editar</abbr></button>
                             </form>
 
                             <form id="excluir<?php echo $aluno['id_aluno'] ?>" action="excluir-aluno.php" method="get" style="display: inline-block">

@@ -7,10 +7,12 @@ require_once "database.php";
 $id_aluno = $_GET['id_aluno'] ?? null;
 $id_livro = $_GET['id_livro'] ?? null;
 
+$tipo = "tipo=devolvido";
+
 //Puxa os Parâmetros
 $dados = rawurlencode($_GET['dados'] ?? "nada");
 
-$location = "alunos.php" ."?" . "dados=" . $dados . "#a" . $id_aluno;
+$location = "alunos.php" ."?" . "dados=" . $dados . "&" . $tipo . "#a" . $id_aluno;
 
 $none ="";
 

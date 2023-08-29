@@ -70,6 +70,7 @@ function redirect($location)
     <link rel="stylesheet" href="css/acervo.css" />
 
     <link href="css/bootstrap.css" rel="stylesheet">
+    <script src="js/Cleave.js"></script>
 </head>
 
 <body>
@@ -98,12 +99,12 @@ function redirect($location)
 
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Turma</span>
-            <input type="text" name="turma_aluno" value="<?php echo $turma_aluno; ?>" class="form-control" placeholder="Título" aria-label="Username" aria-describedby="basic-addon1">
+            <input type="text" id="turma" name="turma_aluno" value="<?php echo $turma_aluno; ?>" class="form-control" placeholder="Título" aria-label="Username" aria-describedby="basic-addon1">
         </div>
 
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Telefone</span>
-            <input type="text" name="telefone_aluno" value="<?php echo $telefone_aluno; ?>" class="form-control" placeholder="telefone_aluno" aria-label="Username" aria-describedby="basic-addon1">
+            <input type="text" id="tel" name="telefone_aluno" value="<?php echo $telefone_aluno; ?>" class="form-control" placeholder="telefone_aluno" aria-label="Username" aria-describedby="basic-addon1">
         </div>
 
         <button type="reset" class="btn btn-outline-secondary">Limpar campos</button>
@@ -112,3 +113,21 @@ function redirect($location)
 </body>
 
 </html>
+
+<Script>
+document.addEventListener("DOMContentLoaded", () => {
+  new Cleave("#turma", {
+    delimiters: ["/"],
+    blocks: [4, 2],
+    numericOnly: true,
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  new Cleave("#tel", {
+    delimiters: ["(", ") ", " ", "-"],
+    blocks: [0, 2, 1, 4, 4],
+    numericOnly: true,
+  });
+});
+</Script>

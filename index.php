@@ -19,6 +19,11 @@ $statement3->execute();
 
 $livrosEmpQtd = $statement3->fetch(PDO::FETCH_NUM);
 
+
+$statement4 = $pdo->prepare("SELECT COUNT(id_aluno) FROM alunos");
+$statement4->execute();
+
+$AlunosQtd = $statement4->fetch(PDO::FETCH_NUM);
 ?>
 
 
@@ -57,16 +62,16 @@ $livrosEmpQtd = $statement3->fetch(PDO::FETCH_NUM);
   <a href="livros-acervo.php" style="text-decoration: none;color:black">
       <div class="card">
         <img src="img/home-icon1.png" alt="">
-        <h3>Livros cadastrados</h3>
+        <h3>Títulos de Livros</h3>
         <p><?php echo $livrosQtd[0]; ?></p>
-        <h3>Quantidade de Livros</h3>
+        <h3>Total de Livros</h3>
         <p><?php echo $livrosQtdSoma[0]; ?></p>
       </div>
     </a>
 
     <a href="livros-acervo-emprestados.php" style="height:289.514px;width:261.021;text-decoration: none;color:black">
       <div class="card" style="height:289.514px;width:261.021;">
-        <img src="img/home-icon2.png" alt="">
+        <img src="img/home-icon2.png" alt="home">
         
         <h3 style="margin-top: 50px;">Livros Emprestados</h3>
         <p><?php echo $livrosEmpQtd[0]; ?></p>
@@ -76,10 +81,10 @@ $livrosEmpQtd = $statement3->fetch(PDO::FETCH_NUM);
 
     <a href="alunos.php" style="height:289.514px;width:261.021;text-decoration: none;color:black">
       <div class="card" style="height:289.514px;width:261.021;">
-        <img src="" alt="">
+        <img src="img/aluno.png" alt="aluno">
         
-        <h3 style="margin-top: 50px;">Alunos</h3>
-        <p><?php echo "aaaaaaaaaaaaaa"; ?></p>
+        <h3 style="margin-top: 50px;">Total de Alunos</h3>
+        <p><?php echo $AlunosQtd[0]; ?></p>
         
       </div>
     </a>

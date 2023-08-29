@@ -15,6 +15,11 @@ const Notify = (tipo) => {
                 icon: "success",
             });
             break;
+        case "devolvido":
+            swal("O aluno foi apagado", {
+                icon: "success",
+            });
+            break;
         case "devolva_antes":
             swal("Seu livro não foi emprestado", {
                 text: "Você precisa devolver o livro anterior antes (botão devolver)",
