@@ -9,7 +9,7 @@ $id = $_GET['id'] ?? null;
 //Puxa os Parâmetros
 $Parametros = $_GET['Parametro'] ?? null;
 
-$location = "Location:livros-acervo.php" . $Parametros . "#a" . $id;
+$location = "Location:livros-acervo.php" . $Parametros . "&tipo=edit_livro" . "#a" . $id;
 
 if (!$id) {
   header("Location: livros-acervo.php");

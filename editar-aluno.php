@@ -11,7 +11,7 @@ $Parametros = $_GET['Parametro'] ?? null;
 
 $dados = rawurlencode($_GET['dados'] ?? "nada");
 
-$location = "Location:alunos.php" . $Parametros . "&dados=" . $dados . "#a" . $id_aluno;
+$location = "Location:alunos.php" . $Parametros . "&dados=" . $dados . "&tipo=edit_aluno" . "#a" . $id_aluno;
 
 if (!$id_aluno) {
     header("Location: alunos.php");

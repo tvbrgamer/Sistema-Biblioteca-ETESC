@@ -16,7 +16,17 @@ const Notify = (tipo) => {
             });
             break;
         case "devolvido":
-            swal("O aluno foi apagado", {
+            swal("O livro do aluno foi devolvido", {
+                icon: "success",
+            });
+            break;
+        case "edit_aluno":
+            swal("O cadastro do aluno foi alterado com sucesso", {
+                icon: "success",
+            });
+            break;
+        case "edit_livro":
+            swal("O cadastro do livro foi alterado com sucesso", {
                 icon: "success",
             });
             break;
