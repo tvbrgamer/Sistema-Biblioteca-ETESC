@@ -37,3 +37,7 @@ section.selecao-section {
 #Ordem{
   width: 200px;
 }
+
+.swal-modal .swal-text {
+  text-align: center;
+}

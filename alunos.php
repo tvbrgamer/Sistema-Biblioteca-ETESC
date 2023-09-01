@@ -11,7 +11,7 @@ $tipo = $_GET['tipo'] ?? '';
 $search = $_GET['pesquisa'] ?? '';
 $limit  = $_GET['limit']    ?? 25;
 $start  = $_GET['start']    ?? 0;
-$ordem  = $_GET['ordem']    ?? "ASC";
+$ordem  = $_GET['ordem']    ?? 'DEVO';
 $origem = "alunos.php";
 $startelimit = $start + $limit;
 
@@ -145,9 +145,9 @@ foreach ($livros as $livro) {
 
                             <h6> Ordem dos Alunos:</h6>
                             <select id="ordem" name="ordem">
+                                <option value="DEVO" <?php if ($ordem == "DEVO") echo "selected"; ?>>Devolução</option>
                                 <option value="ASC" <?php if ($ordem == "ASC") echo "selected"; ?>>Crescente</option>
                                 <option value="DESC" <?php if ($ordem == "DESC") echo "selected"; ?>>Decrescente</option>
-                                <option value="DEVO" <?php if ($ordem == "DEVO") echo "selected"; ?>>Devolução</option>
                             </select>
 
                         </div>
@@ -189,7 +189,7 @@ foreach ($livros as $livro) {
             <tbody>
                 <?php foreach ($alunos as $a => $aluno) : ?>
                     <tr>
-                        <td><b><?php echo $aluno['id_aluno'] ?></b></td>
+                    <td><b><a id="<?php echo 'a' . $aluno['id_aluno'] ?>"> <?php echo $aluno['id_aluno'] ?></b></td>
                         <td><?php echo $aluno['nome_aluno'] ?></td>
                         <td><?php echo $aluno['turma_aluno'] ?></td>
                         <td><?php echo $aluno['telefone_aluno'] ?></td>

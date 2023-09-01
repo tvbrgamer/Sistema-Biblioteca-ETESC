@@ -1,7 +1,7 @@
 function confirmarDelete(ID, Emprestado) {
     if (Emprestado >= 1) {
         swal("Livro não pode ser excluído", {
-            text: "O livro está emprestado e precisa ser devolvido antes de ser excluído.",
+            text: "O livro está emprestado e precisa \n ser devolvido antes de ser excluído.",
             icon: "warning",
         });
     } else {
@@ -19,8 +19,6 @@ function confirmarDelete(ID, Emprestado) {
             }
         });
     }
-    console.log("ID:", ID);
-    console.log("Emprestado:", Emprestado);
 }
 
 function Valida(QTD, QTDE, ID) {

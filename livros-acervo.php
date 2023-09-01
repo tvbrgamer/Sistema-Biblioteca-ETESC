@@ -201,8 +201,7 @@ $livros = $statement->fetchAll(PDO::FETCH_ASSOC);
 
                 <button type="button" onclick="Valida(<?php echo $livro['Quantidade'] ?> , <?php echo $livro['Emprestados'] ?>,<?php echo $livro['id'] ?> )" class="btn btn-sm btn-secondary"><abbr title="Emprestar o livro">Emprestar</abbr></button>
               </form>
-
-
+              
             </td>
           </tr>
         <?php endforeach; ?>
