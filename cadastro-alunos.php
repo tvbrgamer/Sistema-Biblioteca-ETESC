@@ -70,12 +70,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <form class="cadastro-section" method="POST">
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Nome </span>
-            <input type="text" name="nome_aluno" placeholder="Insira o nome" class="form-control" aria-label="Username" required aria-describedby="basic-addon1 " autocomplete="off">
+            <input type="text" name="nome_aluno" placeholder="Insira o nome" class="form-control" aria-label="Username" aria-describedby="basic-addon1 " autocomplete="off">
         </div>
 
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Turma</span>
-            <input type="text" id="turma" name="turma_aluno" placeholder="Insira a turma:" class="form-control" aria-label="Username" required aria-describedby="basic-addon1">
+            <input type="text" id="turma" name="turma_aluno" placeholder="Insira a turma:" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
         </div>
 
         <div class="input-group mb-3">
