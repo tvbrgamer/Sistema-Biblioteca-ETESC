@@ -94,17 +94,17 @@ function redirect($location)
     <form class="cadastro-section" method="POST">
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Nome </span>
-            <input type="text" name="nome_aluno" value="<?php echo $nome_aluno; ?>" class="form-control" placeholder="Autor" aria-label="Username" aria-describedby="basic-addon1">
+            <input type="text" name="nome_aluno" value="<?php echo $nome_aluno; ?>" required autocomplete="off" class="form-control" placeholder="Autor" aria-label="Username" aria-describedby="basic-addon1">
         </div>
 
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Turma</span>
-            <input type="text" id="turma" name="turma_aluno" value="<?php echo $turma_aluno; ?>" class="form-control" placeholder="Título" aria-label="Username" aria-describedby="basic-addon1">
+            <input type="text" id="turma" name="turma_aluno" value="<?php echo $turma_aluno; ?>" required autocomplete="off" class="form-control" placeholder="Título" aria-label="Username" aria-describedby="basic-addon1">
         </div>
 
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Telefone</span>
-            <input type="text" id="tel" name="telefone_aluno" value="<?php echo $telefone_aluno; ?>" class="form-control" placeholder="telefone_aluno" aria-label="Username" aria-describedby="basic-addon1">
+            <input type="text" id="tel" name="telefone_aluno" value="<?php echo $telefone_aluno; ?>" required autocomplete="off" class="form-control" placeholder="telefone_aluno" aria-label="Username" aria-describedby="basic-addon1">
         </div>
 
         <button type="reset" class="btn btn-outline-secondary">Limpar campos</button>
@@ -125,8 +125,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener("DOMContentLoaded", () => {
   new Cleave("#tel", {
-    delimiters: ["(", ") ", " ", "-"],
-    blocks: [0, 2, 1, 4, 4],
+    delimiters: ["(", ") ", "-"],
+    blocks: [0, 2, 5, 4],
     numericOnly: true,
   });
 });

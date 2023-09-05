@@ -23,6 +23,14 @@ function confirmarDelete(ID, Emprestado) {
     console.log("Emprestado:", Emprestado);
 }
 
+const Empresta = (id_aluno, id_livro) => {
+    if (id_livro == null) {
+        document.getElementById('empresta' + id_aluno).submit();
+    } else {
+        Notify("devolva_antes");
+    }
+}
+
 const editaLivro = (id_livro) => {
     swal({
             title: "Tem certeza?",
