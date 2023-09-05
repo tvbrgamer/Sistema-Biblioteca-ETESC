@@ -125,8 +125,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener("DOMContentLoaded", () => {
   new Cleave("#tel", {
-    delimiters: ["(", ") ", " ", "-"],
-    blocks: [0, 2, 1, 4, 4],
+    delimiters: ["(", ") ", "-"],
+    blocks: [0, 2, 5, 4],
     numericOnly: true,
   });
 });

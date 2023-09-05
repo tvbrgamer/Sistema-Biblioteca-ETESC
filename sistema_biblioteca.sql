@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 17/08/2023 às 18:57
--- Versão do servidor: 10.4.28-MariaDB
--- Versão do PHP: 8.2.4
+-- Tempo de geração: 01-Set-2023 às 19:52
+-- Versão do servidor: 10.4.24-MariaDB
+-- versão do PHP: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,30 +24,23 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `alunos`
+-- Estrutura da tabela `alunos`
 --
 
 CREATE TABLE `alunos` (
   `id_aluno` int(11) NOT NULL,
   `nome_aluno` varchar(120) NOT NULL,
-  `turma_aluno` varchar(4) NOT NULL,
+  `turma_aluno` varchar(7) NOT NULL,
   `telefone_aluno` varchar(20) NOT NULL,
-  `id_livro` int(11) DEFAULT NULL,
+  `id_livro` int(11) NOT NULL,
   `data_emprestimo` date NOT NULL,
   `data_devolucao` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Despejando dados para a tabela `alunos`
---
-
-INSERT INTO `alunos` (`id_aluno`, `nome_aluno`, `turma_aluno`, `telefone_aluno`, `id_livro`, `data_emprestimo`, `data_devolucao`) VALUES
-(1, 'Dummy', '1331', '(21) 9002-8922', NULL, '0000-00-00', '0000-00-00');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `livros`
+-- Estrutura da tabela `livros`
 --
 
 CREATE TABLE `livros` (
@@ -59,14 +52,14 @@ CREATE TABLE `livros` (
   `Situacao` varchar(100) DEFAULT 'Acervo',
   `Quantidade` int(11) DEFAULT 0,
   `Emprestados` int(11) DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Despejando dados para a tabela `livros`
+-- Extraindo dados da tabela `livros`
 --
 
 INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situacao`, `Quantidade`, `Emprestados`) VALUES
-(1, 'Guimarães, Sérgio	', 'Administração e Controle	', 'Administração - Organização', '658 GUI/adm', 'Emprestado', 1, -1),
+(1, 'Guimarães, Sérgio	', 'Administração e Controle	', 'Administração - Organização', '658 GUI/adm', 'Acervo', 1, 0),
 (2, '', 'Tolerância de Forma e Posição', 'Administração - Controle - Qualidade', '658.56 INS', 'Acervo', 1, 0),
 (3, 'Fayol, Henri', 'Administração Industrial e Geral', 'Administração - Industrial', '65.011.55 FAY/adm', 'Acervo', 1, 0),
 (4, 'Iglesias, Francisco', 'A Industrialização Brasileira', 'Administração - Industrial', '65.011.55 IGL/ind', 'Acervo', 1, 0),
@@ -153,17 +146,17 @@ INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situ
 (85, '', 'Seminário de Estudos de...', 'Biblioteconomia', '020 SEM', 'Acervo', 1, 0),
 (86, 'Fischer, Louis', 'A Vida de Lênin', 'Biografia', '929 FIS/vid', 'Acervo', 1, 0),
 (87, '', 'James Dean por ele', 'Biografia', '929 JAM', 'Acervo', 1, 0),
-(88, 'Neruda, Pablo', 'Confesso que Vivi', 'Biografia', '929 NER/conf', 'Acervo', 1, 0),
+(88, 'Neruda, Pablo', 'apaga', 'Biografia', '929 NER/conf', 'Acervo', 1, 0),
 (89, '', 'O Pensamento Vivo de Orson Welles', 'Biografia', '929 PEN', 'Acervo', 1, 0),
 (90, 'Scisínio, Alaôr Eduardo', 'Um Tupiniquim na Terra do Sol Nascente', 'Biografia', '929 SCI/tup', 'Acervo', 1, 0),
 (91, 'Silva, Rodrigo P.', 'Eles criam em Deus', 'Biografia', '929 SIL/cri', 'Acervo', 1, 0),
 (92, 'White, Ellen G.', 'Vida de Jesus', 'Biografia', '929 WHI/vid', 'Acervo', 1, 0),
-(93, '', 'Os Imortais da Literatura', 'Biografia', '929 IMO v.1', 'Acervo', 1, 0),
-(94, '', 'Os Imortais da Literatura', 'Biografia', '929 IMO v.2', 'Acervo', 1, 0),
+(93, '', 'Os Imortais da Literatura', 'Biografia', '929 IMO v.1', 'Acervo', 3, 0),
+(94, '', 'apaga', 'Biografia', '929 IMO v.2', 'Acervo', 1, 0),
 (95, 'Isaacson, Walter', 'Steve Jobs', 'Biografia', '929 ISA/ste', 'Acervo', 1, 0),
 (96, 'Betancourt, Ingrid', 'Não há Silêncio que não Termine', 'Biografia', '929 BET/não', 'Acervo', 1, 0),
 (97, 'Callado, Antônio', 'Retrato de Portinari', 'Biografia', '929 CAL/ret', 'Acervo', 1, 0),
-(98, '', 'Os imortais da literatura', 'Biografia', '929 IMO v.3', 'Acervo', 1, 0),
+(98, '', 'apaga', 'Biografia', '929 IMO v.3', 'Acervo', 1, 0),
 (99, 'Santilli, Juliana', 'Agrobiodiversidade e Direitos dos Agricultores', 'Biologia - Agricultura', '34:502.7 SAN/agr', 'Acervo', 3, 0),
 (100, 'Beçak, Maria Luiza', 'Biologia', 'Biologia ', '573 BEÇ/bio', 'Acervo', 1, 0),
 (101, 'Linhares, Sérgio', 'Biologia celular', 'Biologia - Celular', '573 LIN/bio c', 'Acervo', 1, 0),
@@ -265,7 +258,7 @@ INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situ
 (197, 'Ferreira, Reinaldo M.', 'Correspondência Comercial', 'Correspondência Comercial', '044 FER/cor', 'Acervo', 1, 0),
 (198, 'Barrow, John D.', 'A Origem do Universo', 'Cosmologia', '113/119 BAR/ori', 'Acervo', 1, 0),
 (199, 'Rees, Martin J.', 'Apenas seis números: as...', 'Cosmologia', '113/119 REE/ape', 'Acervo', 1, 0),
-(200, 'Smoot, George', 'Dobras no tempo', 'Cosmologia', '113/119 SMO/dob', 'Acervo', 1, 0),
+(200, 'Smoot, George', 'Dobras no tempo', 'Cosmologia', '113/119 SMO/dob', 'Acervo', 2, 0),
 (201, 'Becker, Bertha K.', 'Amazônia: geopolítica na virada do III milênio', 'Crescimento Econômico', '338.1 BEC/ama', 'Acervo', 2, 0),
 (202, 'Lagoas, Luiza', '1º movimento: iniciação as', 'Dança', '793 LAG/pri', 'Acervo', 1, 0),
 (203, 'Marques, Isabel Azevedo', 'Dançando na Escola', 'Dança', '793.3 MAR/dan', 'Acervo', 3, 0),
@@ -528,9 +521,9 @@ INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situ
 (460, '', 'Panorama do Setor de Energia Elétrica no Brasil', 'Engenharia Mecânica - Energia', '621.8.037', 'Acervo', 1, 0),
 (461, '', 'Vedabrás', 'Engenharia Mecânica - Isolante', '621.315.6 VED', 'Acervo', 1, 0),
 (462, 'Fuchs, Rubens Dario', 'Transmissão de Energia ...', 'Engenharia Mecânica - Linhas', '621.315.1 FUC/tra v. 1', 'Acervo', 1, 0),
-(463, 'Fuchs, Rubens Dario', 'Transmissão de Energia ...', 'Engenharia Mecânica - Linhas', '621.315.1 FUC/tra v. 2', 'Acervo', 1, 0);
+(463, 'Fuchs, Rubens Dario', 'Transmissão de Energia ...', 'Engenharia Mecânica - Linhas', '621.315.1 FUC/tra v. 2', 'Acervo', 1, 0),
+(464, '', 'Componentes Elétricos', 'Engenharia Mecânica - Motores', '621.313.13', 'Acervo', 1, 0);
 INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situacao`, `Quantidade`, `Emprestados`) VALUES
-(464, '', 'Componentes Elétricos', 'Engenharia Mecânica - Motores', '621.313.13', 'Acervo', 1, 0),
 (465, '', 'Energia Nuclear: Problemas e Opções', 'Engenharia Mecânica - Nuclear', '621.039 ENE', 'Acervo', 1, 0),
 (466, 'Goldemberg, José', 'Energia Nuclear, sim ou não?', 'Engenharia Mecânica - Nuclear', '621.039 GOL/ene', 'Acervo', 1, 0),
 (467, 'Salles, Dagoberto', 'Energia Atômica', 'Engenharia Mecânica - Nuclear', '621.039 SAL/ene', 'Acervo', 1, 0),
@@ -988,9 +981,9 @@ INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situ
 (920, 'Magnoli, Demétrio', 'Panorama do Mundo', 'História - Geral', '94 (100) MAG/pan v.2', 'Acervo', 1, 0),
 (921, 'Magnoli, Demétrio', 'Panorama do Mundo', 'História - Geral', '94 (100) MAG/pan v.3', 'Acervo', 1, 0),
 (922, 'Maior, A. Souto', 'História Geral', 'História - Geral', '94 (100) MAI/his', 'Acervo', 1, 0),
-(923, 'Moraes, José Geraldo V.', 'Caminhos das Civilizações', 'História - Geral', '94 (100) MOR/cam', 'Acervo', 1, 0);
+(923, 'Moraes, José Geraldo V.', 'Caminhos das Civilizações', 'História - Geral', '94 (100) MOR/cam', 'Acervo', 1, 0),
+(924, 'Moraes, José Geraldo V.', 'História: Geral e Brasil', 'História - Geral', '94 (100) MOR/his', 'Acervo', 1, 0);
 INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situacao`, `Quantidade`, `Emprestados`) VALUES
-(924, 'Moraes, José Geraldo V.', 'História: Geral e Brasil', 'História - Geral', '94 (100) MOR/his', 'Acervo', 1, 0),
 (925, 'Mota, Carlos G.', 'História & Civilização', 'História - Geral', '94 (100) MOT/his', 'Acervo', 1, 0),
 (926, 'Piletti, Nelson', 'História & Vida: Integrada', 'História - Geral', '94 (100) PIL/his v. 1', 'Acervo', 2, 0),
 (927, 'Piletti, Nelson', 'História & Vida: Integrada', 'História - Geral', '94 (100) PIL/his v. 2', 'Acervo', 1, 0),
@@ -1320,7 +1313,7 @@ INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situ
 (1251, 'Caffé, Carla', 'Av. Paulista', 'Literatura - Infantojuvenil', '028.5 CAF/ave', 'Acervo', 1, 0),
 (1252, 'Correia, Almir', '13 Contos de Medos e Arrepios', 'Literatura - Infantojuvenil', '028.5 COR/tre', 'Acervo', 1, 0),
 (1253, 'Enzensberger, Hans M.', 'O Diabo dos Números', 'Literatura - Alemã', '821.112.2 ENZ/dia', 'Acervo', 1, 0),
-(1254, 'Aguiar, Luiz Antonio', 'Hans Staden: Viagens ...', 'Literatura - Alemã - Romance', '821.112.2 AGU/han', 'Acervo', 1, 0),
+(1254, 'Aguiar, Luiz Antonio', 'Hans Staden: Viagens ...', 'Literatura - Alemã - Romance', '821.112.2 AGU/han', 'Acervo', 2, 0),
 (1255, 'Boll, Heinrich', 'Casa sem Dono', 'Literatura - Alemã - Romance', '821.112.2 BOL/cas', 'Acervo', 1, 0),
 (1256, 'Goethe, Johann W.', 'Werther', 'Literatura - Alemã - Romance', '821.112.2 GOE/wer', 'Acervo', 1, 0),
 (1257, 'Hesse, Hermann', 'O Lobo da Estepe', 'Literatura - Alemã - Romance', '821.112.2 HES/lob', 'Acervo', 1, 0),
@@ -1362,7 +1355,7 @@ INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situ
 (1293, 'Bloch, Pedro', 'O Segredo Azul', 'Literatura - Brasileira', '821.134.3 (81) BLO/seg', 'Acervo', 1, 0),
 (1294, 'Bojunga, Lygia', 'Os Colegas', 'Literatura - Brasileira', '821.134.3 (81) BOJ/col', 'Acervo', 3, 0),
 (1295, 'Bojunga, Lygia', 'Paisagem', 'Literatura - Brasileira', '028.5 BOJ/pai', 'Acervo', 1, 0),
-(1296, 'Brandão, Ignácio de Loyola', 'Não Verás País Nenhum', 'Literatura - Brasileira', '821.134.3 (81) BRA/ign', 'Acervo', 2, 0),
+(1296, 'Brandão, Ignácio de Loyola', 'Não Verás País Nenhum', 'Literatura - Brasileira', '821.134.3 (81) BRA/ign', 'Acervo', 3, 0),
 (1297, 'Brandão, Toni', 'Perdido na Amazônia', 'Literatura - Brasileira', '821.134.3 (81) BRA/per', 'Acervo', 2, 0),
 (1298, 'Buarque, Chico', 'Budapeste', 'Literatura - Brasileira', '821.134.3 (81) BUA/bud', 'Acervo', 1, 0),
 (1299, 'Buarque, Chico', 'Gota d\'água', 'Literatura - Brasileira', '821.134.3 (81) BUA/got', 'Acervo', 2, 0),
@@ -1439,9 +1432,9 @@ INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situ
 (1370, 'Lobato, Monteiro', 'Viagem ao Céu - O Saci', 'Literatura - Brasileira', '821.134.3 (81) LOB/via v. 2', 'Acervo', 1, 0),
 (1371, 'Lopes, Angélica', 'Fotos Secretas: Missão Viagem', 'Literatura - Brasileira', '821.134.3 (81) LOP/fot', 'Acervo', 7, 0),
 (1372, 'Lopes, Angélica', 'Plano B: Missão Namoro', 'Literatura - Brasileira', '821.134.3 (81) LOP/pla', 'Acervo', 1, 0),
-(1373, 'Luna Filho, Pedro Bandeira de', 'Agora Estou Sozinha ...', 'Literatura - Brasileira', '821.134.3 (81) LUN/ago', 'Acervo', 1, 0);
+(1373, 'Luna Filho, Pedro Bandeira de', 'Agora Estou Sozinha ...', 'Literatura - Brasileira', '821.134.3 (81) LUN/ago', 'Acervo', 1, 0),
+(1374, 'Bandeira, Pedro', 'A Marca de uma Lágrima', 'Literatura - Brasileira', '821.134.3 (81) BAN/mar', 'Acervo', 3, 0);
 INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situacao`, `Quantidade`, `Emprestados`) VALUES
-(1374, 'Bandeira, Pedro', 'A Marca de uma Lágrima', 'Literatura - Brasileira', '821.134.3 (81) BAN/mar', 'Acervo', 3, 0),
 (1375, 'Luna Filho, Pedro Bandeira de', 'A Droga da Obediência', 'Literatura - Brasileira', '821.134.3 (81) LUN/dro', 'Acervo', 2, 0),
 (1376, 'Machado, Ângelo', 'O Velho da Montanha', 'Literatura - Brasileira', '821.134.3 (81) MAC/vel', 'Acervo', 1, 0),
 (1377, 'Marigny, Carlos de', 'A Ilha das Borboletas Azuis', 'Literatura - Brasileira', '821.134.3 (81) MAR/car', 'Acervo', 1, 0),
@@ -1466,7 +1459,7 @@ INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situ
 (1396, 'Braz, Júlio Emílio', 'Longas Cartas pra Ninguém', 'Literatura Infantojuvenil', '028.5 BRA/lon', 'Acervo', 1, 0),
 (1397, 'Luciani, Domenica', 'É isso aí, Cara, sou Punk', 'Literatura Infanto- Juvenil', '028.5 LUC/iss', 'Acervo', 1, 0),
 (1398, 'Alonso, Ana', 'A Cidade Transparente', 'Literatura Espanhola', '863 ALO/cid', 'Acervo', 1, 0),
-(1399, 'Monteiro, Maria Conceição', 'Sombra Errante: a Preceptora na Narrativa', 'Literatura - Brasileira', '821.134.3(81) MON/som', 'Acervo', 1, 0),
+(1399, 'Monteiro, Maria Conceição', 'Sombra Errante: a Preceptora na Narrativa', 'Literatura - Brasileira', '821.134.3(81) MON/som', 'Acervo', 5, 0),
 (1400, 'Moraes, Leira', 'Bola de Gude', 'Literatura - Brasileira', '821.134.3(81) MOR/bol', 'Acervo', 1, 0),
 (1401, 'Moraes, Vinicius', 'Nova Antologia Poética', 'Literatura - Brasileira', '821.134.3(81) MOR/nov', 'Acervo', 2, 0),
 (1402, 'Moraes, Vinicius', 'Poemas, Sonetos e Baladas', 'Poesia - Brasileira', '869.91 MOR/poe', 'Acervo', 1, 0),
@@ -1492,7 +1485,7 @@ INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situ
 (1424, 'Queiroz, Vera', 'Crítica Literária e Estratégias de Gênero', 'Literatura - Brasileira', '821.134.3(81) QUE/cri', 'Acervo', 1, 0),
 (1425, 'Quelhas, Iza', 'A Passagem dos Sinais', 'Literatura - Brasileira', '821.134.3(81) QUE/pas', 'Acervo', 1, 0),
 (1426, 'Quintana, Mário', 'Mário Quintana: Poesia Completa: Em um Volume', 'Literatura - Brasileira', '821.134.3(81) QUI/mar', 'Acervo', 5, 0),
-(1427, 'Rebouça, Thalita', 'Tudo por um Pop Star', 'Literatura - Brasileira', '821.134.3(81) REB/tud', 'Acervo', 1, 0),
+(1427, 'Rebouça, Thalita', 'Tudo por um Pop Star', 'Literatura - Brasileira', '821.134.3(81) REB/tud', 'Acervo', 4, 0),
 (1428, 'Figueiredo Eurídice - Organizadora', 'Recortes Transculturais', 'Literatura - Brasileira', '821.134.3(81) REC', 'Acervo', 5, 0),
 (1429, 'Rego, José Lins do', 'Menino de Engenho', 'Literatura - Brasileira', '821.134.3(81) REG/men', 'Acervo', 1, 0),
 (1430, 'Reis, Roberto', 'O Miolo e o Pão', 'Literatura - Brasileira', '821.134.3(81) REI/mio', 'Acervo', 1, 0),
@@ -1524,7 +1517,7 @@ INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situ
 (1456, 'Suassuna, Ariano', 'O Santo e a Porca', 'Literatura - Brasileira', '821.134.3(81) SUA/san', 'Acervo', 1, 0),
 (1457, 'Tahan, Malba', 'O Homem que Calculava', 'Literatura - Brasileira', '821.134.3(81) TAH/hom', 'Acervo', 3, 0),
 (1458, 'Taunay, Visconde de', 'Inocência', 'Literatura - Brasileira', '821.134.3(81) TAU/ino', 'Acervo', 1, 0),
-(1459, 'Tavares, Zulmira Ribeiro', 'Jóias de Família', 'Literatura - Brasileira', '821.134.3(81) TAV/joi', 'Acervo', 1, 0),
+(1459, 'Tavares, Zulmira Ribeiro', 'Jóias de Família', 'Literatura - Brasileira', '821.134.3(81) TAV/joi', 'Acervo', 3, 0),
 (1460, 'Telles, Lygia Fagundes', 'Antologia: Meus Contos Preferidos', 'Literatura - Brasileira', '821.134.3(81) TEL/ant', 'Acervo', 3, 0),
 (1461, 'Tezza, Cristovão', 'Entre a Prosa e a Poesia', 'Literatura - Brasileira', '821.134.3(81) TEZ/ent', 'Acervo', 1, 0),
 (1462, 'Tezza, Cristovão', 'Juliano Pavollini', 'Literatura - Brasileira', '821.134.3(81) TEZ/jul', 'Acervo', 1, 0),
@@ -1535,11 +1528,11 @@ INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situ
 (1467, 'Vasconcelos, José Mauro de', 'Rosinha, minha Canoa', 'Literatura - Brasileira', '821.134.3(81) VAS/ros', 'Acervo', 1, 0),
 (1468, 'Vasconcelos, José Mauro de', 'Vamos Aquecer o Sol', 'Literatura - Brasileira', '821.134.3(81) VAS/vam', 'Acervo', 1, 0),
 (1469, 'Veríssimo, Érico', 'Caminhos Cruzados', 'Literatura - Brasileira', '821.134.3(81) VER/eri', 'Acervo', 1, 0),
-(1470, 'Veríssimo, Luís Fernando', 'O Melhor das Comédias da Vida Privada', 'Literatura - Brasileira', '821.134.3(81) VER/mel', 'Acervo', 1, 0),
+(1470, 'Veríssimo, Luís Fernando', 'O Melhor das Comédias da Vida Privada', 'Literatura - Brasileira', '821.134.3(81) VER/mel', 'Acervo', 3, 0),
 (1471, 'Versiani, Ivana', 'Greve na Escola', 'Literatura - Brasileira', '821.134.3(81) VER/grev', 'Acervo', 1, 0),
-(1472, 'Vianna, Lucia Helena', 'Cenas de Amor e Morte na Ficção Brasileira', 'Literatura - Brasileira', '821.134.3(81) VIA/cen', 'Acervo', 1, 0),
+(1472, 'Vianna, Lucia Helena', 'Cenas de Amor e Morte na Ficção Brasileira', 'Literatura - Brasileira', '821.134.3(81) VIA/cen', 'Acervo', 5, 0),
 (1473, 'Vilaça, Marcos Vinicios', 'Intenção e Gesto', 'Literatura - Brasileira', '821.134.3(81) VIL/int', 'Acervo', 1, 0),
-(1474, 'Vilares, Cândida', 'Poeira de Ouro', 'Literatura - Brasileira', '821.134.3(81) VIL/poe', 'Acervo', 1, 0),
+(1474, 'Vilares, Cândida', 'Poeira de Ouro', 'Literatura - Brasileira', '821.134.3(81) VIL/poe', 'Acervo', 2, 0),
 (1475, '', 'Antologia Escolar de ...', 'Literatura - Brasileira - Contos', '821.134.3(81) ANT', 'Acervo', 1, 0),
 (1476, 'Assis, Machado de', 'Histórias Românticas', 'Literatura - Brasileira - Contos', '821.134.3(81) ASS/his', 'Acervo', 2, 0),
 (1477, 'Cruz, Arlete Nogueira', 'Contos Inocentes', 'Literatura - Brasileira - Contos', '821.134.3(81) CRU/com', 'Acervo', 1, 0),
@@ -1572,22 +1565,22 @@ INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situ
 (1504, 'Lispector, Clarice', 'Onde Estivestes de Noite', 'Literatura - Brasileira - Contos', '821.134.3(81) LIS/ond', 'Acervo', 4, 0),
 (1505, 'Assis, Machado de', 'O Alienista', 'Literatura - Brasileira - Contos', '821.134.3(81) ASS/ali', 'Acervo', 3, 0),
 (1506, 'Assis, Machado de', 'Contos Consagrados de Machado de Assis', 'Literatura - Brasileira - Contos', '821.134.3(81) ASS/com', 'Acervo', 1, 0),
-(1507, 'Assis, Machado de', 'Contos Fluminenses', 'Literatura - Brasileira - Contos', '821.134.3(81) ASS/com v. 1', 'Acervo', 1, 0),
+(1507, 'Assis, Machado de', 'Contos Fluminenses', 'Literatura - Brasileira - Contos', '821.134.3(81) ASS/com v. 1', 'Acervo', 2, 0),
 (1508, 'Assis, Machado de', 'Contos Fluminenses', 'Literatura - Brasileira - Contos', '821.134.3(81) ASS/com v. 2', 'Acervo', 1, 0),
 (1509, 'Assis, Machado de', 'Páginas Recolhidas', 'Literatura - Brasileira - Contos', '821.134.3(81) ASS/pag', 'Acervo', 3, 0),
 (1510, 'Assis, Machado de', 'Papéis Avulsos', 'Literatura - Brasileira - Contos', '821.134.3(81) ASS/pap', 'Acervo', 1, 0),
-(1511, 'Assis, Machado de', 'Relíquias da Casa Velha', 'Literatura - Brasileira - Contos', '821.134.3(81) ASS/rel v. 1', 'Acervo', 1, 0),
+(1511, 'Assis, Machado de', 'Relíquias da Casa Velha', 'Literatura - Brasileira - Contos', '821.134.3(81) ASS/rel v. 1', 'Acervo', 2, 0),
 (1512, 'Assis, Machado de', 'Relíquias da Casa Velha', 'Literatura - Brasileira - Contos', '821.134.3(81) ASS/rel v. 2', 'Acervo', 1, 0),
 (1513, 'Assis, Machado de', 'Várias Histórias', 'Literatura - Brasileira - Contos', '821.134.3(81) ASS/var', 'Acervo', 3, 0),
 (1514, '', 'Histórias de Carnaval', 'Literatura - Brasileira - Contos', '821.134.3(81) HIS', 'Acervo', 1, 0),
 (1515, 'Rubião, Murilo', 'O Pirotécnico Zacarias', 'Literatura - Brasileira - Contos', '821.134.3(81) RUB/pir', 'Acervo', 1, 0),
 (1516, 'Perrone, Marcelo', 'Contos', 'Literatura - Brasileira - Contos', '821.134.3(81) PER/com', 'Acervo', 1, 0),
 (1517, 'Carvalho, Moacyr de', 'O Instante Perdido', 'Literatura - Brasileira - Contos', '821.134.3(81) CAR/ins', 'Acervo', 1, 0),
-(1518, 'Assis, Machado de', 'Crônicas', 'Literatura - Brasileira - Crônica', '821.134.3(81) ASS/cro v. 1', 'Acervo', 1, 0),
+(1518, 'Assis, Machado de', 'Crônicas', 'Literatura - Brasileira - Crônica', '821.134.3(81) ASS/cro v. 1', 'Acervo', 4, 0),
 (1519, 'Assis, Machado de', 'Crônicas', 'Literatura - Brasileira - Crônica', '821.134.3(81) ASS/cro v. 2', 'Acervo', 1, 0),
 (1520, 'Assis, Machado de', 'Crônicas', 'Literatura - Brasileira - Crônica', '821.134.3(81) ASS/cro v. 3', 'Acervo', 1, 0),
 (1521, 'Assis, Machado de', 'Crônicas', 'Literatura - Brasileira - Crônica', '821.134.3(81) ASS/cro v. 4', 'Acervo', 1, 0),
-(1522, 'Assis, Machado de', 'A Semana', 'Literatura - Brasileira - Crônica', '821.134.3(81) ASS/sem v. 1', 'Acervo', 1, 0),
+(1522, 'Assis, Machado de', 'A Semana', 'Literatura - Brasileira - Crônica', '821.134.3(81) ASS/sem v. 1', 'Acervo', 3, 0),
 (1523, 'Assis, Machado de', 'A Semana', 'Literatura - Brasileira - Crônica', '821.134.3(81) ASS/sem v. 2', 'Acervo', 1, 0),
 (1524, 'Assis, Machado de', 'A Semana', 'Literatura - Brasileira - Crônica', '821.134.3(81) ASS/sem v. 3', 'Acervo', 1, 0),
 (1525, 'Braga, Rubem', 'Crônicas da Guerra na Itália', 'Literatura - Brasileira - Crônica', '821.134.3(81) BRA/cro', 'Acervo', 2, 0),
@@ -1728,7 +1721,7 @@ INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situ
 (1664, 'Ramos, Graciliano', 'Viagem', 'Literatura - Brasileira - Romance', '821.134.3(81) RAM/via', 'Acervo', 1, 0),
 (1665, 'Ramos, Graciliano', 'Vidas Secas', 'Literatura - Brasileira - Romance', '821.134.3(81) RAM/vid', 'Acervo', 1, 0),
 (1666, 'Rebelo, Marques', 'A Estrela Sobe', 'Literatura - Brasileira - Romance', '821.134.3(81) REB/est', 'Acervo', 1, 0),
-(1667, 'Rego, José Lins do', 'Fogo Morto', 'Literatura - Brasileira - Romance', '821.134.3(81) REG/fog', 'Acervo', 1, 0),
+(1667, 'Rego, José Lins do', 'Fogo Morto', 'Literatura - Brasileira - Romance', '821.134.3(81) REG/fog', 'Acervo', 2, 0),
 (1668, 'Rego, José Lins do', 'Pedra Bonita', 'Literatura - Brasileira - Romance', '821.134.3(81) REG/ped', 'Acervo', 1, 0),
 (1669, 'Resende, Otto Lara', 'O Braço Direito', 'Literatura - Brasileira - Romance', '821.134.3(81) RES/bra', 'Acervo', 1, 0),
 (1670, 'Ribeiro, João Ubaldo', 'Sargento Getúlio', 'Literatura - Brasileira - Romance', '821.134.3(81) RIB/sar', 'Acervo', 1, 0),
@@ -1811,7 +1804,7 @@ INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situ
 (1747, 'Scliar, Moacyr', 'Histórias que os Jornais não Contam', 'Literatura - Brasileira - Crônica', '821.134.3(81) SCL/his', 'Acervo', 1, 0),
 (1748, 'Suassuna, Ariano', 'Auto da Compadecida', 'Literatura - Brasileira - Teatro', '821.134.3(81) SUA/aut', 'Acervo', 2, 0),
 (1749, 'Vicente, Gil', 'Auto da Barca do Inferno', 'Literatura - Brasileira - Teatro', '821.134.3(81) VIC/aut', 'Acervo', 1, 0),
-(1750, 'Dorfman, Ariel', 'A Rebelião dos Coelhos Mágicos', 'Literatura - Chilena', '821.134.2(81) DOR/reb', 'Acervo', 1, 0),
+(1750, 'Dorfman, Ariel', 'A Rebelião dos Coelhos Mágicos', 'Literatura - Chilena', '821.134.2(81) DOR/reb', 'Acervo', 5, 0),
 (1751, 'Dorfman, Ariel', 'Terapia e Avareza', 'Literatura - Chilena', '821.134.2(81) DOR/ter', 'Acervo', 1, 0),
 (1752, 'Menezes, Dílson de A.', 'A Mais Empolgante História de Amor', 'Literatura - Contos', '82-34 MEN/mai', 'Acervo', 1, 0),
 (1753, 'Menezes, Dílson de A.', 'Vida e Morte na Central do Brasil', 'Literatura - Contos', '82-34 MEN/vid', 'Acervo', 1, 0),
@@ -1819,7 +1812,7 @@ INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situ
 (1755, 'Menezes, Dílson de A.', 'Discursos', 'Literatura - Discursos', '82-5 MEN/dis', 'Acervo', 1, 0),
 (1756, 'Saavedra, Miguel de Cervantes', 'Novelas Exemplares', 'Literatura - Espanhola - Novela', '821.134.2 SAA/nov', 'Acervo', 1, 0),
 (1757, 'Márquez, Gabriel G.', 'O Outono do Patriarca', 'Literatura - Espanhola - Novela', '821.134.2 MAR/out', 'Acervo', 1, 0),
-(1758, 'Saavedra, Miguel de Cervantes', 'Dom Quixote: O Cavaleiro ...', 'Literatura - Espanhola - Sátira', '821.134.2 SAA/dom', 'Acervo', 2, 0),
+(1758, 'Saavedra, Miguel de Cervantes', 'Dom Quixote: O Cavaleiro ...', 'Literatura - Espanhola - Sátira', '821.134.2 SAA/dom', 'Acervo', 16, 0),
 (1759, 'Menezes, Dílson de A.', 'Decatlon', 'Literatura - Ficção', '82-3 MEN/dec', 'Acervo', 1, 0),
 (1760, 'Waltari, Mika', 'O Egípcio', 'Literatura - Filandesa', '821.511.111 WAL/egi', 'Acervo', 1, 0),
 (1761, 'Tâmaro, Susanna', 'O Cavaleiro do Coração de ...', 'Literatura - Francesa', '821.131.1 TAM/cav', 'Acervo', 1, 0),
@@ -1831,22 +1824,22 @@ INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situ
 (1767, 'Laclos, Choderlos de', 'As Relações Perigosas', 'Literatura - Francesa', '821.131.1 LAC/rel', 'Acervo', 1, 0),
 (1768, 'Lapierre, Dominique', 'Muito Além do Amor', 'Literatura - Francesa', '821.131.1 LAP/mui', 'Acervo', 1, 0),
 (1769, 'Miralles, Franeesc', 'Amor em Minúscula', 'Literatura - Espanhola', '821.134.2 MIR/amo', 'Acervo', 1, 0),
-(1770, 'Defoe, Daniel', 'Robinson Crusoé', 'Literatura - Francesa', '821.131.1 DEF/rob', 'Acervo', 1, 0),
+(1770, 'Defoe, Daniel', 'Robinson Crusoé', 'Literatura - Francesa', '821.131.1 DEF/rob', 'Acervo', 2, 0),
 (1771, 'Garcia Marquez, Gabriel', 'O Amor nos Tempos do Cólera', 'Literatura - Espanhola', '821.134.2(862) GAR/amo', 'Acervo', 1, 0),
 (1772, 'Millás, Juan José', 'O Mundo', 'Literatura - Espanhola', '821.134.2 MIL/mun', 'Acervo', 1, 0),
 (1773, 'Giordano, Paolo', 'A Solidão dos nº primos', 'Literatura - Italiana', '821.131.1 GIO/sol', 'Acervo', 1, 0),
 (1774, 'Calvino, Italo', 'O Barão nas Árvores', 'Literatura - Italiana', '821.131.1 CAL/bar', 'Acervo', 1, 0),
 (1775, 'Satrapi, Marjane', 'Persépolis', 'Literatura - Francesa', '821.131.1 SAT/per', 'Acervo', 1, 0),
 (1776, 'Le Guillou, Philippe', 'Jesus', 'Literatura - Francesa', '821.131.1 LE/jes', 'Acervo', 1, 0),
-(1777, 'L\' Homme, Erik', 'Qadehar, o Feiticeiro', 'Literatura - Francesa', '821.131.1 LHO/qad', 'Acervo', 1, 0),
-(1778, 'L\' Homme, Erik', 'O Senhor Sha', 'Literatura - Francesa', '821.131.1 LHO/sem', 'Acervo', 1, 0),
-(1779, 'Mirza, Sandrine', 'Marco Pólo', 'Literatura - Francesa', '821.131.1 MIR/mar', 'Acervo', 1, 0),
+(1777, 'L\' Homme, Erik', 'Qadehar, o Feiticeiro', 'Literatura - Francesa', '821.131.1 LHO/qad', 'Acervo', 3, 0),
+(1778, 'L\' Homme, Erik', 'O Senhor Sha', 'Literatura - Francesa', '821.131.1 LHO/sem', 'Acervo', 5, 0),
+(1779, 'Mirza, Sandrine', 'Nos passos de... Marco Polo', 'Literatura - Francesa', '821.131.1 MIR/mar', 'Acervo', 5, 0),
 (1780, 'Maurois, André', 'De Gide a Sartre', 'Literatura - Francesa', '821.131.1 MAU/gid', 'Acervo', 1, 0),
 (1781, 'Prevost, Abade', 'Manon Lescaut', 'Literatura - Francesa', '821.131.1 PRE/man', 'Acervo', 1, 0),
 (1782, 'Saint - Exupery, A.', 'O Pequeno Príncipe', 'Literatura - Francesa', '821.131.1 SAI/peq', 'Acervo', 1, 0),
-(1783, 'Tordjman, Gilbert', 'Chaves da Sexologia', 'Literatura - Francesa', '821.131.1 TOR/cha', 'Acervo', 1, 0);
+(1783, 'Tordjman, Gilbert', 'Chaves da Sexologia', 'Literatura - Francesa', '821.131.1 TOR/cha', 'Acervo', 1, 0),
+(1784, 'Vivier, Colette', 'Viagem às Ilhas', 'Literatura - Francesa', '821.131.1 VIV/via', 'Acervo', 1, 0);
 INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situacao`, `Quantidade`, `Emprestados`) VALUES
-(1784, 'Vivier, Colette', 'Viagem às Ilhas', 'Literatura - Francesa', '821.131.1 VIV/via', 'Acervo', 1, 0),
 (1785, 'Voltaire', 'Contos', 'Literatura - Francesa - Contos', '821.131.1 VOL/com', 'Acervo', 1, 0),
 (1786, 'Stendhal', 'O Vermelho e o Negro', 'Literatura - Francesa - Crônica', '821.131.1 STE/ver', 'Acervo', 1, 0),
 (1787, 'Stendhal', 'A Cartuxa de Parma', 'Literatura - Francesa ', '821.131.1 STE/car', 'Acervo', 1, 0),
@@ -1891,7 +1884,7 @@ INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situ
 (1826, 'Rostand, Edmond', 'Cyrano de Bergerac', 'Literatura - Francesa - Teatro', '821.133.1 ROS/cyr', 'Acervo', 1, 0),
 (1827, '', 'Estudos Galegos', 'Geografia - Literatura - Galega', '821.134.4 EST v. 1', 'Acervo', 5, 0),
 (1828, '', 'Estudos Galegos', 'Literatura - Galega', '821.134.4 EST v. 2', 'Acervo', 1, 0),
-(1829, 'Doxiadis, Apostolos', 'Tio Petros e a Conjectura ...', 'Literatura - Grega', '821.14 DOX/tio', 'Acervo', 1, 0),
+(1829, 'Doxiadis, Apostolos', 'Tio Petros e a Conjectura ...', 'Literatura - Grega', '821.14 DOX/tio', 'Acervo', 3, 0),
 (1830, 'Homero', 'Ilíada', 'Literatura - Grega - Poesia', '821.14 HOM/ili', 'Acervo', 1, 0),
 (1831, 'Homero', 'Odisséia', 'Literatura - Grega - Poesia', '821.14 HOM/odi', 'Acervo', 1, 0),
 (1832, 'Kazantzakis, Nikos', 'O Cristo Recrucificado', 'Literatura - Grega - Romance', '821.14 KAZ/cri', 'Acervo', 1, 0),
@@ -1929,10 +1922,10 @@ INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situ
 (1864, 'Gaiman, Neil', 'Coraline', 'Literatura - Inglesa', '821.111 GAI/cor', 'Acervo', 1, 0),
 (1865, 'Gandolfi, Silvana', 'Aldabra: A Tartaruga que ...', 'Literatura - Inglesa', '821.111 GAN/ald', 'Acervo', 1, 0),
 (1866, 'Hoffman, Alice', 'Água - Marinha', 'Literatura - Inglesa', '821.111 HOF/agu', 'Acervo', 3, 0),
-(1867, 'Ibbotson, Eva', 'Disque Fantasma', 'Literatura - Inglesa', '821.111 IBB/dis', 'Acervo', 1, 0),
-(1868, 'Ibbotson, Eva', 'Missão Monstro', 'Literatura - Inglesa', '821.111 IBB/mis', 'Acervo', 1, 0),
-(1869, 'Ibbotson, Eva', 'Puxa, qual Bruxa?', 'Literatura - Inglesa', '821.111 IBB/pux', 'Acervo', 1, 0),
-(1870, 'Ibbotson, Eva', 'O Segredo da Plataforma 13', 'Literatura - Inglesa', '821.111 IBB/seg', 'Acervo', 1, 0),
+(1867, 'Ibbotson, Eva', 'Disque Fantasma', 'Literatura - Inglesa', '821.111 IBB/dis', 'Acervo', 5, 0),
+(1868, 'Ibbotson, Eva', 'Missão Monstro', 'Literatura - Inglesa', '821.111 IBB/mis', 'Acervo', 4, 0),
+(1869, 'Ibbotson, Eva', 'Puxa, qual Bruxa?', 'Literatura - Inglesa', '821.111 IBB/pux', 'Acervo', 5, 0),
+(1870, 'Ibbotson, Eva', 'O Segredo da Plataforma 13', 'Literatura - Inglesa', '821.111 IBB/seg', 'Acervo', 4, 0),
 (1871, 'Johnson, Mendal W.', 'Quando os Adams saíram ...', 'Literatura - Inglesa', '821.111 JOH/qua', 'Acervo', 1, 0),
 (1872, 'Lawrence, David H.', 'Filhos e Amantes', 'Literatura - Inglesa', '821.111 LAW/fil', 'Acervo', 1, 0),
 (1873, 'Lessing, Doris', 'O Carnê Dourado', 'Literatura - Inglesa', '821.111 LES/car', 'Acervo', 1, 0),
@@ -1943,14 +1936,14 @@ INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situ
 (1878, 'Seierstad, Asne', 'O Livreiro de Cabul', 'Literatura - Inglesa', '821.111 SEI/liv', 'Acervo', 1, 0),
 (1879, 'Rampa, T. Lobsang', 'A 3ª Visão', 'Literatura - Inglesa', '821.111 RAM/ter', 'Acervo', 1, 0),
 (1880, 'Rowling, J. K.', 'Harry Potter e o Cálice de Fogo', 'Literatura - Inglesa', '821.111 ROW/har', 'Acervo', 9, 0),
-(1881, 'Shan, Darren', 'O Assistente de Vampiro', 'Literatura - Inglesa', '821.111 SHA/ass', 'Acervo', 1, 0),
-(1882, 'Shan, Darren', 'A Montanha do Vampiro', 'Literatura - Inglesa', '821.111 SHA/mon', 'Acervo', 1, 0),
-(1883, 'Shan, Darren', 'O Príncipe Vampiro', 'Literatura - Inglesa', '821.111 SHA/pri', 'Acervo', 1, 0),
+(1881, 'Shan, Darren', 'O Assistente de Vampiro', 'Literatura - Inglesa', '821.111 SHA/ass', 'Acervo', 5, 0),
+(1882, 'Shan, Darren', 'A Montanha do Vampiro', 'Literatura - Inglesa', '821.111 SHA/mon', 'Acervo', 5, 0),
+(1883, 'Shan, Darren', 'O Príncipe Vampiro', 'Literatura - Inglesa', '821.111 SHA/pri', 'Acervo', 5, 0),
 (1884, 'Shan, Darren', 'Provas Mortais', 'Literatura - Inglesa', '821.111 SHA/pro', 'Acervo', 1, 0),
-(1885, 'Shan, Darren', 'Túneis de Sangue', 'Literatura - Inglesa', '821.111 SHA/tun', 'Acervo', 1, 0),
+(1885, 'Shan, Darren', 'Túneis de Sangue', 'Literatura - Inglesa', '821.111 SHA/tun', 'Acervo', 5, 0),
 (1886, 'Pennac, Daniel', 'Como um Romance', 'Literatura - Inglesa - Ensaio', '821.111 PEN/com', 'Acervo', 1, 0),
 (1887, 'Wells, H. G.', 'O Homem Invisível', 'Literatura - Inglesa - Ficção', '821.111-3 WEL/hom', 'Acervo', 1, 0),
-(1888, 'McEwan, Ian', 'O Sonhador', 'Literatura - Inglesa - Ficção', '821.111 MCE/son', 'Acervo', 1, 0),
+(1888, 'McEwan, Ian', 'O Sonhador', 'Literatura - Inglesa - Ficção', '821.111 MCE/son', 'Acervo', 5, 0),
 (1889, 'Fielding, Henry', 'Tom Jones', 'Literatura - Inglesa - Novela', '821.111 FIE/tom', 'Acervo', 1, 0),
 (1890, 'Maugham, W. Somerset', 'O Fio da Navalha', 'Literatura - Inglesa - Novela', '821.111 MAU/fio', 'Acervo', 1, 0),
 (1891, 'Orwell, George', 'A Revolução dos Bichos', 'Literatura - Inglesa - Novela', '821.111 ORW/rev', 'Acervo', 1, 0),
@@ -1992,7 +1985,7 @@ INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situ
 (1927, 'Fuentes, Carlos', 'A Morte de Artemio Cruz', 'Literatura - Mexicana - Romance', '821.134.2 (72) FUE/mor', 'Acervo', 1, 0),
 (1928, 'Benitez, J. J.', 'Cavalo de Troia', 'Literatura - Mexicana ', '001.9 BEN/cav', 'Acervo', 1, 0),
 (1929, 'Bach, Richard', 'Longe e o Lugar que Não ...', 'Literatura - Norte - Americana', '821.111 (73) BAC/lon', 'Acervo', 1, 0),
-(1930, 'Brashares, Ann', 'A Irmandade das Calças ...', 'Literatura - Norte - Americana', '821.111 (73) BRA/irm', 'Acervo', 1, 0),
+(1930, 'Brashares, Ann', 'A Irmandade das Calças ...', 'Literatura - Norte - Americana', '821.111 (73) BRA/irm', 'Acervo', 4, 0),
 (1931, 'Paterson, Katherine', 'Duas Vidas, Dois Destinos', 'Literatura - Norte - Americana - Romance', '821.111 (73) PAT/dua', 'Acervo', 1, 0),
 (1932, 'Melville, Herman', 'Batleky, o Escriturário', 'Literatura - Norte - Americana - Romance', '821.111 (73) MEL/bat', 'Acervo', 1, 0),
 (1933, 'Asher, Jay', 'Os 13 Porquês', 'Literatura - Norte - Americana - Romance', '821.111 (73) ASH/ter', 'Acervo', 1, 0),
@@ -2001,11 +1994,11 @@ INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situ
 (1936, 'Stevenson, Robert Louis', 'O Médico e o Monstro', 'Literatura - Norte - Americana', '821.111 (73) STE/med', 'Acervo', 2, 0),
 (1937, 'Cole, Joanna', 'As Aventuras da Dona Friz:', 'Literatura - Norte - Americana', '821.111 (73) COL/ave', 'Acervo', 1, 0),
 (1938, 'Cushman, Karen', 'Aprendiz de Parteira', 'Literatura - Norte - Americana', '821.111 (73) CUS/apr', 'Acervo', 1, 0),
-(1939, 'Cushman, Karen', 'A Balada de Lucy Whipple', 'Literatura - Norte - Americana', '821.111 (73) CUS/bal', 'Acervo', 1, 0),
-(1940, 'Cushman, Karen', 'Catarina, a Menina Chamada', 'Literatura - Norte - Americana', '821.111 (73) CUS/cat', 'Acervo', 1, 0),
-(1941, 'Cushman, Karen', 'Matilda do Osso', 'Literatura - Norte - Americana', '821.111 (73) CUS/mat', 'Acervo', 1, 0),
+(1939, 'Cushman, Karen', 'A Balada de Lucy Whipple', 'Literatura - Norte - Americana', '821.111 (73) CUS/bal', 'Acervo', 5, 0),
+(1940, 'Cushman, Karen', 'Catarina, a Menina Chamada', 'Literatura - Norte - Americana', '821.111 (73) CUS/cat', 'Acervo', 5, 0),
+(1941, 'Cushman, Karen', 'Matilda do Osso', 'Literatura - Norte - Americana', '821.111 (73) CUS/mat', 'Acervo', 3, 0),
 (1942, 'Hoeye, Michael', 'O Tempo não Pode Parar', 'Literatura - Norte - Americana', '821.111 (73) HOE/tem', 'Acervo', 1, 0),
-(1943, 'Lawrence, Lain', 'O Senhor dos Quebra - Nozes', 'Literatura - Norte - Americana', '821.111 (73) LAW/sen', 'Acervo', 1, 0),
+(1943, 'Lawrence, Lain', 'O Senhor dos Quebra - Nozes', 'Literatura - Norte - Americana', '821.111 (73) LAW/sen', 'Acervo', 5, 0),
 (1944, 'Nabokov, Vladimir', 'Lolita', 'Literatura - Norte - Americana', '821.111 (73) NAB/lol', 'Acervo', 1, 0),
 (1945, 'Pullman, Philip', 'A Bússola Dourada', 'Literatura - Norte - Americana', '821.111 (73) PUL/bus', 'Acervo', 1, 0),
 (1946, 'Quarles, Benjamin', 'Lincoln: E o Negro', 'Literatura - Norte - Americana', '821.111 (73) QUA/lin', 'Acervo', 1, 0),
@@ -2024,7 +2017,7 @@ INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situ
 (1959, 'Bradbury, Ray', 'Fahrenheit 451', 'Literatura - Norte - Americana', '821.111 (73) BRA/fah', 'Acervo', 1, 0),
 (1960, 'Brown, Dan', 'O Símbolo Perdido', 'Literatura - Norte - Americana', '821.111 (73) BRO/sim', 'Acervo', 1, 0),
 (1961, 'Miller, Frank', 'Demolidor', 'Literatura - Norte - Americana - Quadrinhos', '821.111 (73) MIL/dem', 'Acervo', 1, 0),
-(1962, 'Brown, Dee', 'Enterre meu Coração na Curva do Rio', 'Literatura - Norte - Americana - Romance', '821.111 (73) BRO/ent', 'Acervo', 1, 0),
+(1962, 'Brown, Dee', 'Enterrem meu Coração na Curva do Rio', 'Literatura - Norte - Americana - Romance', '821.111 (73) BRO/ent', 'Acervo', 1, 0),
 (1963, 'Buck, Pearl S.', 'A Boa Terra', 'Literatura - Norte - Americana - Romance', '821.111 (73) BUC/boa', 'Acervo', 1, 0),
 (1964, 'Capote, Truman', 'A Sangue Frio', 'Literatura - Norte - Americana - Romance', '821.111 (73) CAP/san', 'Acervo', 1, 0),
 (1965, 'Clavell, James', 'Tai - Pan', 'Literatura - Norte - Americana - Romance', '821.111 (73) CLA/tai', 'Acervo', 1, 0),
@@ -2047,9 +2040,9 @@ INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situ
 (1982, 'MacDonald, Ross', 'A Tragédia Blackwell', 'Literatura - Norte - Americana - Romance', '821.111 (73) MAC/tra', 'Acervo', 1, 0),
 (1983, 'MacLaine, Shirley', 'Minhas Vidas', 'Literatura - Norte - Americana - Romance', '821.111 (73) MAC/min', 'Acervo', 1, 0),
 (1984, 'Mailer, Norman', 'Os Nus e os Mortos', 'Literatura - Norte - Americana - Romance', '821.111 (73) MAI/nus', 'Acervo', 1, 0),
-(1985, 'Melville, Herman', 'Bartleby, o Escriturário', 'Literatura - Norte - Americana - Romance', '821.111 (73) MEL/bar', 'Acervo', 1, 0),
-(1986, 'Melville, Herman', 'Moby Dick', 'Literatura - Norte - Americana - Romance', '821.111 (73) MEL/mob', 'Acervo', 1, 0),
-(1987, 'Nickerson, Sara', 'Como Desaparecer Completamente e ...', 'Literatura - Norte - Americana - Romance', '821.111 (73) NIC/com', 'Acervo', 1, 0),
+(1985, 'Melville, Herman', 'Bartleby, o Escriturário', 'Literatura - Norte - Americana - Romance', '821.111 (73) MEL/bar', 'Acervo', 2, 0),
+(1986, 'Melville, Herman', 'Moby Dick', 'Literatura - Norte - Americana - Romance', '821.111 (73) MEL/mob', 'Acervo', 2, 0),
+(1987, 'Nickerson, Sara', 'Como Desaparecer Completamente e ...', 'Literatura - Norte - Americana - Romance', '821.111 (73) NIC/com', 'Acervo', 2, 0),
 (1988, 'O\' Hara, John', 'Encontro em Samarra', 'Literatura - Norte - Americana - Romance', '821.111 (73) OHA/enc', 'Acervo', 1, 0),
 (1989, 'Passos, John dos', 'USA: 1919', 'Literatura - Norte - Americana - Romance', '821.111 (73) PAS/usa', 'Acervo', 1, 0),
 (1990, 'Poe, Edgar Allan', 'Histórias Extraordinárias', 'Literatura - Norte - Americana - Romance', '821.111 (73) POE/his', 'Acervo', 1, 0),
@@ -2091,7 +2084,7 @@ INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situ
 (2026, 'Cavalheiro, Edgard', 'Maravilhas do Conto Português', 'Literatura - Portuguesa - Conto', '821.134.3 CAV/mar', 'Acervo', 1, 0),
 (2027, 'Queiroz, Eça de', 'Contos', 'Literatura - Portuguesa - Conto', '821.134.3 QUE/con', 'Acervo', 3, 0),
 (2028, 'Melo, Carlos Gouveia', 'A Escada', 'Literatura - Portuguesa - Ficção', '821.134.3 MEL/esc', 'Acervo', 1, 0),
-(2029, 'Camões, Luís de', 'Os Lusíadas', 'Literatura - Portuguesa - Poesia', '821.134.3 CAM/lus', 'Acervo', 2, 0),
+(2029, 'Camões, Luís de', 'Os Lusíadas', 'Literatura - Portuguesa - Poesia', '821.134.3 CAM/lus', 'Acervo', 4, 0),
 (2030, 'Camões, Luís de', 'Luís Vaz de Camões', 'Literatura - Portuguesa - Poesia', '869.124 CAM/lui', 'Acervo', 1, 0),
 (2031, 'Dinis, D.', 'Do Cancioneiro de', 'Literatura - Portuguesa - Poesia', '821.134.3 DIN/can', 'Acervo', 1, 0),
 (2032, 'Pessoa, Fernando', 'Obra Poética', 'Literatura - Portuguesa - Poesia', '821.134.3 PES/obr', 'Acervo', 2, 0),
@@ -2115,7 +2108,7 @@ INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situ
 (2050, 'Queiroz, Eça de', 'Ecos de Paris', 'Literatura - Portuguesa - Romance', '821.134.3 QUE/eco', 'Acervo', 1, 0),
 (2051, 'Queiroz, Eça de', 'O Egito', 'Literatura - Portuguesa - Romance', '821.134.3 QUE/egi', 'Acervo', 1, 0),
 (2052, 'Queiroz, Eça de', 'A Ilustre Casa de Ramires', 'Literatura - Portuguesa - Romance', '821.134.3 QUE/ilu', 'Acervo', 1, 0),
-(2053, 'Queiroz, Eça de', 'Os Maias', 'Literatura - Portuguesa - Romance', '821.134.3 QUE/mai', 'Acervo', 1, 0),
+(2053, 'Queiroz, Eça de', 'Os Maias', 'Literatura - Portuguesa - Romance', '821.134.3 QUE/mai', 'Acervo', 2, 0),
 (2054, 'Queiroz, Eça de', 'O Mandarim', 'Literatura - Portuguesa - Romance', '821.134.3 QUE/man', 'Acervo', 1, 0),
 (2055, 'Queiroz, Eça de', 'As Minas de Salomão', 'Literatura - Portuguesa - Romance', '821.134.3 QUE/min', 'Acervo', 1, 0),
 (2056, 'Queiroz, Eça de', 'O Mistério da Estrada de Sintra', 'Literatura - Portuguesa - Romance', '821.134.3 QUE/mis', 'Acervo', 1, 0),
@@ -2137,7 +2130,7 @@ INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situ
 (2072, 'Bergman, Ingmar', 'Gritos e Sussurros', 'Literatura - Sueca - Ficção', '821.113.6 BER/gri', 'Acervo', 1, 0),
 (2073, 'Bergman, Ingmar', 'Sonata do Outono', 'Literatura - Sueca - Ficção', '821.113.6 BER/son', 'Acervo', 1, 0),
 (2074, 'Bergman, Ingmar', 'Vida de Marionetes', 'Literatura - Sueca - Ficção', '821.113.6 BER/vid', 'Acervo', 1, 0),
-(2075, '', 'Contos Populares', 'Literatura - Ucraniana', '821.161.2 CON', 'Acervo', 1, 0),
+(2075, '', 'Contos Populares Ucranianos', 'Literatura - Ucraniana', '821.161.2 CON', 'Acervo', 1, 0),
 (2076, 'Maritain, Jacques', 'Elementos da Filosofia II', 'Lógica - Conceito', '161.1 MAR/ele', 'Acervo', 1, 0),
 (2077, 'Oniga, Teodoro', 'Lógica Trivalente Simétrica', 'Lógica - Matemática', '164 ONI/log', 'Acervo', 1, 0),
 (2078, 'Polya, G', 'A Arte de Resolver ...', 'Lógica - Matemática', '164 POL/art', 'Acervo', 1, 0),
@@ -2286,9 +2279,9 @@ INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situ
 (2221, 'Lomba, Marcos', 'DST e AIDS', 'Medicina - Doenças', '616.97 LOM/dst', 'Acervo', 1, 0),
 (2222, 'Marin, Heimar de Fátima', 'AIDS e Enfermagem ...', 'Medicina - Doenças', '616.97 MAR/aids', 'Acervo', 1, 0),
 (2223, '', 'Saúde Reprodutiva e AIDS', 'Medicina - Doenças', '616.97 SAU', 'Acervo', 1, 0),
-(2224, 'Rubio, Afonso Delgado', '96 Respostas sobre AIDS', 'Medicina - Doenças', '616.98 RUB/res', 'Acervo', 1, 0);
+(2224, 'Rubio, Afonso Delgado', '96 Respostas sobre AIDS', 'Medicina - Doenças', '616.98 RUB/res', 'Acervo', 1, 0),
+(2225, 'Bucher, R.', 'Prevenindo contra as ...', 'Medicina - Doenças - Infecções', '616.98 BUC/pre', 'Acervo', 1, 0);
 INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situacao`, `Quantidade`, `Emprestados`) VALUES
-(2225, 'Bucher, R.', 'Prevenindo contra as ...', 'Medicina - Doenças - Infecções', '616.98 BUC/pre', 'Acervo', 1, 0),
 (2226, '', 'Manual Prático em Controle ...', 'Medicina - Doenças - Infecções', '616.98 MAN', 'Acervo', 1, 0),
 (2227, 'Vasconcellos, Djalma', 'Gastroenterologia Prática', 'Medicina - Doenças - Intestinos', '616.34 VAS/gas', 'Acervo', 1, 0),
 (2228, 'Vallada, E. P.', 'Manual de Coprocultura', 'Medicina - Doenças - Intestinos', '616.34.008.3-07 VAL/man', 'Acervo', 1, 0),
@@ -2479,7 +2472,7 @@ INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situ
 (2413, 'Bright, M.', 'Poluição do Trafego', 'Biologia - Poluição', '351.777.6 BRI/pol', 'Acervo', 2, 0),
 (2414, 'Senent, Juan', 'A Poluição', 'Biologia - Poluição', '351.777.6 SEN/pol', 'Acervo', 1, 0),
 (2415, 'Baines, John', 'Chuva Ácida', 'Biologia - Poluição Atmosférica - Ar', '504.3.054 BAI/chu', 'Acervo', 4, 0),
-(2416, 'Maquiavel', 'O Príncipe', 'Política', '32 MAQ/pri', 'Acervo', 1, 0),
+(2416, 'Maquiavel', 'O Príncipe', 'Política', '32 MAQ/pri', 'Acervo', 2, 0),
 (2417, 'Bright, M.', 'Chuva Ácida', 'Biologia - Poluição Atmosférica - Ar', '504.3.054 BRI/chu', 'Acervo', 2, 0),
 (2418, '', 'A Grande Aventura ...', 'Pré - História', '903 GRA v. 1', 'Acervo', 1, 0),
 (2419, 'Olivieri, Antônio C.', 'Pré - História', 'Pré - História', '903 OLI/pre', 'Acervo', 1, 0),
@@ -2695,7 +2688,7 @@ INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situ
 (2629, 'Pena, Felipe', 'Televisão e Sociedade', 'Telecomunicação - Televisão', '654.172 PEN/tel', 'Acervo', 1, 0),
 (2630, '', 'Da Revolução Científica a Big', 'Teoria do Conhecimento', '165 REV', 'Acervo', 1, 0),
 (2631, 'Kaplan, Robert', 'O Nada que Existe: Uma', 'Teoria dos Números', '511 KAP/nad', 'Acervo', 1, 0),
-(2632, 'Singh, Simon', 'O Último Teorema de Fermat', 'Teoria dos Números', '511.22 SIN/ult', 'Acervo', 1, 0),
+(2632, 'Singh, Simon', 'O Último Teorema de Fermat', 'Teoria dos Números', '511.22 SIN/ult', 'Acervo', 2, 0),
 (2633, '', 'Teorema de Hahn - Banach', 'Teoria dos Números', '511.225.2 TEO', 'Acervo', 1, 0),
 (2634, 'Maor, Eli', 'E - A História de um Número', 'Teoria dos Números', '511.3 MAO/his', 'Acervo', 1, 0),
 (2635, 'McLeish, Ewan', 'A Expansão dos Desertos', 'Terra - Desertos', '551.435.77 MCL/exp', 'Acervo', 4, 0),
@@ -2735,9 +2728,9 @@ INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situ
 (2669, 'Gomes, Ary Gonçalves', 'Sistemas de Prevenção', 'Trabalho - Prevenção', '331.454 GOM/sis', 'Acervo', 1, 0),
 (2670, 'Araújo, Giovanni Morais', 'Normas Regulamentadoras', 'Trabalho - Prevenção - Norma', '331.456 ARA/nor', 'Acervo', 2, 0),
 (2671, '', 'Normas Regulamentadoras', 'Trabalho - Prevenção - Norma', '331.456 NOR', 'Acervo', 1, 0),
-(2672, 'Santos, Alcinéa M. dos A.', 'Norma de Higiene', 'Trabalho - Prevenção - Norma', '331.456 SAN/nor', 'Acervo', 1, 0);
+(2672, 'Santos, Alcinéa M. dos A.', 'Norma de Higiene', 'Trabalho - Prevenção - Norma', '331.456 SAN/nor', 'Acervo', 1, 0),
+(2673, '', 'A Nova NR - 18: Condições e', 'Trabalho - Prevenção - Norma', '331.456 NOV', 'Acervo', 1, 0);
 INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situacao`, `Quantidade`, `Emprestados`) VALUES
-(2673, '', 'A Nova NR - 18: Condições e', 'Trabalho - Prevenção - Norma', '331.456 NOV', 'Acervo', 1, 0),
 (2674, '', 'NR 18 - Condições e Meio', 'Trabalho - Prevenção - Norma', '331.456 NR18', 'Acervo', 1, 0),
 (2675, 'Possibom, Walter Luiz P.', 'NRs 7, 9 e 17: Métodos para', 'Trabalho - Prevenção - Norma', '331.456 POS/nrs', 'Acervo', 1, 0),
 (2676, 'Campos, Vicente Falconi', 'Gerenciamento da Rotina', 'Trabalho - Rotina', '331 CAM/ger', 'Acervo', 1, 0),
@@ -3197,14 +3190,14 @@ INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situ
 (3132, 'Colasanti, Marina', 'Minha guerra alheia', 'Literatura brasileira', '869.93 COL/MIN', 'Acervo', 1, 0),
 (3133, 'Coelho, Paulo', 'O monte cinco', 'literatura brasileira', 'COE/MON', 'Acervo', 1, 0),
 (3134, 'Allende, Isabel', 'A ilha sob o mar', 'Ficção', '868.99333 ALL/ILH', 'Acervo', 1, 0),
-(3135, 'Maquiavel', 'O Príncipe e o Mendigo', 'Literatura', 'MAQ/PRI', 'Acervo', 1, 0),
+(3135, 'Maquiavel', 'apaga', 'Literatura', 'MAQ/PRI', 'Acervo', 1, 0),
 (3136, 'Machado, Luiz Raul', 'As 17 cores do branco', 'Conto Brasileiro', '028.5 MAC/17C', 'Acervo', 1, 0),
 (3137, 'Machado, Angelo', 'O velho da montanha: Uma aventura amazônica', 'Ficção', 'MAC/VEL', 'Acervo', 1, 0),
 (3138, '.', 'O melhor do conto brasileiro', 'Conto Brasileiro', 'MEL', 'Acervo', 1, 0),
 (3139, 'Matos, Gregório de', 'Desenganos da Vida Humana e Outros Poemas', 'Literatura brasileira', '869.91 MA/DES', 'Acervo', 1, 0),
-(3140, 'Meireles, Cecília', 'Flor de poemas', 'Literatura brasileira', 'CEL/FLO', 'Acervo', 1, 0);
+(3140, 'Meireles, Cecília', 'Flor de poemas', 'Literatura brasileira', 'CEL/FLO', 'Acervo', 1, 0),
+(3141, 'Maia, Maria Carolina', 'Ciranda de nós', 'Ficção', '869.93 MAI/CIR', 'Acervo', 1, 0);
 INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situacao`, `Quantidade`, `Emprestados`) VALUES
-(3141, 'Maia, Maria Carolina', 'Ciranda de nós', 'Ficção', '869.93 MAI/CIR', 'Acervo', 1, 0),
 (3142, '.', 'Mar de histórias: fim de século', 'Ferreira', '808.93 MAR', 'Acervo', 2, 0),
 (3143, 'Marigny, Carlos de', 'A ilha das borboletas azuis', 'Literatura Infantojuvenil', '028.5MAR/ILH', 'Acervo', 1, 0),
 (3144, 'Machado, Ana Maria', 'Infâmia', 'Literatura brasileira', '869.93 MAC/INF', 'Acervo', 1, 0),
@@ -3218,7 +3211,7 @@ INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situ
 (3152, 'Gógol, Nikolai', 'O capote e outras histórias', 'Literatura Estrangeira', '891.73 GOG/CAP', 'Acervo', 1, 0),
 (3153, 'Poe, Edgar Allan', 'O Enterro Prematuro', 'Literatura Estrangeira', '813.08 POE/ENT', 'Acervo', 1, 0),
 (3154, 'Pedersen, Simone', 'Poemas minimalistas', 'Literatura brasileira', '808.89 PET/POE', 'Acervo', 1, 0),
-(3155, 'JAMES, Henry', 'A outra volta do parafuso', 'Literatura Estrangeira', '813 JAM/OUT', 'Acervo', 1, 0),
+(3155, 'JAMES, Henry', 'A outra volta do parafuso', 'Literatura Estrangeira', '813 JAM/OUT', 'Acervo', 2, 0),
 (3156, 'Hesse, Hermann', 'O jogo das contas de vidro', 'Literatura Estrangeira', '833 HES/JOG', 'Acervo', 1, 0),
 (3157, 'Paronuzzi, Fred', 'Dez anos e nove meses', 'Literatura brasileira', '028.5 PAR/DEZ', 'Acervo', 1, 0),
 (3158, 'Carvalho, Carlos Albert de.', 'Chica, Sinhá!', 'Literatura brasileira', '808.89 CAR/CMI', 'Acervo', 1, 0),
@@ -3406,7 +3399,7 @@ INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situ
 (3346, 'Souza, Jair de Oliveira ', 'Español para brasileños | Livro do professor	', 'Espanhol', '468.2429', 'Acervo', 1, 0),
 (3347, '', 'Picasso e a modernidade espanhola', 'Picasso', '', 'Acervo', 4, 0),
 (3348, 'Fernandes, Vitor Hugo', 'Professor, o senhor é gay?', 'Ciência Política', '320', 'Acervo', 1, 0),
-(3349, 'Miceli, Paulo', 'O ponto onde estamos', 'Portugal - História', '914.69', 'Acervo', 1, 0),
+(3349, 'Miceli, Paulo', 'apaga', 'Portugal - História', '914.69', 'Acervo', 1, 0),
 (3350, 'Martinez, Paulo', 'África e o Brasil: uma ponte sobre o Atlântico', 'África - colonização', '305.80096', 'Acervo', 1, 0),
 (3351, 'Munanga, Kabengele', 'Origens africanas do Brasil contemporâneo', 'Africanos - Brasil - História', '960', 'Acervo', 2, 0),
 (3352, 'Pereira, Mateus', 'Quilombolas e quilombos: histórias do povo brasileiro', 'Brasileiros - História', '94(81)', 'Acervo', 3, 0),
@@ -3525,13 +3518,13 @@ INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situ
 (3472, 'Isaacs, Ann', 'Saúde mental e enfermagem psiquiátrica', 'Saúde mental', '???', 'Acervo', 1, 0),
 (3473, 'Sabino, Fernando', 'As melhores histórias de Fernando Sabino', 'Crônica brasileira', '869.98', 'Acervo', 1, 0),
 (3474, 'Sant\'Anna, Affonso Romano de', 'Sísifo desce a montanha', 'Poesia brasileira', '869.91', 'Acervo', 1, 0),
-(3475, 'Viana, Klévisson', 'Os ofícios da poesia', 'Literatura Brasileira', '398.20981', 'Acervo', 2, 0),
+(3475, 'Viana, Klévisson', 'apaga', 'Literatura Brasileira', '398.20981', 'Acervo', 2, 0),
 (3476, 'Rosa, João Guimarães', 'Grande sertão: veredas', 'Romance brasileiro', '869.93', 'Acervo', 1, 0),
 (3477, 'Lispector, Clarice', 'A via crucis do corpo', 'Conto', '821.134.3(81) Lis/via', 'Acervo', 5, 0),
 (3478, 'Rushdie, Salman', 'Horoun e o mar de história', 'Ficção indiana', '823', 'Acervo', 1, 0),
 (3479, 'Verne, Júlo', 'Viagem ao Centro da Terra', 'Literatura Infantojuvenil', '028.5', 'Acervo', 1, 0),
-(3480, 'Uris, Leon', 'Topázio', 'Romance', '', 'Acervo', 1, 0),
-(3481, 'Tan, Shaun', 'A chegada', 'Literatura Infantojuvenil', '028.5', 'Acervo', 1, 0),
+(3480, '', 'apaga', '', '', 'Acervo', 0, 0),
+(3481, 'Tan, Shaun', 'apaga', 'Literatura Infantojuvenil', '028.5', 'Acervo', 1, 0),
 (3482, 'Tamaro, Susanna', 'O Cavalheiro do Coração de Banha', 'Literatura Infantojuvenil', '821.134.3(81) TAM/cav', 'Acervo', 1, 0),
 (3483, 'Tolstói, Lev', 'Felicidade conjugal', 'Literatura russa', '821.161.1', 'Acervo', 1, 0),
 (3484, 'Waugh, Evelyn', 'Oficiais e Gentlmen', 'Guerra Mundial', '821.111', 'Acervo', 1, 0),
@@ -3541,7 +3534,7 @@ INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situ
 (3488, 'West, Morris ', 'Do Alto da Montanha', 'Australiano', '821.111', 'Acervo', 1, 0),
 (3490, 'Ho, Jason', 'O médico e o monstro', 'Conto de terror - História em quadrinhos', '741.5973', 'Acervo', 1, 0),
 (3491, 'Zola, Èmile', 'A morte de Oliver Bècaille', 'Ficção francesa', '821.133.1', 'Acervo', 1, 0),
-(3492, '', 'O Fantasma de Canterville', 'Romance', '821.111', 'Acervo', 1, 0),
+(3492, '', 'apaga', '', '', 'Acervo', 0, 0),
 (3493, 'Marins, Francisco	', 'Território de bravos', 'Literatura - Brasileira	', '821.134.3 (81) MAR/ver	', 'Acervo', 1, 0),
 (3494, 'Marins, Francisco', 'A montanha de duas cabeças', 'Literatura - Brasileira	', '821.134.3 (81) MAR/ver	', 'Acervo', 1, 0),
 (3495, 'Gregório de Matos', 'Gregório de Matos', 'Literatura - Brasileira', '869.91', 'Acervo', 1, 0),
@@ -3551,26 +3544,109 @@ INSERT INTO `livros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situ
 (3499, 'Ferreira, Gullar', 'Alfredo Bosi', 'Poesia', '869', 'Acervo', 5, 0),
 (3500, 'Gonçalves, Lurdes', 'Calunga Roteiro de ternuras de um vagabundo', 'Literatura Infantojuvenil', '821.134.3(81)', 'Acervo', 1, 0),
 (3501, 'Gomes, Dias', 'O bem-amado', 'Teatro brasileiro', '869', 'Acervo', 1, 0),
-(3502, 'Gomes, Dias', 'Literatura comentada', 'Crítica e interpretação', '821.134.3(81)', 'Acervo', 1, 0);
+(3502, 'Gomes, Dias', 'Literatura comentada', 'Crítica e interpretação', '821.134.3(81)', 'Acervo', 1, 0),
+(3503, 'Assis, Machado', 'A Crítica Teatral', 'Literatura Brasileira', '821.134.3(81)', 'Acervo', 2, 0),
+(3504, 'Assis, Machado', 'Histórias sem Data', 'Literatura Brasileira', '821.134.3(81)', 'Acervo', 1, 0),
+(3505, 'Assis, Machado', 'Ressureição', 'Literatura Brasileira', '821.134.3(81)', 'Acervo', 1, 0),
+(3506, 'Eça, de Queiroz', 'O Conde Abranhos', 'Língua Portuguesa', '821.134.3(81)', 'Acervo', 1, 0),
+(3507, 'Eça, de Queiroz', 'Alves & Cia', 'Língua Portuguesa', '821.134.3(81)', 'Acervo', 1, 0),
+(3508, 'Eça, de Queiroz', 'Contos Familiares', 'Língua Portuguesa', '821.134.3(81)', 'Acervo', 1, 0),
+(3509, 'Eça, de Queiroz', 'A Cidade e as Serras', 'Língua Portuguesa', '821.134.3(81)', 'Acervo', 1, 0),
+(3510, 'Eça, de Queiroz', 'A Correspondência do Frandique Mendes', 'Língua Portuguesa', '821.134.3(81)', 'Acervo', 1, 0),
+(3511, 'John dos Passos', 'USA - 1919', 'Literatura Brasileira', '821.111(73)', 'Acervo', 1, 0),
+(3512, '', 'apaga', '', '', 'Acervo', 0, 0),
+(3513, 'Pullinger, Jackie', 'Caça ao Dragão', 'Literatura Infantojuvenil', '821.111', 'Acervo', 1, 0),
+(3514, 'Cole, Joana', 'As aventuras da dona Friz - Egito Antigo', 'Literatura Infantojuvenil', '821.111(73)', 'Acervo', 4, 0),
+(3515, 'Clavell', 'Shogun', 'Literatura Infantojuvenil', '821.111', 'Acervo', 1, 0),
+(3516, 'Le Guillou, Philippe', 'Nos passos de... Jesus', 'Literatura Infantojuvenil', '821.134.1', 'Acervo', 1, 0),
+(3517, 'Mansfield, Creina', 'Os chatos dos meus vizinhos', 'Literatura Infantojuvenil', '821.111(417)', 'Acervo', 1, 0),
+(3518, 'Yousafzai, Malala', 'Eu sou Malala', 'Biografia', '920.72', 'Acervo', 1, 0),
+(3519, '', 'Literatura Comentada', 'Luís Vaz de Camões', '869.124', 'Acervo', 1, 0),
+(3520, 'Brezina, Thomas', 'No Templo do Trovão', 'Literatura Infantojuvenil', '821.112.2', 'Acervo', 1, 0),
+(3521, 'Hilton, James', 'Horizonte Perdido', 'Novela', '', 'Acervo', 0, 0),
+(3522, 'Morgan, Langbridge Charles', 'Sparkenbroke', 'Literatura Francesa', '821.111', 'Acervo', 1, 0),
+(3523, 'LaHaye, Tim', 'O Glorioso Aparecimento', 'Ficção-cristã', '821.111(73)', 'Acervo', 1, 0),
+(3524, 'LaHaye, Tim', 'Deixados para Trás', 'Ficção-cristã', '821.111(73)', 'Acervo', 1, 0),
+(3525, 'LaHaye, Tim', 'O Remanescente', 'Ficção-cristã', '821.111(73)', 'Acervo', 1, 0),
+(3526, 'LaHaye, Tim', 'A Profanação', 'Ficção-cristã', '821.111(73)', 'Acervo', 1, 0),
+(3527, 'LaHaye, Tim', 'Apoliom', 'Ficção-cristã', '821.111(73)', 'Acervo', 1, 0),
+(3528, 'LaHaye, Tim', 'A Marca', 'Ficção-cristã', '821.111(73)', 'Acervo', 1, 0),
+(3529, 'LaHaye, Tim', 'Assassinos', 'Ficção-cristã', '821.111(73)', 'Acervo', 1, 0),
+(3530, 'LaHaye, Tim', 'A Colheita', 'Ficção-cristã', '821.111(73)', 'Acervo', 1, 0),
+(3531, 'LaHaye, Tim', 'Comando Tribulação', 'Ficção-cristã', '821.111(73)', 'Acervo', 1, 0),
+(3532, 'LaHaye, Tim', 'Nicolae', 'Ficção-cristã', '821.111(73)', 'Acervo', 1, 0),
+(3533, 'Silva, Alberto da Costa', 'Invenção do Desenho', 'Ficção', '821.134.3(81)', 'Acervo', 1, 0),
+(3534, 'Trigo, Luiza', 'Uma canção para você', 'Literatura Infantojuvenil', '869.3', 'Acervo', 1, 0),
+(3535, 'Aguiar, Luiz Antônio', 'apaga', 'Literatura Brasileira', '821.112.2(73)', 'Acervo', 1, 0),
+(3536, 'Shan, Darren', 'Provas Mortais', 'Literatura Infantojuvenil', '821.111(73)', 'Acervo', 3, 0),
+(3537, 'Shan, Darren', 'apaga', 'Literatura Infantojuvenil', '', 'Acervo', 0, 0),
+(3538, 'Shakespeare, William', 'Romeu e Julieta (adaptação)', 'Literatura inglesa', '821.111', 'Acervo', 3, 0),
+(3539, '', 'A Casa da Califa', 'Literatura Marroquina', '821.111', 'Acervo', 1, 0),
+(3540, 'Shaffer, Mary Ann', 'A sociedade literária e a torta de casca de batata', 'Literatura Infantojuvenil', '813', 'Acervo', 1, 0),
+(3541, 'Queiroz, Eça de', 'Obras de Eça de Queiroz', 'Língua Portuguesa', '821.134.3', 'Acervo', 2, 0),
+(3542, 'Voltaire', 'Contos', 'Contos', '821.133.1', 'Acervo', 2, 0),
+(3543, 'Sartre, Jean-Paul', 'Idade da Razão', 'Contos', '821.133', 'Acervo', 2, 0),
+(3544, 'Veríssimo, Luiz Fernando', 'Conversa sobre o tempo', 'Literatura Brasileira', '821.134.3(81)', 'Acervo', 1, 0),
+(3545, 'Veríssimo, Luiz Fernando', 'apaga', 'Romance', '821.134.3(81)', 'Acervo', 1, 0),
+(3546, 'Hinckel, Florence', 'Nos Estilhaços de Espelho', 'Literatura Infantojuvenil', '028.5', 'Acervo', 2, 0),
+(3547, 'Emediato, Luiz Fernando', 'A Grande Ilusão', 'Literatura Brasileira - Crônicas ', '869.899228', 'Acervo', 2, 0),
+(3548, '', 'A poesia do nome', 'Poesia', 'B869.1', 'Acervo', 1, 0),
+(3549, 'Cisneiro, Sandra', 'A casa na Rua Manco', 'Literatura Norte-Americanas', '813.5', 'Acervo', 2, 0),
+(3550, 'Suassuna, Ariano', 'A História do Amor de Fernando e Isaura', 'Romance Brasileiro', 'B869.93', 'Acervo', 1, 0),
+(3551, '', 'Melhores Crônicas Rubem Braga', 'Cr', '', 'Acervo', 0, 0),
+(3552, '', 'Melhores Crônicas Rubem Braga', 'Crônicas', 'B869.8', 'Acervo', 1, 0),
+(3553, 'Ramos, Graciliano', 'Vidas Secas', 'Romance Brasileiro', '869.3', 'Acervo', 1, 0),
+(3554, 'Sanso, Flávio', 'Viva Ludovico', 'Literatura Brasileira', '869.8992', 'Acervo', 1, 0),
+(3555, 'Gomes, Eustaquio', 'O Vale de sombra', 'Literatura Brasileira', '869.93', 'Acervo', 1, 0),
+(3556, 'Fried, Hédi', 'Perguntas que  me fazem sobre o Holocausto', 'Memórias', '92.99405318', 'Acervo', 1, 0),
+(3557, 'Veiga, José', 'O trono no morro', 'Ficção Brasileira', 'b869.3', 'Acervo', 1, 0),
+(3558, 'Riter, Caio', 'Três Dias', 'Literatura Infantojuvenil', '808.899282', 'Acervo', 1, 0),
+(3559, 'Sombra, Fábio', 'A lenda do violeiro invejoso', 'Contos Brasileiros', '869.3', 'Acervo', 1, 0),
+(3560, 'Andrade, Thiago de Melo', 'Como subir em árvores', 'Literatura Infantojuvenil', '028.5', 'Acervo', 1, 0),
+(3561, 'Atwood, Margaret', 'Semente de Bruxa', 'Romance', '813', 'Acervo', 1, 0),
+(3562, 'Rezzutti, Paulo: a história não contada', 'D. Pedro a ', 'Brasil - História', '981.05', 'Acervo', 1, 0),
+(3563, 'Martinelli, Tânia Alexandre', 'Rede  de Abusos', 'Literatura juvenil', '028.5', 'Acervo', 1, 0),
+(3564, 'Bernardo, Gustavo', 'O mágico de verdade', 'Ficção Brasileira', '869.3', 'Acervo', 1, 0),
+(3565, 'Baranda María', 'Dente de Leão', 'Literatura Infantojuvenil', '028.5', 'Acervo', 1, 0),
+(3566, 'Kucinski, B', 'Júlia: nos campos conflgrados do Senhor', 'Ficção Brasileira', '869.3', 'Acervo', 1, 0),
+(3567, 'Santos, Arquimino dos', 'A brecha: a reviravolta Quilombola', 'Literatura Infantojuvenil', '028.5', 'Acervo', 1, 0),
+(3568, 'Bandeira, manuel', 'Antologia Poética: Manuel Bandeira', 'Poesia', 'B869.1', 'Acervo', 1, 0),
+(3569, 'Carrasco, Walcyr', 'Sonho de uma noite de verão', 'Literatura Infantojuvenil', '028.5', 'Acervo', 1, 0),
+(3570, 'Souza, Ronaldo Luiz', 'Expedição Vera Cruz: uma fantástica aventura pelos mitos e lendas do Brasil', 'Literatura Brasileira', '869.93', 'Acervo', 1, 0),
+(3571, 'Gaudêncio, Bruno', 'Euclides da Cunha em quadrinhos', 'Literatura juvenil', '815.3', 'Acervo', 1, 0),
+(3572, 'Ferreira, Carlos', 'Os sertões: a luta', 'Histórias em quadrinhos', '741.5', 'Acervo', 1, 0),
+(3573, 'Chaiji, Enrique', 'Ainda existe esperança', 'Fé', '234.25', 'Acervo', 1, 0),
+(3574, '', '', '', '', 'Acervo', 0, 0),
+(3575, 'Scliar, Moacyr', 'Moacyr Scliar: contos e crônicas', 'Crônica brasileira', '869.98', 'Acervo', 1, 0),
+(3576, 'Johnson, Spencer', 'O presente', 'Felicidade - Ficção', '813', 'Acervo', 1, 0),
+(3577, 'Soares, Jô', 'As esganadas', 'Romance Brasileiro', '869.93', 'Acervo', 1, 0),
+(3578, 'Soares, Jô', 'O xangô de Baker Street', 'Romance Brasileiro', '869.935', 'Acervo', 1, 0),
+(3579, 'Beck, Suzana Marques Dias', 'Fugindo de casa', 'Literatura Infantojuvenil', '028.5', 'Acervo', 1, 0),
+(3580, 'Werneck, Humberto', 'Esse inferno vai acabar', 'Crônica brasileira', '869.98', 'Acervo', 1, 0),
+(3581, 'Ziraldo', 'Uma história feliz', '', '1426', 'Acervo', 1, 0),
+(3582, 'Xisto, Pedro', 'Lumes: uma antologia de haikais', 'Haicai', '869.91', 'Acervo', 1, 0),
+(3583, 'Franco, Afoso Arinos de Melo', 'História do Banco do Brasil', 'História', '', 'Acervo', 1, 0),
+(3584, '', 'Os pensadores', 'Fé', '', 'Acervo', 3, 0),
+(3585, 'Picchia, Menotti del', 'Obras de Menotti del Picchia', 'Coletânea', '', 'Acervo', 1, 0);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `oldlivros`
+-- Estrutura da tabela `oldlivros`
 --
 
 CREATE TABLE `oldlivros` (
   `id` int(11) NOT NULL,
-  `Autor` varchar(39) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `titulo` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Assunto` varchar(49) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Classificacao` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Situacao` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `Autor` varchar(39) CHARACTER SET utf8 DEFAULT NULL,
+  `titulo` varchar(500) CHARACTER SET utf8 DEFAULT NULL,
+  `Assunto` varchar(49) CHARACTER SET utf8 DEFAULT NULL,
+  `Classificacao` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  `Situacao` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
   `Quantidade` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Despejando dados para a tabela `oldlivros`
+-- Extraindo dados da tabela `oldlivros`
 --
 
 INSERT INTO `oldlivros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `Situacao`, `Quantidade`) VALUES
@@ -4790,55 +4866,38 @@ INSERT INTO `oldlivros` (`id`, `Autor`, `titulo`, `Assunto`, `Classificacao`, `S
 --
 
 --
--- Índices de tabela `alunos`
+-- Índices para tabela `alunos`
 --
 ALTER TABLE `alunos`
-  ADD PRIMARY KEY (`id_aluno`),
-  ADD KEY `id_livro` (`id_livro`);
+  ADD PRIMARY KEY (`id_aluno`);
 
 --
--- Índices de tabela `livros`
+-- Índices para tabela `livros`
 --
 ALTER TABLE `livros`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `oldlivros`
+-- Índices para tabela `oldlivros`
 --
 ALTER TABLE `oldlivros`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT para tabelas despejadas
+-- AUTO_INCREMENT de tabelas despejadas
 --
-
---
--- AUTO_INCREMENT de tabela `alunos`
---
-ALTER TABLE `alunos`
-  MODIFY `id_aluno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `livros`
 --
 ALTER TABLE `livros`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3503;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3586;
 
 --
 -- AUTO_INCREMENT de tabela `oldlivros`
 --
 ALTER TABLE `oldlivros`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1210;
-
---
--- Restrições para tabelas despejadas
---
-
---
--- Restrições para tabelas `alunos`
---
-ALTER TABLE `alunos`
-  ADD CONSTRAINT `alunos_ibfk_1` FOREIGN KEY (`id_livro`) REFERENCES `livros` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -12,7 +12,7 @@ $tipo = "tipo=devolvido";
 //Puxa os Parâmetros
 $dados = rawurlencode($_GET['dados'] ?? "nada");
 
-$location = "alunos.php" ."?" . "dados=" . $dados . "&" . $tipo . "#a" . $id_aluno;
+$location = "alunos.php" ."?" . "dados=" . $dados . "&" . $tipo;
 
 $none ="";
 
