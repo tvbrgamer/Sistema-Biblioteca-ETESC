@@ -85,14 +85,15 @@ foreach ($livros as $livro) {
 
     <link href="css/bootstrap.css" rel="stylesheet">
 
+    <script defer type="text/javascript" src="js/acervo.js"></script>
     <script defer type="text/javascript" src="js/Notify.js"></script>
     <script type="text/javascript" src="js/sweetalert.js"></script>
 </head>
 
 <body <?php
-      if ($tipo != null) {
-        echo 'onload="Notify(\'' . $tipo . '\')"';
-      } ?>>
+        if ($tipo != null) {
+            echo 'onload="Notify(\'' . $tipo . '\')"';
+        } ?>>
 
     <header class="header">
         <div class="logo-div">
@@ -189,14 +190,22 @@ foreach ($livros as $livro) {
             <tbody>
                 <?php foreach ($alunos as $a => $aluno) : ?>
                     <tr>
-                        <td><b><?php echo $aluno['id_aluno'] ?></b></td>
+                        <td><b><a id="a<?php echo $aluno['id_aluno'] ?>"><?php echo $aluno['id_aluno'] ?></a></b></td>
                         <td><?php echo $aluno['nome_aluno'] ?></td>
                         <td><?php echo $aluno['turma_aluno'] ?></td>
                         <td><?php echo $aluno['telefone_aluno'] ?></td>
                         <td><?php echo !empty($livrosAssociativos[$aluno['id_livro']]) ? $livrosAssociativos[$aluno['id_livro']]['titulo'] : '-' ?></td>
                         <td><?php echo !empty($livrosAssociativos[$aluno['id_livro']]) ? $livrosAssociativos[$aluno['id_livro']]['Autor'] : '-' ?></td>
-                        <td><?php if ($aluno['dt_de_formatado'] != "00/00/0000") { echo $aluno['dt_de_formatado']; } else { echo "-"; } ?></td>
-                        <td><?php if ($aluno['dt_dv_formatado'] != "00/00/0000") { echo $aluno['dt_dv_formatado']; } else { echo "-"; } ?></td>
+                        <td><?php if ($aluno['dt_de_formatado'] != "00/00/0000") {
+                                echo $aluno['dt_de_formatado'];
+                            } else {
+                                echo "-";
+                            } ?></td>
+                        <td><?php if ($aluno['dt_dv_formatado'] != "00/00/0000") {
+                                echo $aluno['dt_dv_formatado'];
+                            } else {
+                                echo "-";
+                            } ?></td>
 
                         <td style="white-space: nowrap;">
                             <!-- <a href="editar-livro.php?id=<?php echo "apagar_teste" ?>" class="btn btn-sm btn-outline-primary">Editar</a> -->
@@ -217,7 +226,7 @@ foreach ($livros as $livro) {
                                 <?php if ($dados != 'nada') {
                                     echo "<input type='hidden' name='dados' value='" . $dados . "'>";
                                 } ?>
-                                <button type="submit" class="btn btn-sm btn-success shadow"><abbr title="Devolve o livro emprestado">Devolver</abbr></button>
+                                <button type="button" onclick="Devolve(<?php echo $aluno['id_aluno'] ?>);" class="btn btn-sm btn-success shadow"><abbr title="Devolve o livro emprestado">Devolver</abbr></button>
                             </form>
 
                             <form id="edita<?php echo $aluno['id_aluno'] ?>" action="editar-aluno.php" method="get" style="display: inline-block">
@@ -227,12 +236,12 @@ foreach ($livros as $livro) {
                                 <?php if ($dados != 'nada') {
                                     echo "<input type='hidden' name='dados' value='" . $dados . "'>";
                                 } ?>
-                                <button type="submit" class="btn btn-sm btn-outline-primary"><abbr title="Edita os dados do aluno">Editar</abbr></button>
+                                <button type="button" onclick="editaAluno(<?php echo $aluno['id_aluno'] ?>);"" class="btn btn-sm btn-outline-primary"><abbr title="Edita os dados do aluno">Editar</abbr></button>
                             </form>
 
                             <form id="excluir<?php echo $aluno['id_aluno'] ?>" action="excluir-aluno.php" method="get" style="display: inline-block">
                                 <input type="hidden" name="id_aluno" value="<?php echo $aluno['id_aluno'] ?>">
-                                <button type="button" onclick="Valida(<?php echo $aluno['id_aluno'] ?> , <?php echo $aluno['id_livro'] ?>)" class="btn btn-sm btn-danger"><abbr title="Excluir cadastro">Excluir</abbr></button>
+                                <button type="button" onclick="validaDelete(<?php echo $aluno['id_aluno'] ?> , <?php echo $aluno['id_livro'] ?>)" class="btn btn-sm btn-danger"><abbr title="Excluir cadastro">Excluir</abbr></button>
                             </form>
                         </td>
                     </tr>
@@ -243,80 +252,3 @@ foreach ($livros as $livro) {
 </body>
 
 </html>
-
-<script>
-    const Empresta = (id_aluno, id_livro) => {
-        if (id_livro == null) {
-            document.getElementById('empresta' + id_aluno).submit();
-        } else {
-            Notify("devolva_antes");
-        }
-    }
-
-    const Valida = (id_aluno, id_livro) => {
-
-        swal({
-                title: "Tem certeza?",
-                text: "Se você apagar, não poderá recuperar o registro do aluno",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-
-                    if (id_livro == null) {
-                        document.getElementById('excluir' + id_aluno).submit();
-                    } else {
-                        const form = document.getElementById('excluir' + id_aluno);
-
-                        const hiddenInput = document.createElement('input');
-                        hiddenInput.type = 'hidden';
-                        hiddenInput.name = 'id_livro';
-                        hiddenInput.value = id_livro;
-
-                        form.appendChild(hiddenInput);
-                        form.submit();
-                    }
-                } else {
-                    swal("Aluno não Apagado");
-                }
-            });
-    }
-
-    // Seleciona o elemento select pelo seu ID
-    const select = document.querySelector('#select');
-    const ordem = document.querySelector('#ordem');
-
-    // Adiciona um listener para o evento 'change' do elemento select
-    ordem.addEventListener('change', (event) => {
-        // Obtém o valor selecionado
-        const ordemValue = event.target.value;
-
-        // Obtém o valor atual de 'ordem' da URL
-        const url = new URL(window.location.href);
-        const currentOrdem = url.searchParams.get('ordem') || "ASC";
-
-        // Atualiza a URL com os novos valores de 'ordem'
-        url.searchParams.set('ordem', ordemValue);
-
-        window.history.pushState({}, '', url);
-        window.location.reload(true);
-    })
-
-    // Adiciona um listener para o evento 'change' do elemento limit
-    select.addEventListener('change', (event) => {
-        // Obtém o valor selecionado
-        const selectedValue = parseInt(event.target.value);
-
-        // Obtém o valor atual de 'start' e 'limit' da URL
-        const url = new URL(window.location.href);
-        const currentLimit = parseInt(url.searchParams.get('limit') || 25);
-
-        // Atualiza a URL com os novos valores de 'limit'
-        url.searchParams.set('limit', selectedValue);
-
-        window.history.pushState({}, '', url);
-        window.location.reload(true);
-    });
-</script>
