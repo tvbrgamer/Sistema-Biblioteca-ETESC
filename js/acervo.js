@@ -23,78 +23,6 @@ function confirmarDelete(ID, Emprestado) {
     console.log("Emprestado:", Emprestado);
 }
 
-const editaLivro = (id_livro) => {
-    swal({
-            title: "Tem certeza?",
-            icon: "warning",
-            buttons: true,
-        })
-        .then((willValide) => {
-            if (willValide) {
-                document.getElementById('editar' + id_livro).submit();
-            }
-        });
-}
-
-const Devolve = (id_aluno) => {
-    swal({
-            title: "Tem certeza?",
-            icon: "warning",
-            buttons: true,
-        })
-        .then((willValide) => {
-            if (willValide) {
-                document.getElementById('devolve' + id_aluno).submit();
-            } else {
-                swal("O livro não foi devolvido");
-            }
-        });
-}
-
-const editaAluno = (id_aluno) => {
-    swal({
-            title: "Tem certeza?",
-            icon: "warning",
-            buttons: true,
-        })
-        .then((willValide) => {
-            if (willValide) {
-                document.getElementById('edita' + id_aluno).submit();
-            }
-        });
-}
-
-const validaDelete = (id_aluno, id_livro) => {
-
-    swal({
-            title: "Tem certeza?",
-            text: "Se você apagar, não poderá recuperar o registro do aluno",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        })
-        .then((willDelete) => {
-            if (willDelete) {
-
-                if (id_livro == null) {
-                    document.getElementById('excluir' + id_aluno).submit();
-                } else {
-                    const form = document.getElementById('excluir' + id_aluno);
-
-                    const hiddenInput = document.createElement('input');
-                    hiddenInput.type = 'hidden';
-                    hiddenInput.name = 'id_livro';
-                    hiddenInput.value = id_livro;
-
-                    form.appendChild(hiddenInput);
-                    form.submit();
-                }
-            } else {
-                swal("Aluno não Apagado");
-            }
-        });
-}
-
 function Valida(QTD, QTDE, ID) {
     swal({
         title: "Tem certeza?",
@@ -116,10 +44,6 @@ function Valida(QTD, QTDE, ID) {
         });
 }
 
-// Seleciona o elemento select pelo seu ID
-const select = document.querySelector('#select');
-const ordem = document.querySelector('#ordem');
-
 // Adiciona um listener para o evento 'change' do elemento select
 ordem.addEventListener('change', (event) => {
     // Obtém o valor selecionado
@@ -127,6 +51,7 @@ ordem.addEventListener('change', (event) => {
 
     // Obtém o valor atual de 'ordem' da URL
     const url = new URL(window.location.href);
+    const currentOrdem = url.searchParams.get('ordem') || "ASC";
 
     // Atualiza a URL com os novos valores de 'ordem'
     url.searchParams.set('ordem', ordemValue);
@@ -142,6 +67,7 @@ select.addEventListener('change', (event) => {
 
     // Obtém o valor atual de 'start' e 'limit' da URL
     const url = new URL(window.location.href);
+    const currentLimit = parseInt(url.searchParams.get('limit') || 25);
 
     // Atualiza a URL com os novos valores de 'limit'
     url.searchParams.set('limit', selectedValue);

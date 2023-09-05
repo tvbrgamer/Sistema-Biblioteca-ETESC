@@ -53,7 +53,6 @@ $livros = $statement->fetchAll(PDO::FETCH_ASSOC);
 
   <link href="css/bootstrap.css" rel="stylesheet">
 
-  <script defer type="text/javascript" src="js/acervo.js"></script>
   <script type="text/javascript" src="js/sweetalert.js"></script>
 </head>
 
@@ -211,4 +210,40 @@ $livros = $statement->fetchAll(PDO::FETCH_ASSOC);
         }
       });
   }
+
+  // Seleciona o elemento select pelo seu ID
+  const select = document.querySelector('#select');
+  const ordem = document.querySelector('#ordem');
+
+  // Adiciona um listener para o evento 'change' do elemento select
+  ordem.addEventListener('change', (event) => {
+    // Obtém o valor selecionado
+    const ordemValue = event.target.value;
+
+    // Obtém o valor atual de 'ordem' da URL
+    const url = new URL(window.location.href);
+    const currentOrdem = url.searchParams.get('ordem') || "ASC";
+
+    // Atualiza a URL com os novos valores de 'ordem'
+    url.searchParams.set('ordem', ordemValue);
+
+    window.history.pushState({}, '', url);
+    window.location.reload(true);
+  })
+
+  // Adiciona um listener para o evento 'change' do elemento select
+  select.addEventListener('change', (event) => {
+    // Obtém o valor selecionado
+    const selectedValue = parseInt(event.target.value);
+
+    // Obtém o valor atual de 'start' e 'limit' da URL
+    const url = new URL(window.location.href);
+    const currentLimit = parseInt(url.searchParams.get('limit') || 25);
+
+    // Atualiza a URL com os novos valores de 'limit'
+    url.searchParams.set('limit', selectedValue);
+
+    window.history.pushState({}, '', url);
+    window.location.reload(true);
+  });
 </script>

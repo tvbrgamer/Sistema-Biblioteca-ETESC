@@ -183,7 +183,7 @@ $livros = $statement->fetchAll(PDO::FETCH_ASSOC);
                 <input type="hidden" name="id" value="<?php echo $livro['id'] ?>">
                 <input type="hidden" name="Parametro" value="<?php echo $parametro ?>">
 
-                <button type="button" onclick="editaLivro(<?php echo $livro['id'] ?>);" class="btn btn-sm btn-outline-primary"><abbr title="Editar livro">Editar</abbr></button>
+                <button type="submit" class="btn btn-sm btn-outline-primary"><abbr title="Editar livro">Editar</abbr></button>
               </form>
 
               <form id="delete<?php echo $livro['id'] ?>" action="deletar-livro.php" method="post" style="display: inline-block">
