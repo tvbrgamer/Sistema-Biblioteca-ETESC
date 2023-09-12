@@ -9,7 +9,7 @@ function confirmarDelete(ID, Emprestado) {
             title: "Tem certeza?",
             text: "Se você apagar, não poderá recuperar o registro.",
             icon: "warning",
-            buttons: true,
+            buttons: ["Cancelar","Sim"],
             dangerMode: true,
         }).then((willDelete) => {
             if (willDelete) {
@@ -35,7 +35,7 @@ const editaLivro = (id_livro) => {
     swal({
             title: "Tem certeza?",
             icon: "warning",
-            buttons: true,
+            buttons: ["Cancelar","Sim"],
         })
         .then((willValide) => {
             if (willValide) {
@@ -48,7 +48,7 @@ const Devolve = (id_aluno) => {
     swal({
             title: "Tem certeza?",
             icon: "warning",
-            buttons: true,
+            buttons: ["Cancelar","Sim"],
         })
         .then((willValide) => {
             if (willValide) {
@@ -63,7 +63,7 @@ const editaAluno = (id_aluno) => {
     swal({
             title: "Tem certeza?",
             icon: "warning",
-            buttons: true,
+            buttons: ["Cancelar","Sim"],
         })
         .then((willValide) => {
             if (willValide) {
@@ -78,7 +78,7 @@ const validaDelete = (id_aluno, id_livro) => {
             title: "Tem certeza?",
             text: "Se você apagar, não poderá recuperar o registro do aluno",
             icon: "warning",
-            buttons: true,
+            buttons: ["Cancelar","Sim"],
             dangerMode: true,
         })
         .then((willDelete) => {
@@ -107,7 +107,7 @@ function Valida(QTD, QTDE, ID) {
     swal({
         title: "Tem certeza?",
         icon: "warning",
-        buttons: true,
+        buttons: ["Cancelar","Sim"],
     })
         .then((willValide) => {
             if (willValide) {

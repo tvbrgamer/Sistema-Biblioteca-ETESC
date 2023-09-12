@@ -20,7 +20,6 @@ if ($search) {
   }
   $statement->bindValue(":autor", "%$search%");
   $statement->bindValue(":titulo", "%$search%");
-
 } else {
   if ($ordem == "DESC") {
     $statement = $pdo->prepare("SELECT * FROM livros WHERE Emprestados >= 1 ORDER BY ID DESC LIMIT :start , :limit ");
@@ -143,6 +142,7 @@ $livros = $statement->fetchAll(PDO::FETCH_ASSOC);
           <th scope="col">Situação</th>
           <th scope="col">Quantidade</th>
           <th scope="col">Emprestado</th>
+          <th scope="col">Alunos com o Livro</th>
         </tr>
       </thead>
       <tbody>
@@ -156,6 +156,7 @@ $livros = $statement->fetchAll(PDO::FETCH_ASSOC);
             <td><?php echo $livro['Situacao'] ?></td>
             <td><?php echo $livro['Quantidade'] ?></td>
             <td><?php echo $livro['Emprestados'] ?></td>
+            <td><form action="alunos.php" method="post"><button type="submit" name="id_livro" value="<?php echo $livro['id'] ?>" class="btn btn-sm btn-success shadow"><abbr title="Ver todos os alunos com esse livro">Mostrar</abbr></button></form></td>
 
             <td style="white-space: nowrap;"></td>
           </tr>
@@ -166,49 +167,3 @@ $livros = $statement->fetchAll(PDO::FETCH_ASSOC);
 </body>
 
 </html>
-
-<script>
-  function Devolver(id) {
-    swal({
-        title: "Tem certeza?",
-        icon: "warning",
-        buttons: true,
-      })
-      .then((willValide) => {
-        if (willValide) {
-          swal("O livro foi devolvido", {
-            icon: "success",
-          });
-          setTimeout(() => {
-            document.getElementById('devolve' + id).submit();
-          }, 1000);
-        }else {
-          swal("Livro não devolvido");
-        }
-      });
-  }
-
-  function Valida(QTD, QTDE, ID) {
-    swal({
-        title: "Tem certeza?",
-        icon: "warning",
-        buttons: true,
-      })
-      .then((willValide) => {
-        if (willValide) {
-          if (QTD >= (QTDE + 1)) {
-            swal("O livro foi emprestado", {
-              icon: "success",
-            });
-            setTimeout(() => {
-              document.getElementById('empresta' + ID).submit();
-            }, 1000);
-          } else {
-            swal("Quantidade de livros insuficientes para emprestar");
-          }
-        }else {
-          swal("Livro emprestado");
-        }
-      });
-  }
-</script>

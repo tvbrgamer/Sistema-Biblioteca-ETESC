@@ -15,39 +15,49 @@ $ordem  = $_GET['ordem']    ?? "ASC";
 $origem = "alunos.php";
 $startelimit = $start + $limit;
 
+$id_livro = $_POST['id_livro'] ?? null;
+
 $parametro = "?" . "pesquisa=" . $search . "&" . "limit=" . $limit . "&" . "start=" . $start . "&" . "ordem=" . $ordem;
 
-if ($search) {
+if ($id_livro) {
+    $statement = $pdo->prepare("SELECT *,DATE_FORMAT(data_devolucao, '%d/%m/%Y') as dt_dv_formatado,
+    DATE_FORMAT(data_emprestimo, '%d/%m/%Y') as dt_de_formatado from alunos where id_livro = :id_livro LIMIT :start , :limit");
 
-    if ($ordem == "DEVO") {
-        $statement = $pdo->prepare("SELECT *, DATE_FORMAT(data_devolucao, '%d/%m/%Y') as dt_dv_formatado,
+    $statement->bindValue(":id_livro", $id_livro, PDO::PARAM_INT);
+} else {
+
+    if ($search) {
+
+        if ($ordem == "DEVO") {
+            $statement = $pdo->prepare("SELECT *, DATE_FORMAT(data_devolucao, '%d/%m/%Y') as dt_dv_formatado,
                                               DATE_FORMAT(data_emprestimo, '%d/%m/%Y') as dt_de_formatado
                                               FROM alunos WHERE nome_aluno LIKE :aluno OR turma_aluno LIKE :turma ORDER BY data_devolucao DESC, id_aluno DESC LIMIT :start , :limit");
-    } else if ($ordem == "DESC") {
-        $statement = $pdo->prepare("SELECT *, DATE_FORMAT(data_devolucao, '%d/%m/%Y') as dt_dv_formatado,
+        } else if ($ordem == "DESC") {
+            $statement = $pdo->prepare("SELECT *, DATE_FORMAT(data_devolucao, '%d/%m/%Y') as dt_dv_formatado,
                                               DATE_FORMAT(data_emprestimo, '%d/%m/%Y') as dt_de_formatado
                                               FROM alunos WHERE nome_aluno LIKE :aluno OR turma_aluno LIKE :turma ORDER BY id_aluno DESC LIMIT :start , :limit");
-    } else {
-        $statement = $pdo->prepare("SELECT *, DATE_FORMAT(data_devolucao, '%d/%m/%Y') as dt_dv_formatado,
+        } else {
+            $statement = $pdo->prepare("SELECT *, DATE_FORMAT(data_devolucao, '%d/%m/%Y') as dt_dv_formatado,
                                               DATE_FORMAT(data_emprestimo, '%d/%m/%Y') as dt_de_formatado
                                               FROM alunos WHERE nome_aluno LIKE :aluno OR turma_aluno LIKE :turma LIMIT :start , :limit");
-    }
+        }
 
-    $statement->bindValue(":aluno", "%$search%");
-    $statement->bindValue(":turma", "%$search%");
-} else {
-    if ($ordem == "DEVO") {
-        $statement = $pdo->prepare("SELECT *, DATE_FORMAT(data_devolucao, '%d/%m/%Y') as dt_dv_formatado,
+        $statement->bindValue(":aluno", "%$search%");
+        $statement->bindValue(":turma", "%$search%");
+    } else {
+        if ($ordem == "DEVO") {
+            $statement = $pdo->prepare("SELECT *, DATE_FORMAT(data_devolucao, '%d/%m/%Y') as dt_dv_formatado,
                                               DATE_FORMAT(data_emprestimo, '%d/%m/%Y') as dt_de_formatado
                                               FROM alunos ORDER BY data_devolucao DESC, id_aluno DESC LIMIT :start , :limit");
-    } else if ($ordem == "DESC") {
-        $statement = $pdo->prepare("SELECT *, DATE_FORMAT(data_devolucao, '%d/%m/%Y') as dt_dv_formatado,
+        } else if ($ordem == "DESC") {
+            $statement = $pdo->prepare("SELECT *, DATE_FORMAT(data_devolucao, '%d/%m/%Y') as dt_dv_formatado,
                                               DATE_FORMAT(data_emprestimo, '%d/%m/%Y') as dt_de_formatado
                                               FROM alunos ORDER BY id_aluno DESC LIMIT :start , :limit");
-    } else {
-        $statement = $pdo->prepare("SELECT *, DATE_FORMAT(data_devolucao, '%d/%m/%Y') as dt_dv_formatado,
+        } else {
+            $statement = $pdo->prepare("SELECT *, DATE_FORMAT(data_devolucao, '%d/%m/%Y') as dt_dv_formatado,
                                               DATE_FORMAT(data_emprestimo, '%d/%m/%Y') as dt_de_formatado
                                               FROM alunos LIMIT :start , :limit");
+        }
     }
 }
 
@@ -236,7 +246,7 @@ foreach ($livros as $livro) {
                                 <?php if ($dados != 'nada') {
                                     echo "<input type='hidden' name='dados' value='" . $dados . "'>";
                                 } ?>
-                                <button type="button" onclick="editaAluno(<?php echo $aluno['id_aluno'] ?>);"" class="btn btn-sm btn-outline-primary"><abbr title="Edita os dados do aluno">Editar</abbr></button>
+                                <button type="button" onclick="editaAluno(<?php echo $aluno['id_aluno'] ?>);"" class=" btn btn-sm btn-outline-primary"><abbr title="Edita os dados do aluno">Editar</abbr></button>
                             </form>
 
                             <form id="excluir<?php echo $aluno['id_aluno'] ?>" action="excluir-aluno.php" method="get" style="display: inline-block">
