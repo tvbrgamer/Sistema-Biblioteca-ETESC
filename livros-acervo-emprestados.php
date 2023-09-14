@@ -69,7 +69,9 @@ $livros = $statement->fetchAll(PDO::FETCH_ASSOC);
     <nav class="nav">
       <ul>
         <li><a href="index.php">Início</a></li>
-        <li><a href="cadastro-livros.php">Catálogo</a></li>
+        <li><a href="livros-acervo.php">Catálogo</a></li>
+        <li><a href="livros-acervo-emprestados.php">Livros emprestados</a></li>
+        <li><a href="alunos.php">Alunos</a></li>
     </nav>
   </header>
 
@@ -156,7 +158,9 @@ $livros = $statement->fetchAll(PDO::FETCH_ASSOC);
             <td><?php echo $livro['Situacao'] ?></td>
             <td><?php echo $livro['Quantidade'] ?></td>
             <td><?php echo $livro['Emprestados'] ?></td>
-            <td><form action="alunos.php" method="post"><button type="submit" name="id_livro" value="<?php echo $livro['id'] ?>" class="btn btn-sm btn-success shadow"><abbr title="Ver todos os alunos com esse livro">Mostrar</abbr></button></form></td>
+            <td>
+              <form action="alunos.php" method="post"><button type="submit" name="id_livro" value="<?php echo $livro['id'] ?>" class="btn btn-sm btn-success shadow"><abbr title="Ver todos os alunos com esse livro">Mostrar</abbr></button></form>
+            </td>
 
             <td style="white-space: nowrap;"></td>
           </tr>

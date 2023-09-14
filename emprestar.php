@@ -29,15 +29,15 @@ $origem = explode('=', $metadados[3]);
 
 $Para = explode('=', $metadados[4]);
 
-if(!$Para[2]){
+if (!$Para[2]) {
     $Para[1] = "?";
     $Para[2] = "";
-}else{
+} else {
     $Para[1] = $Para[1] . "=";
     $Para[2] = $Para[2] . "&";
 }
 
-$Parametros = $Para['1'] . $Para['2'] . $metadados[5] . '&' . $metadados[6]. '&' . $metadados[7];
+$Parametros = $Para['1'] . $Para['2'] . $metadados[5] . '&' . $metadados[6] . '&' . $metadados[7];
 
 $location = "Location:" . $origem[1] . $Parametros . "&tipo=empresta" .  "#a" . $id_livronum[1];
 
@@ -68,39 +68,39 @@ if ($QTDnum[1] >= $QTDEFinal) {
     $statement3 = $pdo->prepare('SELECT * FROM alunos WHERE id_aluno = :id_aluno');
     $statement3->bindValue(":id_aluno", $id_aluno);
     $statement3->execute();
-    
+
     $aluno = $statement3->fetch(PDO::FETCH_ASSOC);
-    
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        
+
         $data_emprestimo = $_POST['data_emprestimo'];
         $data_devolucao = $_POST['data_devolucao'];
-        
+
         $statement3 = $pdo->prepare("UPDATE alunos SET id_livro = :id_livro, data_emprestimo = :data_emprestimo, data_devolucao = :data_devolucao WHERE id_aluno = :id_aluno");
-        
+
         $statement3->bindValue(':id_aluno', $id_aluno);
         $statement3->bindValue(':id_livro', $id_livronum[1]);
         $statement3->bindValue(':data_emprestimo', $data_emprestimo);
         $statement3->bindValue(':data_devolucao', $data_devolucao);
         $statement3->execute();
-        
+
         header($location);
         die();
     }
-}else{
+} else {
     header($location);
     die();
 }
-    
-    
-    
-    ?>
+
+
+
+?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
-    
-    <head>
-        <meta charset="UTF-8" />
+
+<head>
+    <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Acervo</title>
@@ -127,6 +127,8 @@ if ($QTDnum[1] >= $QTDEFinal) {
             <ul>
                 <li><a href="index.php">Início</a></li>
                 <li><a href="livros-acervo.php">Catálogo</a></li>
+                <li><a href="livros-acervo-emprestados.php">Livros emprestados</a></li>
+                <li><a href="alunos.php">Alunos</a></li>
         </nav>
     </header>
 
@@ -138,7 +140,7 @@ if ($QTDnum[1] >= $QTDEFinal) {
 
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Nome do livro</span>
-            <input type="text" name="nome_livro" disabled class="form-control"  value="<?php echo $livro['titulo']; ?>" placeholder="Nome do livro" aria-label="Username" aria-describedby="basic-addon1">
+            <input type="text" name="nome_livro" disabled class="form-control" value="<?php echo $livro['titulo']; ?>" placeholder="Nome do livro" aria-label="Username" aria-describedby="basic-addon1">
         </div>
 
 

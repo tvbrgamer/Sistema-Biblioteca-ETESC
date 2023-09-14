@@ -92,6 +92,8 @@ function redirect($location)
       <ul>
         <li><a href="index.php">Início</a></li>
         <li><a href="livros-acervo.php">Catálogo</a></li>
+        <li><a href="livros-acervo-emprestados.php">Livros emprestados</a></li>
+        <li><a href="alunos.php">Alunos</a></li>
     </nav>
   </header>
 

@@ -3,11 +3,11 @@
 /** @var $pdo \PDO */
 require_once "database.php";
 
-$dados = $_GET["dados"]?? '';
+$dados = $_GET["dados"] ?? '';
 
-if ($dados != NULL){
+if ($dados != NULL) {
     $dadosurl = "?dados=" . rawurlencode($dados);
-}else {
+} else {
     $dadosurl = "";
 }
 
@@ -64,6 +64,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <ul>
                 <li><a href="index.php">Início</a></li>
                 <li><a href="livros-acervo.php">Catálogo</a></li>
+                <li><a href="livros-acervo-emprestados.php">Livros emprestados</a></li>
+                <li><a href="alunos.php">Alunos</a></li>
         </nav>
     </header>
 
@@ -91,19 +93,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </html>
 
 <Script>
-document.addEventListener("DOMContentLoaded", () => {
-  new Cleave("#turma", {
-    delimiters: ["/"],
-    blocks: [4, 2],
-    numericOnly: true,
-  });
-});
+    document.addEventListener("DOMContentLoaded", () => {
+        new Cleave("#turma", {
+            delimiters: ["/"],
+            blocks: [4, 2],
+            numericOnly: true,
+        });
+    });
 
-document.addEventListener("DOMContentLoaded", () => {
-  new Cleave("#tel", {
-    delimiters: ["(", ") ", "-"],
-    blocks: [0, 2, 5, 4],
-    numericOnly: true,
-  });
-});
+    document.addEventListener("DOMContentLoaded", () => {
+        new Cleave("#tel", {
+            delimiters: ["(", ") ", "-"],
+            blocks: [0, 2, 5, 4],
+            numericOnly: true,
+        });
+    });
 </Script>
