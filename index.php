@@ -62,7 +62,7 @@ $AlunosQtd = $statement4->fetch(PDO::FETCH_NUM);
 
   <section class="hero-section">
 
-    <a href="livros-acervo.php" style="text-decoration: none;color:black">
+    <a href="livros-acervo.php" class="nsei">
       <div class="card">
         <img src="img/home-icon1.png" alt="">
         <h3>Títulos de Livros</h3>
@@ -72,8 +72,8 @@ $AlunosQtd = $statement4->fetch(PDO::FETCH_NUM);
       </div>
     </a>
 
-    <a href="livros-acervo-emprestados.php" style="height:289.514px;width:261.021;text-decoration: none;color:black">
-      <div class="card" style="height:289.514px;width:261.021;">
+    <a href="livros-acervo-emprestados.php" class="nsei">
+      <div class="card">
         <img src="img/home-icon2.png" alt="home">
 
         <h3 style="margin-top: 50px;">Livros Emprestados</h3>
@@ -82,8 +82,8 @@ $AlunosQtd = $statement4->fetch(PDO::FETCH_NUM);
       </div>
     </a>
 
-    <a href="alunos.php" style="height:289.514px;width:261.021;text-decoration: none;color:black">
-      <div class="card" style="height:289.514px;width:261.021;">
+    <a href="alunos.php" class="nsei">
+      <div class="card">
         <img src="img/aluno.png" alt="aluno">
 
         <h3 style="margin-top: 50px;">Total de Alunos</h3>
@@ -99,6 +99,18 @@ $AlunosQtd = $statement4->fetch(PDO::FETCH_NUM);
 <style>
   body {
     overflow: hidden;
+  }
+
+  .nsei {
+    height: 289.514px;
+    width: 261.021;
+    text-decoration: none;
+    color: black
+  }
+
+  .nsei div.card {
+    height: 289.514px;
+    width: 261.021;
   }
 </style>
 
