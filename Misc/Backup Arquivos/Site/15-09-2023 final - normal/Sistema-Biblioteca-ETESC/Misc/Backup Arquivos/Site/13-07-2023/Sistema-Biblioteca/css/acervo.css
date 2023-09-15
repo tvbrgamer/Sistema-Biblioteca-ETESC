@@ -1,0 +1,39 @@
+.btn-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-section div {
+  padding: 1rem 2rem;
+  margin: 1rem 0;
+  background: rgba(146, 146, 146, 0.167);
+}
+
+.livros-section {
+  padding: 1rem 3rem;
+}
+
+.cadastro-section {
+  padding: 1rem 6rem;
+}
+
+abbr {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+section.selecao-section {
+  display: flex;
+  gap: 18%;
+}
+
+#paginacao {
+  display: flex;
+  justify-content: space-between;
+}
+
+#LPP,
+#Ordem{
+  width: 200px;
+}

@@ -1,0 +1,122 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+
+  font-family: sans-serif;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+/* Header */
+
+.header {
+  width: 100%;
+  /* margin-top: 100px; */
+
+  color: #fff;
+}
+.logo-div {
+  /* margin: 1rem 0; */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-div a {
+  /* margin: 1rem 0; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+
+.secti {
+  max-width: 10%;
+  margin-bottom: 5px;
+}
+
+.etesc {
+  max-width: 24%;
+}
+
+.nav {
+  padding: 20px;
+  background: #000;
+}
+
+.nav ul {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  gap: 1em;
+  font-size: 1.2rem;
+}
+
+.nav li a {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  margin: 0.25rem 0;
+  font-size: 1.25rem;
+  border-radius: 5px;
+  color: #fff;
+  text-decoration: none;
+
+  transition: 300ms ease;
+}
+.nav li a:hover {
+  background: #fff;
+  color: #000;
+}
+
+/* Hero Section */
+
+.hero-section {
+  height: calc(100vh - 131px);
+  width: 100%;
+  background-image: linear-gradient(90deg, #4489ff61, #4489ff5b),
+    url(../img/home-section-bg.jpg);
+  background-size: cover;
+  background-position: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+}
+
+.card {
+  /* width: 200px;
+  height: 200px; */
+  padding: 1rem 3rem;
+  text-align: center;
+  border: 2px solid black;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.59);
+
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.85);
+  transition: transform 100ms;
+}
+
+.card a {
+  color: #000;
+  text-decoration: none;
+}
+.card:hover {
+  transform: scale(1.05);
+  text-decoration: none;
+}
+.card img {
+  width: 100px;
+}
