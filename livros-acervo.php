@@ -78,8 +78,10 @@ $livros = $statement->fetchAll(PDO::FETCH_ASSOC);
       <ul>
         <li><a href="index.php">Início</a></li>
         <li><a href="livros-acervo.php">Catálogo</a></li>
+        <!--
         <li><a href="livros-acervo-emprestados.php">Livros emprestados</a></li>
         <li><a href="alunos.php">Alunos</a></li>
+        -->
     </nav>
   </header>
 
@@ -193,6 +195,8 @@ $livros = $statement->fetchAll(PDO::FETCH_ASSOC);
                 <button type="button" onclick="confirmarDelete(<?php echo $livro['id'] . ',' .  $livro['Emprestados'] ?>)" class="btn btn-sm btn-danger"><abbr title="Deletar 1 livro">Deletar</abbr></button>
               </form>
 
+
+              <!--
               <form id="empresta<?php echo $livro['id'] ?>" action="alunos.php" method="get" style="display: inline-block">
 
                 <input type="hidden" name="dados" value="<?php echo 'id=' . $livro['id'] .
@@ -203,7 +207,7 @@ $livros = $statement->fetchAll(PDO::FETCH_ASSOC);
 
                 <button type="button" onclick="Valida(<?php echo $livro['Quantidade'] ?> , <?php echo $livro['Emprestados'] ?>,<?php echo $livro['id'] ?> )" class="btn btn-sm btn-secondary"><abbr title="Emprestar o livro">Emprestar</abbr></button>
               </form>
-
+              -->
 
             </td>
           </tr>

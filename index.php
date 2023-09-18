@@ -55,8 +55,10 @@ $AlunosQtd = $statement4->fetch(PDO::FETCH_NUM);
       <ul>
         <li><a href="index.php">Início</a></li>
         <li><a href="livros-acervo.php">Catálogo</a></li>
+        <!--
         <li><a href="livros-acervo-emprestados.php">Livros emprestados</a></li>
         <li><a href="alunos.php">Alunos</a></li>
+        -->
     </nav>
   </header>
 
@@ -71,6 +73,8 @@ $AlunosQtd = $statement4->fetch(PDO::FETCH_NUM);
         <p><?php echo $livrosQtdSoma[0]; ?></p>
       </div>
     </a>
+
+    <!--
 
     <a href="livros-acervo-emprestados.php" class="nsei">
       <div class="card">
@@ -91,6 +95,8 @@ $AlunosQtd = $statement4->fetch(PDO::FETCH_NUM);
 
       </div>
     </a>
+
+    -->
 
     </div>
   </section>
