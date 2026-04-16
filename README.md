@@ -79,9 +79,6 @@ O sistema permite:
  ├── aluno.png
  └── home-section-bg.jpg
 
-📁 Misc/
- └── Documentação e backups diversos
-
 📄 index.php
 📄 alunos.php
 📄 cadastro-alunos.php
@@ -152,7 +149,7 @@ git clone https://github.com/tvbrgamer/Sistema-Biblioteca-ETESC.git
 2. **Configurar o banco de dados**
 
    * Crie um banco MySQL.
-   * Importe as tabelas e dados iniciais (arquivo `.sql` se houver).
+   * Importe as tabelas e dados iniciais (arquivo `.sql` pode ser usado como exemplo real).
    * Atualize o arquivo `database.php` com suas credenciais:
 
 ```php
