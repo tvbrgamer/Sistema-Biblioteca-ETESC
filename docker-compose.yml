@@ -1,40 +1,99 @@
+name: sistema-biblioteca-etesc
 services:
-  app:
-    build: .
-    container_name: biblioteca_app
-    ports:
-      - "8080:80"
-    volumes:
-      - .:/var/www/html
-    depends_on:
-      db:
-        condition: service_healthy
-    environment:
-      - DB_HOST=db
-      - DB_PORT=3306
-      - DB_NAME=sistema_biblioteca
-      - DB_USER=biblioteca_user
-      - DB_PASS=biblioteca_pass
-
-  db:
-    image: mysql:8.0
-    container_name: biblioteca_db
-    restart: always
-    environment:
-      MYSQL_DATABASE: sistema_biblioteca
-      MYSQL_USER: biblioteca_user
-      MYSQL_PASSWORD: biblioteca_pass
-      MYSQL_ROOT_PASSWORD: root_pass
-    ports:
-      - "3306:3306"
-    volumes:
-      - db_data:/var/lib/mysql
-      - ./sistema_biblioteca.sql:/docker-entrypoint-initdb.d/init.sql
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-volumes:
-  db_data:
+    app:
+        build:
+            context: /DATA/AppData/Sistema-Biblioteca-ETESC
+            dockerfile: Dockerfile
+        cpu_shares: 90
+        command: []
+        container_name: biblioteca_app
+        depends_on:
+            db:
+                condition: service_healthy
+                required: true
+        deploy:
+            resources:
+                limits:
+                    memory: "4074766336"
+        environment:
+            DB_HOST: db
+            DB_NAME: sistema_biblioteca
+            DB_PASS: biblioteca_pass
+            DB_PORT: "3306"
+            DB_USER: biblioteca_user
+        hostname: biblioteca_app
+        image: sistema-biblioteca-etesc-app:latest
+        networks:
+            sistema-biblioteca-etesc_default: null
+        ports:
+            - mode: ingress
+              target: 80
+              published: "8090"
+              protocol: tcp
+        restart: always
+        volumes:
+            - type: bind
+              source: /DATA/AppData/Sistema-Biblioteca-ETESC
+              target: /var/www/html
+              bind:
+                create_host_path: true
+    db:
+        cpu_shares: 90
+        command: []
+        container_name: biblioteca_db
+        deploy:
+            resources:
+                limits:
+                    memory: "4074766336"
+        environment:
+            MARIADB_DATABASE: sistema_biblioteca
+            MARIADB_PASSWORD: biblioteca_pass
+            MARIADB_ROOT_PASSWORD: root_pass
+            MARIADB_USER: biblioteca_user
+        hostname: biblioteca_db
+        healthcheck:
+            test:
+                - CMD
+                - mariadb-admin
+                - ping
+                - -h
+                - localhost
+            timeout: 5s
+            interval: 10s
+            retries: 5
+        image: mariadb:10.6
+        networks:
+            default: null
+        ports:
+            - mode: ingress
+              target: 3306
+              published: "3306"
+              protocol: tcp
+        restart: always
+        volumes:
+            - type: bind
+              source: /DATA/AppData/Sistema-Biblioteca-ETESC/db_data
+              target: /var/lib/mysql
+              bind:
+                create_host_path: true
+            - type: bind
+              source: /DATA/AppData/Sistema-Biblioteca-ETESC/sistema_biblioteca.sql
+              target: /docker-entrypoint-initdb.d/init.sql
+              bind:
+                create_host_path: true
+networks:
+    default:
+        name: sistema-biblioteca-etesc_default
+    sistema-biblioteca-etesc_default:
+        name: sistema-biblioteca-etesc_default
+x-casaos:
+    author: self
+    category: self
+    hostname: ""
+    icon: https://cdn-icons-png.flaticon.com/512/2232/2232688.png
+    index: ""
+    is_uncontrolled: false
+    port_map: "8090"
+    scheme: http
+    title:
+        custom: sistema-biblioteca-etesc
